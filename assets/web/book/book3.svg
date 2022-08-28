@@ -1,0 +1,31 @@
+<svg viewBox="99.304 105.176 355.016 492.824" width="355.016" height="492.824" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient gradientUnits="userSpaceOnUse" x1="339.732" y1="309.159" x2="339.732" y2="603.543" id="gradient-5" gradientTransform="matrix(-0.999183, -0.042976, 0, -1.446265, 672.358459, 1065.56473)">
+            <stop offset="0" style="stop-color: rgba(0, 0, 0, 0.47)"></stop>
+            <stop offset="1" style="stop-color: rgba(0, 4, 255, 0.47);"></stop>
+        </linearGradient>
+        <linearGradient gradientUnits="userSpaceOnUse" x1="312.786" y1="511.581" x2="312.786" y2="603.918" id="gradient-4" gradientTransform="matrix(0.999873, -0.014072, 0, 1.418585, 18.966921, -413.515686)">
+            <stop offset="0" style="stop-color: rgba(0, 149, 255, 0.77);"></stop>
+            <stop offset="1" style="stop-color: rgb(0, 65, 109);"></stop>
+        </linearGradient>
+        <linearGradient gradientUnits="userSpaceOnUse" x1="312.786" y1="511.581" x2="312.786" y2="603.918" id="gradient-2" gradientTransform="matrix(0.999399, 0.030661, -0.109159, 1.241707, 74.959129, -247.898178)">
+            <stop offset="0" style="stop-color: rgba(0, 149, 255, 0.77);"></stop>
+            <stop offset="1" style="stop-color: rgb(0, 65, 109);"></stop>
+        </linearGradient>
+        <linearGradient gradientUnits="userSpaceOnUse" x1="312.786" y1="511.581" x2="312.786" y2="603.918" id="gradient-1" gradientTransform="matrix(0.999916, -0.011517, 0.01597, 1.035759, -8.881018, -73.78355)">
+            <stop offset="0" style="stop-color: rgba(0, 153, 255, 0.27);"></stop>
+            <stop offset="1" style="stop-color: rgb(31, 91, 181);"></stop>
+        </linearGradient>
+        <linearGradient gradientUnits="userSpaceOnUse" x1="312.786" y1="511.581" x2="312.786" y2="603.918" id="gradient-3" gradientTransform="matrix(1, 0, 0, 1, -0.25968, 18.298126)">
+            <stop offset="0" style="stop-color: rgba(0, 153, 255, 1)"></stop>
+            <stop offset="1" style="stop-color: rgba(0, 92, 153, 1)"></stop>
+        </linearGradient>
+    </defs>
+    <rect x="193.969" y="249.638" width="270.243" height="354.152" style="fill: rgb(0, 170, 255);" transform="matrix(1.169943, 0, 0, 1.322737, -88.782, -225.028203)"></rect>
+    <path d="M 215.252 249.638 L 464.212 249.638 L 464.212 603.543 L 215.252 603.543 L 215.252 249.638 Z" style="box-shadow: rgb(33, 104, 175) 0px -10px 44px 6px; fill: url(#gradient-5);" transform="matrix(1.169943, 0, 0, 1.322737, -88.782, -225.028203)"></path>
+    <path d="M 161.36 257.708 L 210.016 303.43 L 262.31 266.942 L 304.603 308.284 L 379.628 307.51 L 413.736 276.175 L 464.212 331.578 L 464.212 603.543 L 160.765 603.543 L 160.765 312.372 L 161.36 312.372 Z" style="box-shadow: rgb(33, 104, 175) 0px -10px 44px 6px; fill: url(#gradient-4); fill-opacity: 0.6;" transform="matrix(1.169943, 0, 0, 1.322737, -88.782, -225.028203)"></path>
+    <path d="M 161.36 346.83 L 210.016 392.552 L 262.31 356.064 L 304.603 397.406 L 379.628 396.632 L 413.736 365.297 L 464.212 420.7 L 464.212 511.581 L 463.617 511.581 L 463.617 603.543 L 161.36 603.543 L 161.36 512.335 L 161.1 512.335 L 161.1 411.24 L 161.36 411.24 Z" style="box-shadow: rgb(33, 104, 175) 0px -10px 44px 6px; fill: url(#gradient-2); fill-opacity: 0.7;" transform="matrix(1.169943, 0, 0, 1.322737, -88.782, -225.028203)"></path>
+    <path d="M 161.36 438.792 L 210.016 484.514 L 262.31 448.026 L 304.603 489.368 L 379.628 488.594 L 413.736 457.259 L 464.212 512.662 L 464.212 622.216 L 160.765 622.216 L 160.765 499.419 L 161.36 499.419 Z" style="box-shadow: rgb(33, 104, 175) 0px -10px 44px 6px; fill: url(#gradient-1); fill-opacity: 0.83;" transform="matrix(1.169943, 0, 0, 1.322737, -88.782, -225.028203)"></path>
+    <path fill-opacity="1" d="M 161.1 529.879 L 209.756 575.601 L 262.05 539.113 L 304.343 580.455 L 379.368 579.681 L 413.476 548.346 L 463.952 603.749 L 463.952 622.216 L 413.476 622.216 L 363.001 622.216 L 312.526 622.216 L 262.05 622.216 L 211.575 622.216 L 161.1 622.216 L 161.1 529.879 Z" style="box-shadow: rgb(33, 104, 175) 0px -10px 44px 6px; fill: url(#gradient-3);" transform="matrix(1.169943, 0, 0, 1.322737, -88.782, -225.028203)"></path>
+    <rect x="160.765" y="249.637" width="55.414" height="372.579" style="fill: rgb(36, 127, 255);" transform="matrix(1.169943, 0, 0, 1.322737, -88.782, -225.028203)"></rect>
+</svg>

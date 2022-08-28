@@ -1,0 +1,33 @@
+<svg viewBox="99.303 21.268 354.32 468.621" width="354.32" height="468.621" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient gradientUnits="userSpaceOnUse" x1="339.732" y1="309.159" x2="339.732" y2="603.543" id="gradient-5" gradientTransform="matrix(-0.999183, -0.035748, 0, -1.203027, 672.358441, 987.860305)">
+      <stop offset="0" style="stop-color: rgba(0, 0, 0, 0.47)"></stop>
+      <stop offset="1" style="stop-color: rgba(0, 4, 255, 0.47);"></stop>
+    </linearGradient>
+    <linearGradient gradientUnits="userSpaceOnUse" x1="312.786" y1="323.959" x2="312.786" y2="603.79" id="gradient-0">
+      <stop offset="0" style="stop-color: rgba(0, 65, 109, 1)"></stop>
+      <stop offset="1" style="stop-color: rgba(0, 4, 7, 1)"></stop>
+    </linearGradient>
+    <linearGradient gradientUnits="userSpaceOnUse" x1="313.495" y1="377.409" x2="313.495" y2="603.918" id="gradient-1">
+      <stop offset="0" style="stop-color: rgba(0, 122, 203, 1)"></stop>
+      <stop offset="1" style="stop-color: rgba(0, 61, 101, 1)"></stop>
+    </linearGradient>
+    <linearGradient gradientUnits="userSpaceOnUse" x1="313.02" y1="446.988" x2="313.02" y2="603.918" id="gradient-2">
+      <stop offset="0" style="stop-color: rgba(0, 130, 216, 1)"></stop>
+      <stop offset="1" style="stop-color: rgba(0, 69, 114, 1)"></stop>
+    </linearGradient>
+    <linearGradient gradientUnits="userSpaceOnUse" x1="312.786" y1="511.581" x2="312.786" y2="603.918" id="gradient-3">
+      <stop offset="0" style="stop-color: rgba(0, 153, 255, 1)"></stop>
+      <stop offset="1" style="stop-color: rgba(0, 92, 153, 1)"></stop>
+    </linearGradient>
+  </defs>
+  <g style="" transform="matrix(1.169943, 0, 0, 1.322737, -89.47851, -308.936499)">
+    <rect x="193.969" y="249.638" width="270.243" height="354.152" style="fill: rgb(0, 170, 255);"></rect>
+    <path d="M 215.252 309.159 L 464.212 309.159 L 464.212 603.543 L 215.252 603.543 L 215.252 309.159 Z" style="box-shadow: rgb(33, 104, 175) 0px -10px 44px 6px; fill: url(#gradient-5);"></path>
+    <path d="M 162.779 356.112 L 216.053 323.959 L 265.039 351.117 L 332.778 394.545 L 374.172 357.55 L 418.252 357.663 L 464.212 370.19 L 464.212 603.79 L 413.737 603.79 L 363.261 603.79 L 312.786 603.79 L 262.311 603.79 L 211.835 603.79 L 161.36 603.79 L 162.779 356.112 Z" style="fill-opacity: 0.5; box-shadow: rgb(33, 104, 175) 0px -10px 44px 6px; fill: url(#gradient-0);"></path>
+    <path d="M 162.779 603.918 L 162.779 414.111 L 233.591 377.409 L 313.496 429.716 L 399.765 446.988 L 464.212 446.988 L 464.212 603.918 L 388.854 603.918 L 313.496 603.918 L 238.137 603.918 L 162.779 603.918 Z" style="fill-opacity: 0.86; box-shadow: rgb(33, 104, 175) 0px -10px 44px 6px; fill: url(#gradient-1);"></path>
+    <path fill-opacity="1" d="M 161.829 469.406 L 215.252 489.509 L 262.623 446.988 L 313.02 491.825 L 363.418 469.406 L 413.815 469.406 L 464.212 514.244 L 464.212 603.918 L 413.815 603.918 L 363.418 603.918 L 313.02 603.918 L 262.623 603.918 L 212.226 603.918 L 161.829 603.918 L 161.829 469.406 Z" style="fill-rule: nonzero; box-shadow: rgb(33, 104, 175) 0px -10px 44px 6px; fill: url(#gradient-2);"></path>
+    <path fill-opacity="1" d="M 161.36 511.581 L 210.016 557.303 L 262.31 520.815 L 304.603 562.157 L 379.628 561.383 L 413.736 530.048 L 464.212 585.451 L 464.212 603.918 L 413.736 603.918 L 363.261 603.918 L 312.786 603.918 L 262.31 603.918 L 211.835 603.918 L 161.36 603.918 L 161.36 511.581 Z" style="box-shadow: rgb(33, 104, 175) 0px -10px 44px 6px; fill: url(#gradient-3);"></path>
+    <rect x="161.955" y="249.637" width="54.224" height="354.152" style="fill: rgb(45, 94, 231);"></rect>
+  </g>
+</svg>

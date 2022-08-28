@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-16">
+    <title>Library</title>
+</head>
+
+<body>
+
+    <!-- SECTION Header
+        1. Logo
+        2. Search Bar
+        3. Login -->
+    <header class="head">
+        <div class="head-logo">
+            <img src="" alt="" class="logo-img">
+            <h1 class="logo-text">
+                Library
+            </h1>
+        </div>
+        <div class="head-search">
+            <input type="search" name="" id="searchBar" class="search-bar">
+        </div>
+        <div class="head-login">
+            <div class="button button-login">
+                Login
+            </div>
+        </div>
+    </header>
+    <!-- !SECTION Header -->
+
+    <!-- SECTION Filter Section 
+        1. Filter
+        2. Sorting 
+        3. Categories -->
+    <section class="filter">
+        <select name="select-order" id="selectOrder" class="filter-selection">
+            <optgroup label="Filter By Date">
+                <option value="date-created">Date Created</option>
+                <option value="date-update">Date Updated</option>
+            </optgroup>
+            <optgroup label="Filter By Other">
+                <option value="rating">Rating</option>
+                <option value="pages-size">Page Size</option>
+                <option value="pages-left">Progress</option>
+            </optgroup>
+        </select>
+        <div class="filter-sort">
+            <input type="checkbox" class="input input-sort sortAsc"></button>
+            <input type="checkbox" class="input input-sort sortDesc"></button>
+        </div>
+        <input type="checkbox" class="input input-filterReading">Reading</button>
+        <input type="checkbox" class="input input-filterCompleted">Completed</button>
+        <input type="checkbox" class="input input-filterNotStarted">Not Started</button>
+        <div class="filter-label">
+            <input type="checkbox" class="input input-filter label-horror" data-detailed="#horror">
+            <input type="checkbox" class="input input-filter label-thriller" data-detailed="#thriller">
+        </div>
+    </section>
+    <!-- !SECTION Filter Section -->
+
+    <!-- SECTION Main Body
+        1. Books Section
+            i. Add Button
+            ii. Pop-ups
+                a. Book Details (Addition)
+                b. Book Logs -->
+    <section class="body">
+
+        <!-- SECTION Book Overview -->
+        <main class="book-overview" id="book1">
+            <img src="" alt="" class="image image-book overview">
+            <h5 class="heading heading-bookAuthor"> Randomfsd </h5>
+            <h2 class="heading heading-bookTitle"> lorem </h2>
+
+            <div class="ratingBox">
+                <span class="ratingBox-rate">0.0</span>
+                <span class="ratingBox-total">of 5</span>
+            </div>
+            <div class="progressCircle">
+                <div class="progressCircle-outer">
+                    <div class="progressCircle-inner">
+                        <span class="progressCircle-text"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="bookLabels">
+                <span class="bookLabels label-complete">Completed</span>
+                <span class="bookLabels label-cateory">Thriller</span>
+            </div>
+        </main>
+        <!-- !SECTION Book -->
+
+        <!-- SECTION PopUp -->
+        <main class="popup">
+
+            <!-- SECTION BOOK SECTION 1
+                    - Images
+                    - Add or Delete Buttons -->
+            <main class="book-section1">
+                <img src="" alt="" class="image image-book edit">
+                <input type="url" name="image-url" id="imageUrl" placeholder="Paste Image URL">
+                <button class="button button-addImage">Add Image</button>
+                <button class="button button-removeImage">Remove Image</button>
+            </main>
+            <!-- !SECTION BOOK SECTION 1 -->
+
+            <!-- SECTION BOOK SECTION 2 
+                    - Book Details
+                    - Book Logs -->
+            <main class="book-section2">
+                <div class="book-tab">
+                    <button class="button button-tab" id="bookDetails">Book Details</button>
+                    <button class="button button-tab" id="bookLogs">Book Logs</button>
+                </div>
+
+                <!-- SECTION Book Details Tab -->
+                <main class="tab tab-bookDetails">
+
+                    <h3 class="heading heading-tabHeading">Enter Book Details</h3>
+
+                    <label for="bookTitle">Title</label>
+                    <input type="text" name="book-title" id="bookTitle" class="input input-bookDetail">
+
+                    <label for="bookAuthor">Author</label>
+                    <input type="text" name="book-author" id="bookAuthor" class="input input-bookDetail">
+
+                    <div class="inputPages">
+                        <div class="inputPages-read">
+                            <label for="bookPagesRead">Pages Read</label>
+                            <input type="number" name="book-pages-read" id="bookPagesRead"
+                                class="input input-bookDetail">
+                        </div>
+                        <p> / </p>
+                        <div class="inputPages-total">
+                            <label for="bookPages">Total Pages</label>
+                            <input type="number" name="book-pages" id="bookPages" class="input input-bookDetail">
+                        </div>
+                    </div>
+
+                    <div class="bookRating">
+                        <p>Your Rating</p>
+                        <div class="ratingBox">
+                            <span class="ratingBox-rate">0.0</span>
+                            <span class="ratingBox-total">of 5</span>
+                            <div class="ratingBox-display">
+                                <div id="star1" class="ratingStar">
+                                    <div class="ratingStar-half"></div>
+                                    <div class="ratingStar-half"></div>
+                                </div>
+                                <div id="star2" class="ratingStar">
+                                    <div class="ratingStar-half"></div>
+                                    <div class="ratingStar-half"></div>
+                                </div>
+                                <div id="star3" class="ratingStar">
+                                    <div class="ratingStar-half"></div>
+                                    <div class="ratingStar-half"></div>
+                                </div>
+                                <div id="star4" class="ratingStar">
+                                    <div class="ratingStar-half"></div>
+                                    <div class="ratingStar-half"></div>
+                                </div>
+                                <div id="star5" class="ratingStar">
+                                    <div class="ratingStar-half"></div>
+                                    <div class="ratingStar-half"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="meagerChecks">
+                        <input type="checkbox" name="completed" id="completed" class="input" data-detailed="Completed">
+                    </div>
+                    <label for="bookCategories">Book Categories</label>
+                    <input type="text" name="book-categories" id="bookCategories" class="input input-bookCategories"
+                        placeholder="Enter text separated by comma">
+
+                </main>
+                <!-- !SECTION  Book Details Tab -->
+
+                <!-- SECTION Book Logs Tab -->
+                <main class="tab tab-bookLogs">
+                    <h3 class="heading heading-tabHeading">Log your Book Reading</h3>
+                    <table class="table-bookLogs">
+                        <thead class="table table-header">
+                            <tr>
+                                <th class="head head-timeStamp">Timestamp</th>
+                                <th class="head head-entryLog">Entry Log</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table table-body">
+                            <tr>
+                                <td class="body body-timeStamp">12,321,32</td>
+                                <td class="body body-entryLog">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    Quibusdam, sed!</td>
+                            </tr>
+                            <tr>
+                                <td class="body body-timeStamp">12,321,32</td>
+                                <td class="body body-entryLog">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    Quibusdam, sed!</td>
+                            </tr>
+                            <tr>
+                                <td class="body body-timeStamp">12,321,32</td>
+                                <td class="body body-entryLog">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    Quibusdam, sed!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="table table-input">
+                        <input type="datetime-local" name="timestamp" id="timestamp" class="input input-bookLog">
+                        <textarea name="book-log" id="bookLog" class="input input-bookLog">
+                            </textarea>
+                        <button class="button button-submitLog" id="logButton"></button>
+                    </div>
+
+                </main>
+                <!-- !SECTION Book Logs Tab -->
+
+            </main>
+            <!-- !SECTION BOOK SECTION 2  -->
+
+            <button class="button button-bookSave" id="bookButton">Save Book</button>
+
+        </main>
+        <!-- !SECTION PopUp -->
+
+        <button class="button button-bookAdd" id="bookButton">Add Book</button>
+
+    </section>
+    <!-- !SECTION Main Body -->
+
+    <!-- SECTION Footer
+        1. Name & Logo & Year-->
+    <footer class="foot">
+        <p class="foot-text">mlksathil</p>
+        <img src="" alt="" class="icon icon-github">
+        <p class="foot-text">2022</p>
+    </footer>
+    <!-- !SECTION Footer -->
+
+
+</body>
+
+</html>
