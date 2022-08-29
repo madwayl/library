@@ -40,7 +40,8 @@ body {
     padding: .5rem;
     margin: .25rem .5rem;
 
-    border-radius: 1rem;
+    border-radius: .5rem;
+    border: none;
 }
 
 .image {
@@ -49,7 +50,7 @@ body {
 }
 
 .displayNone {
-    display: none;
+    display: none !important;
 }
 
 /* SECTION Header */
@@ -94,7 +95,7 @@ section.filter {
 }
 
 .filter-label {
-    flex-basis: 60%;
+    flex-basis: 40%;
     flex-grow: 1;
 }
 
@@ -112,7 +113,7 @@ section.body {
     padding: 1rem 2rem;
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, 350px);
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 5rem;
 }
 
@@ -120,16 +121,20 @@ section.body {
 .book-overview {
     display: grid;
     grid-template-areas:
-        "image author author author"
-        "image title title title"
-        "image rating progress ."
-        "image label label edit";
+        "image author author author author"
+        "image title title title title"
+        "image rating progress progress progress"
+        "image label label label edit";
     grid-template-columns: .5fr 1fr 1fr 1fr;
     grid-template-rows: .5fr 1.5fr 2.5fr 1fr;
     justify-items: start;
     align-items: center;
+    align-content: center;
+    justify-content: center;
 
-    max-width: 300px;
+    column-gap: 2px;
+
+    max-width: 320px;
     max-height: 180px;
 
     padding: .5rem;
@@ -144,6 +149,7 @@ section.body {
 
 .book-overview .heading {
     margin-left: 0;
+    padding-bottom: 5px;
 }
 
 .image-book {
@@ -191,7 +197,7 @@ section.body {
 
     background: var(--color-rating);
 
-    margin-left: 1rem;
+    margin-left: .5rem;
 
     border-radius: 5px;
 }
@@ -227,7 +233,7 @@ section.body {
     transform: rotate(-20deg);
 }
 
-/* ANCHOR Progress Semi-Circle */
+/* ANCHOR Progress Pages-Left */
 .progress {
     grid-area: progress;
     justify-self: center;
@@ -237,78 +243,70 @@ section.body {
     align-items: center;
     justify-content: center;
 
-    /* --progress-amount: calc(785*attr(data-detailed)/100); */
-
     margin-left: 1rem;
 
 }
 
-.progress svg {
-    border-radius: 50%;
-
-    width: 50px;
-    height: 50px;
-
-}
-
-.progress-circle {
-    fill: none;
-
-    stroke-linecap: round;
-    stroke-width: 150px;
-    stroke: rgb(219, 219, 219);
-    stroke-dasharray: 785, 2000;
-}
-
-.progress-circle.inner {
-    stroke: var(--color-completed);
-    stroke-dasharray: 588, 2000;
-}
-
-.progress-text {
+.progress-pages {
     display: grid;
     grid-template-areas:
-        "big smallPer"
-        "big smallText";
+        "big smallpage"
+        "big smallleft";
     align-items: center;
     justify-items: start;
     column-gap: .2rem;
     row-gap: .2rem;
 
-    margin-left: -30px;
-    margin-right: 25px;
 }
 
-.progress-completionRate {
+.progress-pageLeft {
     grid-area: big;
 
+    font-size: 2.25rem;
+}
+
+.progress-pageNoun {
+    grid-area: smallpage;
     font-size: 1.5rem;
 }
 
-.progress-completionPer {
-    grid-area: smallPer;
-    font-size: .6rem;
-
-    margin-bottom: -.5rem;
+.progress-pageEnd {
+    grid-area: smallleft;
 }
 
-.progress-completionText {
-    grid-area: smallText;
-    font-size: .8rem;
+.progress-state {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    gap: .2rem;
 
-    margin-bottom: .15rem
+    align-items: flex-start;
 }
+
+.progress-bookState {
+    font-size: 1.5rem;
+}
+
 
 /* ANCHOR Book Labels */
 .bookLabels {
     grid-area: label;
+    justify-self: start;
+
+    padding: .2rem;
+    margin-right: .5rem;
+
+    overflow-x: auto;
 }
 
 .bookEdit {
-    height: 10px;
-    width: 10px;
-
     grid-area: edit;
+
+    height: 30px;
+    width: 30px;
+
+    justify-self: end;
+    border-radius: 5px;
 }
 
 .books-bookEdits {
