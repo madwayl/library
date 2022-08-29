@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-16">
+    <link rel="stylesheet" href="style.css">
     <title>Library</title>
 </head>
 
@@ -14,8 +15,8 @@
         3. Login -->
     <header class="head">
         <div class="head-logo">
-            <img src="" alt="" class="logo-img">
-            <h1 class="logo-text">
+            <img src="" alt="" class="image image-logo">
+            <h1 class="heading heading-logo">
                 Library
             </h1>
         </div>
@@ -23,9 +24,7 @@
             <input type="search" name="" id="searchBar" class="search-bar">
         </div>
         <div class="head-login">
-            <div class="button button-login">
-                Login
-            </div>
+            <button class="button button-login">Login</button>
         </div>
     </header>
     <!-- !SECTION Header -->
@@ -35,6 +34,7 @@
         2. Sorting 
         3. Categories -->
     <section class="filter">
+
         <select name="select-order" id="selectOrder" class="filter-selection">
             <optgroup label="Filter By Date">
                 <option value="date-created">Date Created</option>
@@ -46,17 +46,26 @@
                 <option value="pages-left">Progress</option>
             </optgroup>
         </select>
+
         <div class="filter-sort">
-            <input type="checkbox" class="input input-sort sortAsc"></button>
-            <input type="checkbox" class="input input-sort sortDesc"></button>
+            <input type="radio" name="sorting" value="Asc" class="input input-sort sortAsc">
+            <input type="radio" name="sorting" value="Desc" class="input input-sort sortDesc">
         </div>
-        <input type="checkbox" class="input input-filterReading">Reading</button>
-        <input type="checkbox" class="input input-filterCompleted">Completed</button>
-        <input type="checkbox" class="input input-filterNotStarted">Not Started</button>
+
+        <label for="readingLabel" data-detailed="Reading"></label>
+        <input type="checkbox" class="input input-filterReading" id="readingLabel">
+        <label for="completedLabel" data-detailed="Completed"></label>
+        <input type="checkbox" class="input input-filterCompleted" id="completedLabel">
+        <label for="startedLabel" data-detailed="Not Started"></label>
+        <input type="checkbox" class="input input-filterNotStarted" id="startedLabel">
+
         <div class="filter-label">
-            <input type="checkbox" class="input input-filter label-horror" data-detailed="#horror">
-            <input type="checkbox" class="input input-filter label-thriller" data-detailed="#thriller">
+            <label for="horrorLabel" data-detailed="#horror"></label>
+            <input type="checkbox" class="input input-filter label-horror" id="horrorLabel">
+            <label for="thrillerLabel" data-detailed="#thriller"></label>
+            <input type="checkbox" class="input input-filter label-thriller" id="thrillerLabel">
         </div>
+
     </section>
     <!-- !SECTION Filter Section -->
 
@@ -70,30 +79,48 @@
 
         <!-- SECTION Book Overview -->
         <main class="book-overview" id="book1">
-            <img src="" alt="" class="image image-book overview">
+            <img src="./assets/web/book/book3.svg" alt="" class="image image-book overview">
             <h5 class="heading heading-bookAuthor"> Randomfsd </h5>
-            <h2 class="heading heading-bookTitle"> lorem </h2>
+            <h2 class="heading heading-bookTitle"> lorem Mrak fsd</h2>
 
             <div class="ratingBox">
                 <span class="ratingBox-rate">0.0</span>
                 <span class="ratingBox-total">of 5</span>
             </div>
-            <div class="progressCircle">
-                <div class="progressCircle-outer">
-                    <div class="progressCircle-inner">
-                        <span class="progressCircle-text"></span>
-                    </div>
+            <div class="progress" data-detailed="75">
+                <svg viewBox="-0 0 500 500" xmlns="http://www.w3.org/2000/svg" id="progressCircle">
+                    <ellipse class="progress-circle outer" cx="249.996" cy="250" rx="249.999" ry="249.998"
+                        transform="matrix(0.000001, 1, -1, 0, 499.995302, 0.004219)"></ellipse>
+                    <ellipse class="progress-circle inner" cx="249.996" cy="250" rx="249.999" ry="249.998"
+                        transform="matrix(0.000001, 1, -1, 0, 499.9953, 0.003006)" data-detailed="588"></ellipse>
+                </svg>
+                <div class="progress-text">
+                    <span class="progress-completionRate">
+                        75
+                    </span>
+                    <span class="progress-completionPer">
+                        %
+                    </span>
+                    <span class="progress-completionText">
+                        completed
+                    </span>
                 </div>
             </div>
             <div class="bookLabels">
-                <span class="bookLabels label-complete">Completed</span>
-                <span class="bookLabels label-cateory">Thriller</span>
+                <span class="bookLabels label-thriller">Thriller</span>
+                <span class="bookLabels label-horror">Horror</span>
+            </div>
+            <div class="bookEdit"></div>
+            <div class="books-bookEdits">
+                <button class="button button-bookEdit editBook">Edit</button>
+                <button class="button button-bookEdit logBook">Log</button>
+                <button class="button button-bookEdit removeBook">Delete</button>
             </div>
         </main>
         <!-- !SECTION Book -->
 
         <!-- SECTION PopUp -->
-        <main class="popup">
+        <main class="popup displayNone">
 
             <!-- SECTION BOOK SECTION 1
                     - Images
@@ -132,7 +159,7 @@
                             <input type="number" name="book-pages-read" id="bookPagesRead"
                                 class="input input-bookDetail">
                         </div>
-                        <p> / </p>
+                        <p class="text text-bookPages"> / </p>
                         <div class="inputPages-total">
                             <label for="bookPages">Total Pages</label>
                             <input type="number" name="book-pages" id="bookPages" class="input input-bookDetail">
@@ -140,7 +167,7 @@
                     </div>
 
                     <div class="bookRating">
-                        <p>Your Rating</p>
+                        <p class="text text-bookRating">Your Rating</p>
                         <div class="ratingBox">
                             <span class="ratingBox-rate">0.0</span>
                             <span class="ratingBox-total">of 5</span>
@@ -220,12 +247,12 @@
             </main>
             <!-- !SECTION BOOK SECTION 2  -->
 
-            <button class="button button-bookSave" id="bookButton">Save Book</button>
+            <button class="button button-bookSave displayNone" id="bookButton">Save Book</button>
 
         </main>
         <!-- !SECTION PopUp -->
 
-        <button class="button button-bookAdd" id="bookButton">Add Book</button>
+        <button class="button button-bookAdd" id="bookButton" data-detailed="Add Book"></button>
 
     </section>
     <!-- !SECTION Main Body -->
@@ -233,9 +260,9 @@
     <!-- SECTION Footer
         1. Name & Logo & Year-->
     <footer class="foot">
-        <p class="foot-text">mlksathil</p>
+        <p class="text text-foot">mlksathil</p>
         <img src="" alt="" class="icon icon-github">
-        <p class="foot-text">2022</p>
+        <p class="text text-foot">2022</p>
     </footer>
     <!-- !SECTION Footer -->
 

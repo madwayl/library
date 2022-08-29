@@ -1,0 +1,363 @@
+* {
+    outline: 1px solid red;
+}
+
+:root {
+    --image-left-offset: 75px;
+
+    --color-completed: rgb(75, 209, 118);
+    --color-rating: rgb(236, 223, 75);
+    --color-bookOverview: rgb(151, 177, 166);
+    --color-silver: rgb(132, 129, 122);
+    --color-lightBrown: rgb(88, 77, 61);
+    --color-darkBrown: rgb(36, 32, 25);
+    --color-orange: rgb(220, 150, 90);
+}
+
+body {
+    display: grid;
+    grid-template-rows:
+        [head] .75fr [filter] .5fr [body] repeat(5, 1fr) [foot] .25fr;
+
+
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.heading {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: .5rem 2rem;
+    padding: 0;
+}
+
+.text {
+    margin: .5rem;
+}
+
+.button {
+    padding: .5rem;
+    margin: .25rem .5rem;
+
+    border-radius: 1rem;
+}
+
+.image {
+    border-radius: .5rem;
+    margin: 0 .75rem 0 calc(-1*var(--image-left-offset));
+}
+
+.displayNone {
+    display: none;
+}
+
+/* SECTION Header */
+
+header.head {
+    grid-row: head/filter;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 0 1rem;
+}
+
+.head-logo {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.image-logo {
+    margin-left: .5rem;
+}
+
+.heading-logo {
+    margin-left: .2rem;
+}
+
+/* !SECTION Header */
+
+/* SECTION Filter */
+
+section.filter {
+    grid-row: filter/body;
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    margin: 0 1rem;
+}
+
+.filter-label {
+    flex-basis: 60%;
+    flex-grow: 1;
+}
+
+/* !SECTION Filter */
+
+/* SECTION Body */
+
+section.body {
+    grid-row: body/foot;
+
+    overflow-y: auto;
+
+    position: relative;
+
+    padding: 1rem 2rem;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 350px);
+    gap: 5rem;
+}
+
+/* SECTION Book Overview */
+.book-overview {
+    display: grid;
+    grid-template-areas:
+        "image author author author"
+        "image title title title"
+        "image rating progress ."
+        "image label label edit";
+    grid-template-columns: .5fr 1fr 1fr 1fr;
+    grid-template-rows: .5fr 1.5fr 2.5fr 1fr;
+    justify-items: start;
+    align-items: center;
+
+    max-width: 300px;
+    max-height: 180px;
+
+    padding: .5rem;
+    margin-left: calc(var(--image-left-offset));
+
+    border-radius: 10px;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+.book-overview .heading {
+    margin-left: 0;
+}
+
+.image-book {
+    grid-area: image;
+
+    max-height: 175px;
+    width: auto;
+}
+
+.heading-bookAuthor {
+    grid-area: author;
+
+    font-size: 1rem;
+
+    margin-bottom: 0rem;
+}
+
+.heading-bookTitle {
+    grid-area: title;
+
+    font-size: 1.8rem;
+
+    margin: 0rem 0rem .15rem 0rem
+}
+
+
+/* ANCHOR Rating Box */
+.ratingBox {
+    grid-area: rating;
+    justify-self: center;
+
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+
+    height: 50px;
+    width: 50px;
+
+    text-align: center;
+
+    position: relative;
+    text-align: center;
+    transform: rotate(20deg);
+
+    background: var(--color-rating);
+
+    margin-left: 1rem;
+
+    border-radius: 5px;
+}
+
+.ratingBox::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 50px;
+    width: 50px;
+    background: var(--color-rating);
+    transform: rotate(135deg);
+
+    z-index: -2;
+
+    border-radius: 5px;
+}
+
+.ratingBox-rate {
+    font-size: 1.25rem;
+    font-weight: 700;
+
+    margin-left: -4.25px;
+}
+
+.ratingBox-total {
+    margin-left: 10px;
+    font-size: .8rem;
+}
+
+.ratingBox>span {
+    transform: rotate(-20deg);
+}
+
+/* ANCHOR Progress Semi-Circle */
+.progress {
+    grid-area: progress;
+    justify-self: center;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* --progress-amount: calc(785*attr(data-detailed)/100); */
+
+    margin-left: 1rem;
+
+}
+
+.progress svg {
+    border-radius: 50%;
+
+    width: 50px;
+    height: 50px;
+
+}
+
+.progress-circle {
+    fill: none;
+
+    stroke-linecap: round;
+    stroke-width: 150px;
+    stroke: rgb(219, 219, 219);
+    stroke-dasharray: 785, 2000;
+}
+
+.progress-circle.inner {
+    stroke: var(--color-completed);
+    stroke-dasharray: 588, 2000;
+}
+
+.progress-text {
+    display: grid;
+    grid-template-areas:
+        "big smallPer"
+        "big smallText";
+    align-items: center;
+    justify-items: start;
+    column-gap: .2rem;
+    row-gap: .2rem;
+
+    margin-left: -30px;
+    margin-right: 25px;
+}
+
+.progress-completionRate {
+    grid-area: big;
+
+    font-size: 1.5rem;
+}
+
+.progress-completionPer {
+    grid-area: smallPer;
+    font-size: .6rem;
+
+    margin-bottom: -.5rem;
+}
+
+.progress-completionText {
+    grid-area: smallText;
+    font-size: .8rem;
+
+    margin-bottom: .15rem
+}
+
+/* ANCHOR Book Labels */
+.bookLabels {
+    grid-area: label;
+}
+
+.bookEdit {
+    height: 10px;
+    width: 10px;
+
+    grid-area: edit;
+}
+
+.books-bookEdits {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    padding: 18px 0 1px;
+
+    position: absolute;
+    bottom: -45px;
+}
+
+
+/* !SECTION Book Overview */
+
+/* SECTION Pop Up */
+.popup {
+    position: absolute;
+}
+
+/* !SECTION Pop Up */
+
+
+/* ANCHOR Body Button */
+
+.button-bookAdd {
+    position: absolute;
+
+    bottom: 1rem;
+    left: 48%;
+}
+
+.button-bookAdd::after {
+    content: attr(data-detailed);
+}
+
+
+/* !SECTION Body */
+
+/* SECTION Foot */
+
+footer.foot {
+    grid-row: foot;
+
+    display: flex;
+    justify-content: center;
+}
+
+/* !SECTION Foot */
