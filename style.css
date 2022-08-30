@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+
 * {
     outline: 1px solid red;
 }
@@ -5,13 +8,19 @@
 :root {
     --image-left-offset: 75px;
 
-    --color-completed: rgb(75, 209, 118);
-    --color-rating: rgb(236, 223, 75);
-    --color-bookOverview: rgb(151, 177, 166);
-    --color-silver: rgb(132, 129, 122);
-    --color-lightBrown: rgb(88, 77, 61);
-    --color-darkBrown: rgb(36, 32, 25);
-    --color-orange: rgb(220, 150, 90);
+    --color-green: #2E8A56;
+    --color-yellow-light: #FFF4D7;
+    --color-yellow: #fcba04;
+    --color-white: #f3f3f3;
+    --color-black: #0c0b08;
+    --color-brown-light: #F5ECE0;
+    --color-brown-norm: #D2A974;
+    --color-brown-dark: #1F160A;
+    --color-red: #a50104;
+    --color-red-dark: #520001;
+    --color-blue: #2978a0;
+    --color-blue-dark: #0C2531;
+    --color-gray: #5e6e67;
 }
 
 body {
@@ -23,32 +32,127 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
+
+    color: var(--color-brown-dark);
+
+
+    font-family: 'Quicksand', sans-serif;
+
 }
 
+/* ANCHOR Heading */
 .heading {
     font-size: 2rem;
     font-weight: 800;
     margin: .5rem 2rem;
     padding: 0;
+
+    font-family: 'Libre Bodoni', serif;
 }
 
 .text {
     margin: .5rem;
 }
 
+/* ANCHOR Buttons */
 .button {
-    padding: .5rem;
+    padding: 0rem 1rem;
     margin: .25rem .5rem;
 
-    border-radius: .5rem;
+    height: 2.75rem;
+
+    border-radius: 5px;
     border: none;
+
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+
+    background-color: var(--color-brown-light);
+    color: var(--color-brown-dark);
+
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+
+    cursor: pointer;
 }
 
+/* ANCHOR Buttons with Icons */
+.icon-Button {
+    padding: 0;
+
+    width: 1.5rem;
+    height: 1.5rem;
+
+    /* Brown Filter */
+    filter: invert(9%) sepia(3%) saturate(7307%) hue-rotate(354deg) brightness(96%) contrast(100%);
+
+}
+
+/* ANCHOR Image */
 .image {
     border-radius: .5rem;
     margin: 0 .75rem 0 calc(-1*var(--image-left-offset));
+
+    z-index: 4;
 }
 
+/* ANCHOR All Inputs */
+
+.input {
+    appearance: none;
+
+    border-radius: 5px;
+
+    min-width: 1.5rem;
+    min-height: 2rem;
+
+    margin: 0 .25rem;
+    padding: 0;
+
+}
+
+/* ANCHOR Input Checkboxes */
+.input-checkBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0rem .25rem;
+
+    border-width: 3px;
+    border-style: solid;
+}
+
+.input-checkBox:hover {
+    background-color: attr(data-color);
+}
+
+.input-checkBox:checked {
+    padding: 0rem .25rem 0rem .1rem;
+    color: var(--color-white);
+}
+
+.input-checkBox::before {
+    content: '';
+}
+
+.input-checkBox:checked::before {
+    width: 1.5rem;
+    height: 1.5rem;
+    background: url(./assets/web/svg-icons/check-circle-fill.svg) no-repeat center / 1.2rem;
+    filter: invert(1);
+}
+
+.input-checkBox::after {
+    content: attr(data-detailed);
+
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+}
+
+/* ANCHOR Display None */
 .displayNone {
     display: none !important;
 }
@@ -59,11 +163,16 @@ header.head {
     grid-row: head/filter;
 
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
 
     margin: 0 1rem;
+
+    z-index: 10;
+
 }
+
+/* ANCHOR Heading Logo */
 
 .head-logo {
     display: flex;
@@ -78,6 +187,90 @@ header.head {
     margin-left: .2rem;
 }
 
+/* ANCHOR Heading Search Bar */
+
+.head-search {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+
+    min-width: clamp(100px, 35rem, 30vw);
+}
+
+
+.head-search::before {
+    content: ' ';
+
+    height: 3rem;
+    width: 4rem;
+    min-width: 2rem;
+
+    position: relative;
+
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+
+    background: var(--color-brown-light) url(./assets/web/svg-icons/search.svg) no-repeat center / 1.2rem;
+
+}
+
+.search-bar {
+    height: 3rem;
+
+    border: none;
+
+    z-index: 2;
+
+    font-size: .85rem;
+    font-family: 'Quicksand', sans-serif;
+
+    background: var(--color-brown-light);
+    color: var(--color-brown-dark);
+
+    flex: 1;
+
+}
+
+.search-cancel {
+    grid-area: cancel;
+    height: 3rem;
+    width: 4rem;
+
+
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+    background: var(--color-brown-light);
+
+}
+
+.search-bar:focus+.search-cancel {
+    background: var(--color-brown-light) no-repeat center /1.2rem url(./assets/web/svg-icons/x-circle.svg);
+}
+
+.search-bar:focus-visible {
+    outline: none;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+}
+
+input[type="search"]:focus::-webkit-search-cancel-button {
+    opacity: 1;
+}
+
+/* ANCHOR Header Login */
+
+.button-login::after {
+    content: 'Login';
+}
+
+.icon-Button.logIn {
+    background: url(./assets/web/svg-icons/log-in.svg) no-repeat center / 1.5rem;
+}
+
+
 /* !SECTION Header */
 
 /* SECTION Filter */
@@ -89,14 +282,106 @@ section.filter {
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
 
     margin: 0 1rem;
+
+    z-index: 10;
 }
 
+.filter>* {
+    margin-left: .5rem;
+    margin-right: .5rem;
+}
+
+/* ANCHOR Select Input */
+.filter-selection {
+    appearance: none;
+
+    height: 2rem;
+    padding: 0rem .25rem;
+    border: none;
+
+    border-radius: 5px;
+
+    font-family: 'Quicksand', sans-serif;
+
+    font-weight: 600;
+
+    background: url(./assets/web/svg-icons/triangle-down.svg) no-repeat right 2.5px center / 1.2rem var(--color-brown-light);
+
+    cursor: pointer;
+}
+
+option {
+    font-size: .8rem;
+    color: var(--color-brown-dark);
+}
+
+/* ANCHOR Radio Input - Sorting */
+.filter-sort {
+    display: flex;
+    padding: .25rem;
+}
+
+.input-radio {
+    border: 3px solid var(--color-brown-light);
+    padding: 0rem 1rem;
+}
+
+.input-radio:hover,
+.input-radio:checked {
+    border: 3px solid var(--color-brown-norm);
+}
+
+.input-radio.sortAsc {
+    background: url(./assets/web/svg-icons/sort-asc.svg) no-repeat center var(--color-brown-light);
+}
+
+.input-radio.sortDesc {
+    background: url(./assets/web/svg-icons/sort-desc.svg) no-repeat center var(--color-brown-light);
+    transform: scaleX(-1);
+}
+
+.input-radio.sortAsc:checked {
+    background: url(./assets/web/svg-icons/sort-asc.svg) no-repeat center var(--color-brown-norm);
+}
+
+.input-radio.sortDesc:checked {
+    background: url(./assets/web/svg-icons/sort-desc.svg) no-repeat center var(--color-brown-norm);
+}
+
+/* ANCHOR CheckBoxes */
+
+.input-checkBox.filterCompleted {
+    border-color: var(--color-green);
+}
+
+.input-checkBox.filterReading {
+    border-color: var(--color-brown-norm);
+}
+
+.input-checkBox.filterNotStarted {
+    border-color: var(--color-gray);
+}
+
+.input-checkBox.filterCompleted:checked {
+    background-color: var(--color-green);
+}
+
+.input-checkBox.filterNotStarted:checked {
+    background-color: var(--color-gray);
+}
+
+.input-checkBox.filterReading:checked {
+    background-color: var(--color-brown-norm);
+}
+
+/* ANCHOR Filter Labels */
 .filter-label {
-    flex-basis: 40%;
+    flex-basis: 20%;
     flex-grow: 1;
+
+    display: flex;
 }
 
 /* !SECTION Filter */
@@ -105,6 +390,9 @@ section.filter {
 
 section.body {
     grid-row: body/foot;
+    /* justify-self: center;
+
+    width: 95vw; */
 
     overflow-y: auto;
 
@@ -113,8 +401,9 @@ section.body {
     padding: 1rem 2rem;
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 5rem;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    gap: 2rem;
+    justify-items: center;
 }
 
 /* SECTION Book Overview */
@@ -134,22 +423,22 @@ section.body {
 
     column-gap: 2px;
 
-    max-width: 320px;
-    max-height: 180px;
+    height: 180px;
+
+    width: 280px;
 
     padding: .5rem;
-    margin-left: calc(var(--image-left-offset));
+    margin-left: var(--image-left-offset);
+    margin-right: 7px;
 
     border-radius: 10px;
 
     position: relative;
 
     z-index: 2;
-}
 
-.book-overview .heading {
-    margin-left: 0;
-    padding-bottom: 5px;
+    background-color: var(--color-brown-light);
+
 }
 
 .image-book {
@@ -159,22 +448,84 @@ section.body {
     width: auto;
 }
 
+.book-overview .heading {
+    margin-left: 0;
+    padding-bottom: 5px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .heading-bookAuthor {
     grid-area: author;
 
-    font-size: 1rem;
+    font-size: .8rem;
 
     margin-bottom: 0rem;
+
+    max-width: 180px;
 }
 
 .heading-bookTitle {
     grid-area: title;
 
-    font-size: 1.8rem;
+    font-size: 1.3rem;
 
-    margin: 0rem 0rem .15rem 0rem
+    margin: 0rem 0rem .15rem 0rem;
+
+    max-width: 230px;
 }
 
+/* ANCHOR Title Tooltip */
+
+.heading-toolTip {
+    visibility: hidden;
+
+    position: absolute;
+
+    top: 5px;
+    left: 72.5px;
+}
+
+.heading-bookTitle:hover+.heading-toolTip {
+
+    visibility: visible;
+
+    font-size: .7rem;
+
+    margin: 0;
+    padding: 5px 5px;
+    text-align: center;
+
+    color: var(--color-white);
+    background-color: var(--color-black);
+
+    z-index: 5;
+
+    border-radius: 2px;
+    border-bottom-left-radius: 0px;
+
+    white-space: nowrap;
+}
+
+.heading-bookTitle:hover+.heading-toolTip::before {
+    visibility: visible;
+
+    content: '';
+
+    top: 18px;
+    left: .25px;
+
+    position: absolute;
+
+    z-index: 6;
+
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--color-black) transparent transparent var(--color-black);
+
+}
 
 /* ANCHOR Rating Box */
 .ratingBox {
@@ -195,11 +546,12 @@ section.body {
     text-align: center;
     transform: rotate(20deg);
 
-    background: var(--color-rating);
+    background: var(--color-yellow);
 
-    margin-left: .5rem;
+    margin: .5rem;
 
     border-radius: 5px;
+
 }
 
 .ratingBox::before {
@@ -209,7 +561,7 @@ section.body {
     left: 0;
     height: 50px;
     width: 50px;
-    background: var(--color-rating);
+    background: var(--color-yellow);
     transform: rotate(135deg);
 
     z-index: -2;
@@ -262,16 +614,22 @@ section.body {
 .progress-pageLeft {
     grid-area: big;
 
-    font-size: 2.25rem;
+    font-size: 1.7rem;
+
+    font-weight: 600;
+
+    font-family: 'Libre Bodoni', serif;
+
 }
 
 .progress-pageNoun {
     grid-area: smallpage;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
 }
 
-.progress-pageEnd {
+.progress-pageAction {
     grid-area: smallleft;
+    font-size: .8rem;
 }
 
 .progress-state {
@@ -285,6 +643,17 @@ section.body {
 
 .progress-bookState {
     font-size: 1.5rem;
+    font-weight: 700;
+    font-family: 'Libre Bodoni', serif;
+
+}
+
+.progress-bookState.completed {
+    color: var(--color-green);
+}
+
+.progress-bookState.notStarted {
+    color: var(--color-gray);
 }
 
 
@@ -297,6 +666,8 @@ section.body {
     margin-right: .5rem;
 
     overflow-x: auto;
+
+    font-size: .7rem;
 }
 
 .bookEdit {
@@ -307,6 +678,8 @@ section.body {
 
     justify-self: end;
     border-radius: 5px;
+
+    background: no-repeat center url(./assets/web/svg-icons/chevron-up.svg);
 }
 
 .books-bookEdits {
@@ -330,20 +703,56 @@ section.body {
     position: absolute;
 }
 
+
+
 /* !SECTION Pop Up */
 
 
 /* ANCHOR Body Button */
 
-.button-bookAdd {
-    position: absolute;
+.button-fixed {
+    position: fixed;
 
-    bottom: 1rem;
-    left: 48%;
+    margin-bottom: -40px;
+    margin-left: -70px;
+    bottom: 15%;
+    left: 50%;
+
+    z-index: 10;
 }
 
-.button-bookAdd::after {
-    content: attr(data-detailed);
+/* Book Addition */
+.button-fixed.bookAdd {
+    background-color: var(--color-blue);
+    color: var(--color-blue-dark);
+}
+
+.button-fixed.bookAdd::after {
+    content: 'Add Book';
+}
+
+.icon-Button.bookAdd {
+
+    background: url(./assets/web/svg-icons/book-add.svg) no-repeat center / 1.5rem;
+
+    filter: invert(9%) sepia(80%) saturate(518%) hue-rotate(155deg) brightness(96%) contrast(93%);
+}
+
+/* Book Addition Cancel */
+.button-fixed.bookCancel {
+    background-color: var(--color-red);
+    color: var(--color-red-dark);
+}
+
+.button-fixed.bookCancel::after {
+    content: 'Cancel'
+}
+
+.icon-Button.cancelBookAdd {
+
+    background: url(./assets/web/svg-icons/x.svg) no-repeat center / 1.5rem;
+
+    filter: invert(7%) sepia(49%) saturate(6877%) hue-rotate(337deg) brightness(78%) contrast(122%);
 }
 
 
@@ -356,6 +765,11 @@ footer.foot {
 
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+.link {
+    display: contents;
 }
 
 /* !SECTION Foot */

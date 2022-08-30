@@ -2,7 +2,8 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-16">
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="./assets/web/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <title>Library</title>
 </head>
@@ -14,17 +15,22 @@
         2. Search Bar
         3. Login -->
     <header class="head">
+        <!-- ANCHOR Logo -->
         <div class="head-logo">
-            <img src="" alt="" class="image image-logo">
+            <img src="./assets/web/svg-icons/book.svg" alt="" class="image image-logo">
             <h1 class="heading heading-logo">
                 Library
             </h1>
         </div>
+        <!-- ANCHOR Search -->
         <div class="head-search">
-            <input type="search" name="" id="searchBar" class="search-bar">
+            <input type="search" name="search-bar" id="searchBar" class="search search-bar"
+                placeholder="Search your Book">
+            <span class="search-cancel"></span>
         </div>
+        <!-- ANCHOR Login -->
         <div class="head-login">
-            <button class="button button-login">Login</button>
+            <button class="button button-login"><span class="icon-Button logIn"></span></button>
         </div>
     </header>
     <!-- !SECTION Header -->
@@ -35,6 +41,7 @@
         3. Categories -->
     <section class="filter">
 
+        <!-- ANCHOR Select -->
         <select name="select-order" id="selectOrder" class="filter-selection">
             <optgroup label="Filter By Date">
                 <option value="date-created">Date Created</option>
@@ -47,23 +54,24 @@
             </optgroup>
         </select>
 
+        <!-- ANCHOR Sort Buttons -->
         <div class="filter-sort">
-            <input type="radio" name="sorting" value="Asc" class="input input-sort sortAsc">
-            <input type="radio" name="sorting" value="Desc" class="input input-sort sortDesc">
+            <input type="radio" name="sorting" value="Asc" class="input input-radio sortAsc" checked>
+            <input type="radio" name="sorting" value="Desc" class="input input-radio sortDesc">
         </div>
 
-        <label for="readingLabel" data-detailed="Reading"></label>
-        <input type="checkbox" class="input input-filterReading" id="readingLabel">
-        <label for="completedLabel" data-detailed="Completed"></label>
-        <input type="checkbox" class="input input-filterCompleted" id="completedLabel">
-        <label for="startedLabel" data-detailed="Not Started"></label>
-        <input type="checkbox" class="input input-filterNotStarted" id="startedLabel">
+        <!-- ANCHOR CheckBox -->
+        <input type="checkbox" class="input input-checkBox filterReading" id="readingLabel" data-detailed="Reading">
+        <input type="checkbox" class="input input-checkBox filterCompleted" id="completedLabel"
+            data-detailed="Completed">
+        <input type="checkbox" class="input input-checkBox filterNotStarted" id="startedLabel"
+            data-detailed="Not Started">
 
+        <!-- ANCHOR Filter Labels -->
         <div class="filter-label">
-            <label for="horrorLabel" data-detailed="#horror"></label>
-            <input type="checkbox" class="input input-filter label-horror" id="horrorLabel">
-            <label for="thrillerLabel" data-detailed="#thriller"></label>
-            <input type="checkbox" class="input input-filter label-thriller" id="thrillerLabel">
+            <input type="checkbox" class="input input-checkBox label-horror" id="horrorLabel" data-detailed="#horror">
+            <input type="checkbox" class="input input-checkBox label-thriller" id="thrillerLabel"
+                data-detailed="#thriller">
         </div>
 
     </section>
@@ -79,9 +87,10 @@
 
         <!-- SECTION Book Overview -->
         <main class="book-overview" id="book1">
-            <img src="./assets/web/book/book3.svg" alt="" class="image image-book overview">
+            <img src="./assets/web/svg-images/book/book3.svg" alt="" class="image image-book overview">
             <h5 class="heading heading-bookAuthor"> Randomfsd </h5>
             <h2 class="heading heading-bookTitle"> lorem Mrak fsd</h2>
+            <p class="heading-toolTip"> lorem Mrak fsd</p>
 
             <div class="ratingBox">
                 <span class="ratingBox-rate">0.0</span>
@@ -94,7 +103,7 @@
                 <span class="progress-pageNoun">
                     pages
                 </span>
-                <span class="progress-pageEnd">
+                <span class="progress-pageAction">
                     left
                 </span>
             </div>
@@ -112,9 +121,11 @@
         <!-- !SECTION Book -->
 
         <main class="book-overview" id="book2">
-            <img src="./assets/web/book/book3.svg" alt="" class="image image-book overview">
+            <img src="./assets/web/svg-images/book/book3.svg" alt="" class="image image-book overview">
             <h5 class="heading heading-bookAuthor"> Randomfsd </h5>
-            <h2 class="heading heading-bookTitle"> lorem Mrak fsd</h2>
+            <h2 class="heading heading-bookTitle" data-detailed="lorem Mrak fsd"> lorem Mrak fsd</h2>
+            <p class="heading-toolTip"> lorem Mrak fsd</p>
+
 
             <div class="ratingBox">
                 <span class="ratingBox-rate">0.0</span>
@@ -133,7 +144,7 @@
                 <span class="progress-bookNoun">
                     Book
                 </span>
-                <span class="progress-bookState">
+                <span class="progress-bookState completed">
                     Completed
                 </span>
 
@@ -151,9 +162,12 @@
         </main>
 
         <main class="book-overview" id="book3">
-            <img src="./assets/web/book/book3.svg" alt="" class="image image-book overview">
+            <img src="https://edit.org/photos/images/cat/book-covers-big-2019101610.jpg-1300.jpg" alt=""
+                class="image image-book overview">
             <h5 class="heading heading-bookAuthor"> Randomfsd </h5>
-            <h2 class="heading heading-bookTitle"> lorem Mrak fsd</h2>
+            <h2 class="heading heading-bookTitle">
+                lorem Mrak ffsdffdsfsdfsad asdsd fasdfa sdfasd sadf</h2>
+            <p class="tooltip heading-toolTip"> lorem Mrak ffsdffdsfsdfsad asdsd fasdfa sdfasd sadf</p>
 
             <div class="ratingBox">
                 <span class="ratingBox-rate">0.0</span>
@@ -172,7 +186,7 @@
                 <span class="progress-bookNoun">
                     Book
                 </span>
-                <span class="progress-bookState">
+                <span class="progress-bookState notStarted">
                     Not Started
                 </span>
 
@@ -317,12 +331,18 @@
             </main>
             <!-- !SECTION BOOK SECTION 2  -->
 
-            <button class="button button-bookSave displayNone" id="bookButton">Save Book</button>
+            <button class="button button-bookSave displayNone" id="bookSaveButton"><span
+                    class="icon-Button bookSave"></span>Save Book</button>
 
         </main>
         <!-- !SECTION PopUp -->
 
-        <button class="button button-bookAdd" id="bookButton" data-detailed="Add Book"></button>
+        <button class="button button-fixed bookAdd" id="bookAddButton"><span class="icon-Button bookAdd">
+            </span></button>
+
+        <button class="button button-fixed bookCancel displayNone" id="bookCancelButton"><span
+                class="icon-Button cancelBookAdd">
+            </span></button>
 
     </section>
     <!-- !SECTION Main Body -->
@@ -331,7 +351,9 @@
         1. Name & Logo & Year-->
     <footer class="foot">
         <p class="text text-foot">mlksathil</p>
-        <img src="" alt="" class="icon icon-github">
+        <a href="https://github.com/mlksathil/library" class="link link-github">
+            <img src="./assets/web/svg-icons/github.svg" alt="Github Repo" class="icon icon-github">
+        </a>
         <p class="text text-foot">2022</p>
     </footer>
     <!-- !SECTION Footer -->
