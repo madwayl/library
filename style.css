@@ -9,18 +9,39 @@
     --image-left-offset: 75px;
 
     --color-green: #2E8A56;
+    --color-green-dark: #0F2E1D;
+
     --color-yellow-light: #FFF4D7;
     --color-yellow: #fcba04;
+
+    --color-orange: #FF9933;
+    --color-orange-dark: #3D1F00;
+
     --color-white: #f3f3f3;
     --color-black: #0c0b08;
+
     --color-brown-light: #F5ECE0;
     --color-brown-norm: #D2A974;
     --color-brown-dark: #1F160A;
+
     --color-red: #a50104;
     --color-red-dark: #520001;
+
     --color-blue: #2978a0;
     --color-blue-dark: #0C2531;
+
     --color-gray: #5e6e67;
+
+    --filter-brown-dark: invert(9%) sepia(3%) saturate(7307%) hue-rotate(354deg) brightness(96%) contrast(100%);
+    --filter-red-dark: invert(4%) sepia(100%) saturate(5843%) hue-rotate(351deg) brightness(89%) contrast(105%);
+    --filter-blue-dark: invert(9%) sepia(80%) saturate(518%) hue-rotate(155deg) brightness(96%) contrast(93%);
+    --filter-orange-dark: invert(12%) sepia(61%) saturate(2178%) hue-rotate(25deg) brightness(94%) contrast(104%);
+    --filter-green-dark: invert(13%) sepia(16%) saturate(1773%) hue-rotate(94deg) brightness(96%) contrast(94%);
+
+    --filter-gray: invert(91%) sepia(19%) saturate(190%) hue-rotate(21deg) brightness(79%) contrast(87%);
+    --filter-red: invert(8%) sepia(52%) saturate(6057%) hue-rotate(342deg) brightness(130%) contrast(131%);
+
+    --filter-invert: invert(1);
 }
 
 body {
@@ -73,6 +94,7 @@ body {
 
     display: flex;
     align-items: center;
+    justify-content: space-evenly;
     gap: .5rem;
 
     cursor: pointer;
@@ -86,7 +108,7 @@ body {
     height: 1.5rem;
 
     /* Brown Filter */
-    filter: invert(9%) sepia(3%) saturate(7307%) hue-rotate(354deg) brightness(96%) contrast(100%);
+    filter: var(--filter-brown-dark);
 
 }
 
@@ -111,10 +133,13 @@ body {
     margin: 0 .25rem;
     padding: 0;
 
+    font-family: 'Quicksand', sans-serif;
 }
 
 /* ANCHOR Input Checkboxes */
-.input-checkBox {
+.input-checkBox,
+.input-radioStatus,
+.input-radioTab {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -125,27 +150,28 @@ body {
     border-style: solid;
 }
 
-.input-checkBox:hover {
-    background-color: attr(data-color);
-}
-
-.input-checkBox:checked {
+.input-checkBox:checked,
+.input-radioStatus:checked {
     padding: 0rem .25rem 0rem .1rem;
     color: var(--color-white);
 }
 
-.input-checkBox::before {
+.input-checkBox::before,
+.input-radioStatus::before {
     content: '';
 }
 
-.input-checkBox:checked::before {
+.input-checkBox:checked::before,
+.input-radioStatus:checked::before {
     width: 1.5rem;
     height: 1.5rem;
     background: url(./assets/web/svg-icons/check-circle-fill.svg) no-repeat center / 1.2rem;
-    filter: invert(1);
+    filter: var(--filter-invert);
 }
 
-.input-checkBox::after {
+.input-checkBox::after,
+.input-radioStatus::after,
+.input-radioTab::after {
     content: attr(data-detailed);
 
     font-family: 'Quicksand', sans-serif;
@@ -284,6 +310,7 @@ section.filter {
     align-items: center;
 
     margin: 0 1rem;
+    padding: .5rem 0;
 
     z-index: 10;
 }
@@ -294,14 +321,17 @@ section.filter {
 }
 
 /* ANCHOR Select Input */
+.filter-selection::before {
+    content: 'Sort by : ';
+    width: 100%;
+}
+
 .filter-selection {
     appearance: none;
 
     height: 2rem;
     padding: 0rem .65rem 0rem .5rem;
     border: none;
-
-    /* text-align: center; */
 
     border-radius: 5px;
 
@@ -353,29 +383,29 @@ option {
     background: url(./assets/web/svg-icons/sort-desc.svg) no-repeat center var(--color-brown-norm);
 }
 
-/* ANCHOR CheckBoxes */
+/* ANCHOR Radio Status */
 
-.input-checkBox.filterCompleted {
+.input-radioStatus.filterCompleted {
     border-color: var(--color-green);
 }
 
-.input-checkBox.filterReading {
+.input-radioStatus.filterReading {
     border-color: var(--color-brown-norm);
 }
 
-.input-checkBox.filterNotStarted {
+.input-radioStatus.filterNotStarted {
     border-color: var(--color-gray);
 }
 
-.input-checkBox.filterCompleted:checked {
+.input-radioStatus.filterCompleted:checked {
     background-color: var(--color-green);
 }
 
-.input-checkBox.filterNotStarted:checked {
+.input-radioStatus.filterNotStarted:checked {
     background-color: var(--color-gray);
 }
 
-.input-checkBox.filterReading:checked {
+.input-radioStatus.filterReading:checked {
     background-color: var(--color-brown-norm);
 }
 
@@ -385,6 +415,28 @@ option {
     flex-grow: 1;
 
     display: flex;
+}
+
+[class*="label-"] {
+    border-radius: 20px;
+    font-weight: 700;
+    border: none;
+}
+
+.filter-label>.input-checkBox:checked {
+    color: inherit;
+}
+
+.filter-label>.input-checkBox:checked::before {
+    filter: none;
+}
+
+.label-horror {
+    background-color: #5a63a0;
+}
+
+.label-thriller {
+    background-color: #bd4b4b;
 }
 
 /* !SECTION Filter */
@@ -398,6 +450,7 @@ section.body {
     width: 95vw; */
 
     overflow-y: auto;
+    overflow-x: hidden;
 
     position: relative;
 
@@ -405,29 +458,29 @@ section.body {
 
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-    gap: 2rem;
+    gap: 3rem 2rem;
     justify-items: center;
 }
 
 /* SECTION Book Overview */
 .book-overview {
+
     display: grid;
     grid-template-areas:
         "image author author author author"
         "image title title title title"
         "image rating progress progress progress"
-        "image label label label edit";
+        "image label label label edit"
+        "editB editB editB editB editB";
     grid-template-columns: .5fr 1fr 1fr 1fr;
-    grid-template-rows: .5fr 1.5fr 2.5fr 1fr;
+    grid-template-rows: .75fr 1.25fr 2.5fr 1fr 0;
     justify-items: start;
     align-items: center;
     align-content: center;
     justify-content: center;
-
     column-gap: 2px;
 
-    height: 180px;
-
+    height: 171px;
     width: 280px;
 
     padding: .5rem;
@@ -436,12 +489,10 @@ section.body {
 
     border-radius: 10px;
 
-    position: relative;
 
-    z-index: 2;
 
+    z-index: 5;
     background-color: var(--color-brown-light);
-
 }
 
 .image-book {
@@ -471,29 +522,32 @@ section.body {
 }
 
 .heading-bookTitle {
-    grid-area: title;
-
     font-size: 1.3rem;
 
     margin: 0rem 0rem .15rem 0rem;
 
     max-width: 230px;
+
+    position: relative;
 }
 
 /* ANCHOR Title Tooltip */
 
-.heading-toolTip {
-    visibility: hidden;
+.heading-element {
+    grid-area: title;
 
-    position: absolute;
+    position: relative;
 
-    top: 5px;
-    left: 72.5px;
+    padding: 0;
+    margin: 0;
 }
 
-.heading-bookTitle:hover+.heading-toolTip {
+.heading-toolTip {
+    position: absolute;
 
-    visibility: visible;
+    visibility: hidden;
+
+    content: attr(data-detailed);
 
     font-size: .7rem;
 
@@ -502,32 +556,17 @@ section.body {
     text-align: center;
 
     color: var(--color-white);
-    background-color: var(--color-black);
+    background-color: var(--color-brown-dark);
 
-    z-index: 5;
+    z-index: 20;
 
     border-radius: 2px;
-    border-bottom-left-radius: 0px;
 
     white-space: nowrap;
 }
 
-.heading-bookTitle:hover+.heading-toolTip::before {
+.heading-bookTitle:hover+.heading-toolTip {
     visibility: visible;
-
-    content: '';
-
-    top: 18px;
-    left: .25px;
-
-    position: absolute;
-
-    z-index: 6;
-
-    border-width: 5px;
-    border-style: solid;
-    border-color: var(--color-black) transparent transparent var(--color-black);
-
 }
 
 /* ANCHOR Rating Box */
@@ -588,7 +627,7 @@ section.body {
     transform: rotate(-20deg);
 }
 
-/* ANCHOR Progress Pages-Left */
+/* ANCHOR Progress */
 .progress {
     grid-area: progress;
     justify-self: center;
@@ -673,7 +712,8 @@ section.body {
     font-size: .7rem;
 }
 
-.bookEdit {
+/* ANCHOR Book Edits Buttons */
+.input-bookEdit {
     grid-area: edit;
 
     height: 30px;
@@ -683,33 +723,101 @@ section.body {
     border-radius: 5px;
 
     background: no-repeat center url(./assets/web/svg-icons/chevron-up.svg);
+
+    border: none;
 }
 
+.input-bookEdit:hover {
+    background-color: var(--color-brown-norm);
+}
+
+.input-bookEdit:checked {
+    background: var(--color-brown-norm) no-repeat center url(./assets/web/svg-icons/chevron-down.svg);
+}
+
+/* Book Edit Button Container */
 .books-bookEdits {
+    grid-area: editB;
+
     display: flex;
     flex-flow: row nowrap;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
+    gap: .5rem;
 
     width: 100%;
-    padding: 18px 0 1px;
 
-    position: absolute;
-    bottom: -45px;
+    padding: 15px .5rem 5px;
+
+    position: relative;
+    left: -80px;
+    bottom: -29px;
+
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    margin-left: calc(var(--image-left-offset)+72px);
+    margin-bottom: 11px;
+
+    z-index: -10;
+
+    background-color: var(--color-brown-light);
 }
 
+.button-bookEdit {
+    height: 30px;
+
+    margin: 0rem;
+    padding: 0 .5rem;
+    /* gap: 0.1rem; */
+    /* align-items: center; */
+
+    font-size: .8rem;
+    flex-basis: 25%;
+
+}
+
+/* Buttons */
+.button-bookEdit.editBook {
+    background-color: var(--color-brown-norm);
+    color: var(--color-brown-dark);
+}
+
+.button-bookEdit.logBook {
+    background-color: var(--color-orange);
+    color: var(--color-orange-dark);
+}
+
+.button-bookEdit.removeBook {
+    background-color: var(--color-red);
+    color: var(--color-dark-red);
+}
+
+/* Icons on Buttons on Book Edit */
+.button-bookEdit>.icon-Button {
+    width: 1rem;
+    height: 1rem;
+}
+
+.icon-Button.editBook {
+    background: url(./assets/web/svg-icons/edit.svg) no-repeat center / 1rem;
+
+    filter: var(--filter-brown-dark);
+}
+
+.icon-Button.logBook {
+    background: url(./assets/web/svg-icons/notes.svg) no-repeat center / 1rem;
+
+    filter: var(--filter-orange-dark);
+}
+
+.icon-Button.removeBook {
+    background: url(./assets/web/svg-icons/trash.svg) no-repeat center / 1rem;
+
+    filter: var(--filter-red-dark);
+}
 
 /* !SECTION Book Overview */
-
-/* SECTION Pop Up */
-.popup {
-    position: absolute;
-}
-
-
-
-/* !SECTION Pop Up */
-
 
 /* ANCHOR Body Button */
 
@@ -738,28 +846,382 @@ section.body {
 
     background: url(./assets/web/svg-icons/book-add.svg) no-repeat center / 1.5rem;
 
-    filter: invert(9%) sepia(80%) saturate(518%) hue-rotate(155deg) brightness(96%) contrast(93%);
+    filter: var(--filter-blue-dark);
 }
 
-/* Book Addition Cancel */
+/* !SECTION Body */
+
+/* SECTION Pop Up */
+
+.popup-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(12, 11, 8, .45);
+    z-index: 30;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.popup {
+    display: grid;
+    width: 60%;
+    height: 66%;
+
+    background-color: var(--color-brown-light);
+
+    margin-top: -5%;
+
+    grid-template:
+        [row-start1] "imageSection bookTab1 bookTab2" .65fr [row-end1] [row-start2] "imageSection main main" 1fr [row-end2] [row-start3] "imageSection main main" 1fr [row-end3] [row-start4] "imageSection main main" 1fr [row-end4] [row-start5] "imageSection main main" 1fr [row-end5] [row-start6] "imageSection main main" 1fr [row-end6] / 2.5fr 3fr 3fr;
+
+    border-radius: 10px;
+
+    align-items: stretch;
+
+}
+
+/* SECTION Section1 Image Setup*/
+.book-section1 {
+    grid-area: imageSection;
+}
+
+/* END !SECTION Section1 Image Setup*/
+
+
+/* SECTION Tab Radio */
+.input-radioTab#bookDetails {
+    grid-area: bookTab1;
+}
+
+.input-radioTab#bookLogs {
+    grid-area: bookTab2;
+}
+
+.input-radioTab {
+    padding: 0;
+    margin: 0;
+
+    border-radius: 0rem;
+    border: none;
+
+    height: initial;
+
+    gap: 1rem
+}
+
+.input-radioTab:not(:checked) {
+    background-color: var(--color-brown-norm);
+}
+
+.input-radioTab::before {
+    content: '';
+
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.input-radioTab#bookDetails::before {
+    background: url(./assets/web/svg-icons/info.svg) no-repeat center / 1.5rem;
+}
+
+.input-radioTab#bookLogs::before {
+    background: url(./assets/web/svg-icons/table.svg) no-repeat center / 1.5rem;
+}
+
+/* END !SECTION Tab Radio */
+
+
+/* SECTION Section2 */
+
+.book-section2 {
+    grid-area: main;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+}
+
+/* SECTION Book Details */
+
+.tabWindow-bookDetails {
+    display: flex;
+    flex-flow: row wrap;
+    position: relative;
+
+}
+
+.heading.tabHeading {
+    font-size: 1.65rem;
+    margin-left: .65rem;
+
+    flex-basis: 100%;
+}
+
+
+/* ANCHOR Input Typed */
+
+.input-element {
+    flex-basis: 40%;
+    flex-grow: 1;
+
+    display: flex;
+    flex-flow: column;
+
+    margin: .45rem;
+}
+
+.input-element.page {
+    flex-basis: 10%;
+}
+
+.input-element.radioCheck {
+    flex-basis: 100%;
+
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.input-type {
+    border: none;
+    padding: 0rem 2.5rem;
+}
+
+.input-element>label,
+.input-element>p {
+    font-size: .8rem;
+    font-weight: 800;
+
+    margin: .25rem .5rem;
+}
+
+/* Adding Icons Front */
+span.error-text {
+    position: relative;
+    min-height: 1rem;
+
+}
+
+span.error-text::before {
+    content: '';
+
+    position: absolute;
+    top: -1.75rem;
+    left: .85rem;
+
+    width: 1.5rem;
+    height: 1.5rem;
+
+    filter: var(--filter-gray);
+}
+
+.input-type:active+span.error-text::before,
+.input-type:focus+span.error-text::before {
+    filter: var(--filter-brown-dark);
+}
+
+.input-element.title>span.error-text::before {
+    background: url(./assets/web/svg-icons/title.svg) no-repeat center / 1.5rem;
+}
+
+.input-element.author>span.error-text::before {
+    background: url(./assets/web/svg-icons/author.svg) no-repeat center / 1.5rem;
+}
+
+.input-element.page>span.error-text::before {
+    background: url(./assets/web/svg-icons/number.svg) no-repeat center / 1.5rem;
+}
+
+.input-element.label>span.error-text::before {
+    background: url(./assets/web/svg-icons/label.svg) no-repeat center / 1.5rem;
+}
+
+/* Adding Icons on Error Input */
+.input-type.error:active~span.error-text,
+.input-type.error:focus~span.error-text {
+    font-size: .7rem;
+    font-weight: 600;
+
+    min-height: 1rem;
+
+    padding: .2rem .5rem;
+
+    color: var(--color-red);
+}
+
+.input-type.error~span.error-text::after {
+    content: '';
+
+    position: absolute;
+    top: -1.75rem;
+    right: .75rem;
+
+    width: 1.5rem;
+    height: 1.5rem;
+
+    background: url(./assets/web/svg-icons/error-report.svg) no-repeat center / 1.5rem;
+
+    filter: var(--filter-red);
+}
+
+/* ANCHOR Star Rating */
+
+/* How it Works:
+    1. Define a Div .ratingControl
+    */
+
+.ratingControl {
+    position: relative;
+
+    min-height: 2.2rem;
+
+    user-select: none;
+
+}
+
+/* 2. set input:radio and label (.ratingControl-stars) inside
+        i. All should be in reverse order (5 to 0) */
+
+.ratingControl input {
+    /* 3. hide the input radio buttons */
+
+    visibility: hidden;
+}
+
+.ratingControl-stars {
+    /* 4. Make Lables Absolute */
+
+    position: absolute;
+    top: 0;
+
+    width: 2.16rem;
+    height: 2.15rem;
+
+    /* 5. Add Background Images in Labels */
+
+    background-image: url(./assets/web/svg-icons/stars.svg);
+    background-repeat: no-repeat;
+    background-size: auto 2.1rem;
+
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
+.ratingControl-stars:hover,
+/* 5. ii. Ensure the siblings are turned on with gold background image on hovering the current element */
+.ratingControl-stars:hover~.ratingControl-stars,
+input:checked~.ratingControl-stars {
+    /* 5. i. Create gold background image on hover  */
+    background-image: url(./assets/web/svg-icons/stars-gold.svg);
+}
+
+/* 6. Set Labels absolutely on reverse order */
+
+.ratingControl-stars--05 {
+    left: 12%;
+}
+
+.ratingControl-stars--1 {
+    left: 12%;
+}
+
+.ratingControl-stars--15 {
+    left: 28%;
+}
+
+.ratingControl-stars--2 {
+    left: 28%;
+}
+
+.ratingControl-stars--25 {
+    left: 44%;
+}
+
+.ratingControl-stars--3 {
+    left: 44%;
+}
+
+.ratingControl-stars--35 {
+    left: 60%;
+}
+
+.ratingControl-stars--4 {
+    left: 60%;
+}
+
+.ratingControl-stars--45 {
+    left: 76%;
+}
+
+.ratingControl-stars--5 {
+    left: 76%;
+}
+
+/* 7. Define a half width for half stars on Labels */
+
+.ratingControl-stars--half {
+    width: 1.03rem;
+}
+
+/* ANCHOR Book Save Button */
+
+.button-element {
+    flex-basis: 100%;
+    margin-bottom: 10px;
+}
+
+.button.saveBook {
+    background-color: var(--color-green);
+    color: var(--color-green-dark);
+
+    margin: auto;
+}
+
+.button.saveBook::after {
+    content: 'Save Edit'
+}
+
+.icon-Button.saveBook {
+
+    background: url(./assets/web/svg-icons/save.svg) no-repeat center / 1.5rem;
+
+    filter: var(--filter-green-dark);
+}
+
+/* END !SECTION Book Details */
+
+/* SECTION Book Logs */
+
+/* END !SECTION Book Logs */
+
+/* END !SECTION Section2 */
+
+
+/* ANCHOR Book Addition Cancel Button */
 .button-fixed.bookCancel {
     background-color: var(--color-red);
     color: var(--color-red-dark);
 }
 
 .button-fixed.bookCancel::after {
-    content: 'Cancel'
+    content: 'Cancel Add'
 }
 
 .icon-Button.cancelBookAdd {
 
     background: url(./assets/web/svg-icons/x.svg) no-repeat center / 1.5rem;
 
-    filter: invert(7%) sepia(49%) saturate(6877%) hue-rotate(337deg) brightness(78%) contrast(122%);
+    filter: var(--filter-red-dark);
 }
 
-
-/* !SECTION Body */
+/* END !SECTION Pop Up */
 
 /* SECTION Foot */
 
@@ -769,10 +1231,11 @@ footer.foot {
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
 .link {
     display: contents;
 }
 
-/* !SECTION Foot */
+/* END !SECTION Foot */

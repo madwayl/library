@@ -32,14 +32,39 @@ A Book Library Lookup
 
 - [x] `::before` and `::after` needs an explicit width or height, if previous element doesn't have height or width (esp. on `input` elements)
     - Input Elements can have pseudo-elements if `appearance: none`
+        - Works for:
+            - Radio Button
+            - Checkboxes
+    - Doesn't works for `select`
+
+- [x] Centering a `position: fixed` element needs a negative margin to the height and width of the element to center it appropriately.
+
+- [x] Can ignore the previously definitive styles using the global values.
+    - `inherit` to inherit from parents
+    - `initial` to reset the styling
+
+- [x] Icons are best added with a `span` element below the element that needs to show on hover.
+
+#### CSS States
+
+- [x] Difference between Focus and Active
+    - Focus is when the user interacts with the browser
+    - Active is when the user clicks / activates the element
+        - The time for active is ususally quite short
+
+
 
 # Attribution
 
 - Icons from:
     - Octicons
     - Feather Icons
+    - Google Fonts
 
 - Favicon : [School material icons created by kerismaker - Flaticon](https://www.flaticon.com/free-icons/school-material)
 
 - Fonts from:
     - Google Fonts
+
+- Star Rating System from :
+    - [codemyui (codepen.io)](https://codepen.io/ashleynolan/pen/MyqrPr?editors=0100)

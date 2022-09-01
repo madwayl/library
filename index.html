@@ -61,17 +61,18 @@
         </div>
 
         <!-- ANCHOR CheckBox -->
-        <input type="checkbox" class="input input-checkBox filterReading" id="readingLabel" data-detailed="Reading">
-        <input type="checkbox" class="input input-checkBox filterCompleted" id="completedLabel"
+        <input type="radio" class="input input-radioStatus filterReading" id="readingLabel" name="filterBook-status"
+            data-detailed="Reading">
+        <input type="radio" class="input input-Status filterCompleted" id="completedLabel" name="filterBook-status"
             data-detailed="Completed">
-        <input type="checkbox" class="input input-checkBox filterNotStarted" id="startedLabel"
+        <input type="radio" class="input input-radioStatus filterNotStarted" name="filterBook-status" id="startedLabel"
             data-detailed="Not Started">
 
         <!-- ANCHOR Filter Labels -->
         <div class="filter-label">
-            <input type="checkbox" class="input input-checkBox label-horror" id="horrorLabel" data-detailed="#horror">
+            <input type="checkbox" class="input input-checkBox label-horror" id="horrorLabel" data-detailed="# horror">
             <input type="checkbox" class="input input-checkBox label-thriller" id="thrillerLabel"
-                data-detailed="#thriller">
+                data-detailed="# thriller">
         </div>
 
     </section>
@@ -86,11 +87,16 @@
     <section class="body">
 
         <!-- SECTION Book Overview -->
-        <main class="book-overview" id="book1">
+        <main class="book-overview displayNone" id="book1">
             <img src="./assets/web/svg-images/book/book3.svg" alt="" class="image image-book overview">
             <h5 class="heading heading-bookAuthor"> Randomfsd </h5>
-            <h2 class="heading heading-bookTitle"> lorem Mrak fsd</h2>
-            <p class="heading-toolTip"> lorem Mrak fsd</p>
+            <div class="heading-element">
+                <h2 class="heading heading-bookTitle">
+                    lorem Mrak fsd</h2>
+                <p class="tooltip heading-toolTip"> lorem Mrak fsd</p>
+            </div>
+
+
 
             <div class="ratingBox">
                 <span class="ratingBox-rate">0.0</span>
@@ -111,24 +117,29 @@
                 <span class="bookLabels label-thriller">Thriller</span>
                 <span class="bookLabels label-horror">Horror</span>
             </div>
-            <div class="bookEdit"></div>
+            <input type="checkbox" name="edit-book" class="input input-bookEdit">
             <div class="books-bookEdits displayNone">
-                <button class="button button-bookEdit editBook">Edit</button>
-                <button class="button button-bookEdit logBook">Log</button>
-                <button class="button button-bookEdit removeBook">Delete</button>
+                <button class="button button-bookEdit editBook"><span class="icon-Button editBook"></span>Edit</button>
+                <button class="button button-bookEdit logBook"><span class="icon-Button logBook"></span>Log</button>
+                <button class="button button-bookEdit removeBook"><span
+                        class="icon-Button removeBook"></span>Delete</button>
             </div>
         </main>
         <!-- !SECTION Book -->
 
-        <main class="book-overview" id="book2">
-            <img src="./assets/web/svg-images/book/book3.svg" alt="" class="image image-book overview">
-            <h5 class="heading heading-bookAuthor"> Randomfsd </h5>
-            <h2 class="heading heading-bookTitle" data-detailed="lorem Mrak fsd"> lorem Mrak fsd</h2>
-            <p class="heading-toolTip"> lorem Mrak fsd</p>
+        <main class="book-overview displayNone" id="book2">
+            <img src="https://i.guim.co.uk/img/media/a39b7a5a36961a7f4ba5ec245c4a20c43f087c84/0_0_226_346/master/226.jpg?width=300&quality=45&auto=format&fit=max&dpr=2&s=87a8f9e92fb6146f7e32a0ebd9f386da"
+                alt="" class="image image-book overview">
+            <h5 class="heading heading-bookAuthor"> Gillian McAllister </h5>
+            <div class="heading-element">
+                <h2 class="heading heading-bookTitle">
+                    Wrong Place Wrong Time</h2>
+                <p class="tooltip heading-toolTip"> Wrong Place Wrong Time </p>
+            </div>
 
 
-            <div class="ratingBox">
-                <span class="ratingBox-rate">0.0</span>
+            <div class="ratingBox ">
+                <span class="ratingBox-rate">3.0</span>
                 <span class="ratingBox-total">of 5</span>
             </div>
             <div class="progress progress-state">
@@ -153,21 +164,25 @@
                 <span class="bookLabels label-thriller">Thriller</span>
                 <span class="bookLabels label-horror">Horror</span>
             </div>
-            <div class="bookEdit"></div>
+
+            <input type="checkbox" name="edit-book" class="input input-bookEdit">
             <div class="books-bookEdits displayNone">
-                <button class="button button-bookEdit editBook">Edit</button>
-                <button class="button button-bookEdit logBook">Log</button>
-                <button class="button button-bookEdit removeBook">Delete</button>
+                <button class="button button-bookEdit editBook"><span class="icon-Button editBook"></span>Edit</button>
+                <button class="button button-bookEdit logBook"><span class="icon-Button logBook"></span>Log</button>
+                <button class="button button-bookEdit removeBook"><span
+                        class="icon-Button removeBook"></span>Delete</button>
             </div>
         </main>
 
-        <main class="book-overview" id="book3">
+        <main class="book-overview displayNone" id="book3">
             <img src="https://edit.org/photos/images/cat/book-covers-big-2019101610.jpg-1300.jpg" alt=""
                 class="image image-book overview">
             <h5 class="heading heading-bookAuthor"> Randomfsd </h5>
-            <h2 class="heading heading-bookTitle">
-                lorem Mrak ffsdffdsfsdfsad asdsd fasdfa sdfasd sadf</h2>
-            <p class="tooltip heading-toolTip"> lorem Mrak ffsdffdsfsdfsad asdsd fasdfa sdfasd sadf</p>
+            <div class="heading-element">
+                <h2 class="heading heading-bookTitle">
+                    My Book Cover </h2>
+                <p class="tooltip heading-toolTip"> My Book Cover </p>
+            </div>
 
             <div class="ratingBox">
                 <span class="ratingBox-rate">0.0</span>
@@ -195,20 +210,33 @@
                 <span class="bookLabels label-thriller">Thriller</span>
                 <span class="bookLabels label-horror">Horror</span>
             </div>
-            <div class="bookEdit"></div>
+
+            <input type="checkbox" name="edit-book" class="input input-bookEdit">
             <div class="books-bookEdits displayNone">
-                <button class="button button-bookEdit editBook">Edit</button>
-                <button class="button button-bookEdit logBook">Log</button>
-                <button class="button button-bookEdit removeBook">Delete</button>
+                <button class="button button-bookEdit editBook"><span class="icon-Button editBook"></span>Edit</button>
+                <button class="button button-bookEdit logBook"><span class="icon-Button logBook"></span>Log</button>
+                <button class="button button-bookEdit removeBook"><span
+                        class="icon-Button removeBook"></span>Delete</button>
             </div>
         </main>
 
-        <!-- SECTION PopUp -->
-        <main class="popup displayNone">
+        <button class="button button-fixed bookAdd" id="bookAddButton"><span class="icon-Button bookAdd">
+            </span></button>
+
+    </section>
+    <!-- !SECTION Main Body -->
+
+    <!-- SECTION PopUp 
+        1. Popup Overlay
+            i. Popup-->
+
+    <section class="popup-overlay">
+
+        <main class="popup">
 
             <!-- SECTION BOOK SECTION 1
-                    - Images
-                    - Add or Delete Buttons -->
+                        - Images
+                        - Add or Delete Buttons -->
             <main class="book-section1">
                 <img src="" alt="" class="image image-book edit">
                 <input type="url" name="image-url" id="imageUrl" placeholder="Paste Image URL">
@@ -217,81 +245,120 @@
             </main>
             <!-- !SECTION BOOK SECTION 1 -->
 
+
+            <input type="radio" name="tab-status" id="bookDetails" class="input input-radioTab"
+                data-detailed="Book Detail" checked>
+
+            <input type="radio" name="tab-status" id="bookLogs" class="input input-radioTab" data-detailed="Book Log">
+
             <!-- SECTION BOOK SECTION 2 
-                    - Book Details
-                    - Book Logs -->
+                        - Tab1: Book Details
+                        - Tab2: Book Logs -->
             <main class="book-section2">
-                <div class="book-tab">
-                    <button class="button button-tab" id="bookDetails">Book Details</button>
-                    <button class="button button-tab" id="bookLogs">Book Logs</button>
-                </div>
 
                 <!-- SECTION Book Details Tab -->
-                <main class="tab tab-bookDetails">
+                <main class="tabWindow tabWindow-bookDetails">
 
-                    <h3 class="heading heading-tabHeading">Enter Book Details</h3>
+                    <h3 class=" heading tabHeading">Enter Your Book Details</h3>
 
-                    <label for="bookTitle">Title</label>
-                    <input type="text" name="book-title" id="bookTitle" class="input input-bookDetail">
-
-                    <label for="bookAuthor">Author</label>
-                    <input type="text" name="book-author" id="bookAuthor" class="input input-bookDetail">
-
-                    <div class="inputPages">
-                        <div class="inputPages-read">
-                            <label for="bookPagesRead">Pages Read</label>
-                            <input type="number" name="book-pages-read" id="bookPagesRead"
-                                class="input input-bookDetail">
-                        </div>
-                        <p class="text text-bookPages"> / </p>
-                        <div class="inputPages-total">
-                            <label for="bookPages">Total Pages</label>
-                            <input type="number" name="book-pages" id="bookPages" class="input input-bookDetail">
-                        </div>
+                    <div class="input-element title">
+                        <label for="bookTitle">Title</label>
+                        <input type="text" name="book-title" id="bookTitle" class="input input-type"
+                            placeholder="Title of the Book">
+                        <span class="error-text"></span>
                     </div>
 
-                    <div class="bookRating">
-                        <p class="text text-bookRating">Your Rating</p>
-                        <div class="ratingBox">
-                            <span class="ratingBox-rate">0.0</span>
-                            <span class="ratingBox-total">of 5</span>
-                            <div class="ratingBox-display">
-                                <div id="star1" class="ratingStar">
-                                    <div class="ratingStar-half"></div>
-                                    <div class="ratingStar-half"></div>
-                                </div>
-                                <div id="star2" class="ratingStar">
-                                    <div class="ratingStar-half"></div>
-                                    <div class="ratingStar-half"></div>
-                                </div>
-                                <div id="star3" class="ratingStar">
-                                    <div class="ratingStar-half"></div>
-                                    <div class="ratingStar-half"></div>
-                                </div>
-                                <div id="star4" class="ratingStar">
-                                    <div class="ratingStar-half"></div>
-                                    <div class="ratingStar-half"></div>
-                                </div>
-                                <div id="star5" class="ratingStar">
-                                    <div class="ratingStar-half"></div>
-                                    <div class="ratingStar-half"></div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="input-element author">
+                        <label for="bookAuthor">Author</label>
+                        <input type="text" name="book-author" id="bookAuthor" class="input input-type"
+                            placeholder="Author of the Book">
+                        <span class="error-text"></span>
                     </div>
 
-                    <div class="meagerChecks">
-                        <input type="checkbox" name="completed" id="completed" class="input" data-detailed="Completed">
+                    <div class="input-element page Read">
+                        <label for="bookPagesRead">Pages Read</label>
+                        <input type="number" name="book-pages-read" id="bookPagesRead" class="input input-type"
+                            placeholder="Pages Read so Far">
+                        <span class="error-text"></span>
                     </div>
-                    <label for="bookCategories">Book Categories</label>
-                    <input type="text" name="book-categories" id="bookCategories" class="input input-bookCategories"
-                        placeholder="Enter text separated by comma">
+
+                    <div class="input-element page Total">
+                        <label for="bookPages">Total Pages</label>
+                        <input type="number" name="book-pages" id="bookPages" class="input input-type"
+                            placeholder="Pages in Book">
+                        <span class="error-text"> </span>
+                    </div>
+
+                    <div class="input-element radioCheck">
+                        <input type="radio" name="book-status" id="completed"
+                            class="input input-radioStatus filterNotStarted" data-detailed="Not Started" checked>
+
+                        <input type="radio" name="book-status" id="completed"
+                            class="input input-radioStatus filterReading" data-detailed="In Progress">
+
+                        <input type="radio" name="book-status" id="completed"
+                            class="input input-radioStatus filterCompleted" data-detailed="Completed">
+                    </div>
+
+                    <div class="input-element rating">
+                        <label class="text text-bookRating">Your Rating</label>
+                        <div class="ratingControl">
+                            <input type="radio" id="rating-5" name="rating" value="5">
+                            <label class="ratingControl-stars ratingControl-stars--5" for="rating-5">5</label>
+
+                            <input type="radio" id="rating-45" name="rating" value="4.5">
+                            <label class="ratingControl-stars ratingControl-stars--45 ratingControl-stars--half"
+                                for="rating-45">45</label>
+
+                            <input type="radio" id="rating-4" name="rating" value="4">
+                            <label class="ratingControl-stars ratingControl-stars--4" for="rating-4">4</label>
+
+                            <input type="radio" id="rating-35" name="rating" value="3.5">
+                            <label class="ratingControl-stars ratingControl-stars--35 ratingControl-stars--half"
+                                for="rating-35">35</label>
+
+                            <input type="radio" id="rating-3" name="rating" value="3">
+                            <label class="ratingControl-stars ratingControl-stars--3" for="rating-3">3</label>
+
+                            <input type="radio" id="rating-25" name="rating" value="2.5">
+                            <label class="ratingControl-stars ratingControl-stars--25 ratingControl-stars--half"
+                                for="rating-25">25</label>
+
+                            <input type="radio" id="rating-2" name="rating" value="2">
+                            <label class="ratingControl-stars ratingControl-stars--2" for="rating-2">2</label>
+
+                            <input type="radio" id="rating-15" name="rating" value="1.5">
+                            <label class="ratingControl-stars ratingControl-stars--15 ratingControl-stars--half"
+                                for="rating-15">15</label>
+
+                            <input type="radio" id="rating-1" name="rating" value="1">
+                            <label class="ratingControl-stars ratingControl-stars--1" for="rating-1">1</label>
+
+                            <input type="radio" id="rating-05" name="rating" value="0.5">
+                            <label class="ratingControl-stars ratingControl-stars--05 ratingControl-stars--half"
+                                for="rating-05">05</label>
+                        </div>
+                        <span class="ratingText"></span>
+                    </div>
+
+                    <div class="input-element label">
+                        <label for="bookCategories">Book Categories</label>
+                        <input type="text" name="book-categories" id="bookCategories" class="input input-type"
+                            placeholder="Comma Separated Text">
+                        <span class="error-text"></span>
+                    </div>
+
+                    <div class="button-element">
+                        <button class="button saveBook" id="bookSaveButton"><span class="icon-Button saveBook">
+                            </span></button>
+                    </div>
 
                 </main>
+
                 <!-- !SECTION  Book Details Tab -->
 
                 <!-- SECTION Book Logs Tab -->
-                <main class="tab tab-bookLogs">
+                <main class="tab tab-bookLogs displayNone">
                     <h3 class="heading heading-tabHeading">Log your Book Reading</h3>
                     <table class="table-bookLogs">
                         <thead class="table table-header">
@@ -321,7 +388,7 @@
                     <div class="table table-input">
                         <input type="datetime-local" name="timestamp" id="timestamp" class="input input-bookLog">
                         <textarea name="book-log" id="bookLog" class="input input-bookLog">
-                            </textarea>
+                                </textarea>
                         <button class="button button-submitLog" id="logButton"></button>
                     </div>
 
@@ -331,21 +398,13 @@
             </main>
             <!-- !SECTION BOOK SECTION 2  -->
 
-            <button class="button button-bookSave displayNone" id="bookSaveButton"><span
-                    class="icon-Button bookSave"></span>Save Book</button>
-
         </main>
-        <!-- !SECTION PopUp -->
 
-        <button class="button button-fixed bookAdd" id="bookAddButton"><span class="icon-Button bookAdd">
-            </span></button>
-
-        <button class="button button-fixed bookCancel displayNone" id="bookCancelButton"><span
-                class="icon-Button cancelBookAdd">
+        <button class="button button-fixed bookCancel" id="bookCancelButton"><span class="icon-Button cancelBookAdd">
             </span></button>
 
     </section>
-    <!-- !SECTION Main Body -->
+    <!-- !SECTION PopUp -->
 
     <!-- SECTION Footer
         1. Name & Logo & Year-->
