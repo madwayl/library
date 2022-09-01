@@ -8,11 +8,12 @@
 :root {
     --image-left-offset: 75px;
 
-    --color-green: #2E8A56;
+    --color-green-light: #D1F0DF;
+    --color-green-norm: #2E8A56;
     --color-green-dark: #0F2E1D;
 
     --color-yellow-light: #FFF4D7;
-    --color-yellow: #fcba04;
+    --color-yellow-norm: #fcba04;
 
     --color-orange: #FF9933;
     --color-orange-dark: #3D1F00;
@@ -21,13 +22,15 @@
     --color-black: #0c0b08;
 
     --color-brown-light: #F5ECE0;
+    --color-brown-lighter: #FAF5F0;
     --color-brown-norm: #D2A974;
     --color-brown-dark: #1F160A;
 
-    --color-red: #a50104;
+    --color-red-light: #FEC2C3;
+    --color-red-norm: #a50104;
     --color-red-dark: #520001;
 
-    --color-blue: #2978a0;
+    --color-blue-norm: #2978a0;
     --color-blue-dark: #0C2531;
 
     --color-gray: #5e6e67;
@@ -40,6 +43,7 @@
 
     --filter-gray: invert(91%) sepia(19%) saturate(190%) hue-rotate(21deg) brightness(79%) contrast(87%);
     --filter-red: invert(8%) sepia(52%) saturate(6057%) hue-rotate(342deg) brightness(130%) contrast(131%);
+    --filter-green: invert(42%) sepia(48%) saturate(537%) hue-rotate(93deg) brightness(95%) contrast(91%);
 
     --filter-invert: invert(1);
 }
@@ -386,7 +390,7 @@ option {
 /* ANCHOR Radio Status */
 
 .input-radioStatus.filterCompleted {
-    border-color: var(--color-green);
+    border-color: var(--color-green-norm);
 }
 
 .input-radioStatus.filterReading {
@@ -398,7 +402,7 @@ option {
 }
 
 .input-radioStatus.filterCompleted:checked {
-    background-color: var(--color-green);
+    background-color: var(--color-green-norm);
 }
 
 .input-radioStatus.filterNotStarted:checked {
@@ -588,7 +592,7 @@ section.body {
     text-align: center;
     transform: rotate(20deg);
 
-    background: var(--color-yellow);
+    background: var(--color-yellow-norm);
 
     margin: .5rem;
 
@@ -603,7 +607,7 @@ section.body {
     left: 0;
     height: 50px;
     width: 50px;
-    background: var(--color-yellow);
+    background: var(--color-yellow-norm);
     transform: rotate(135deg);
 
     z-index: -2;
@@ -691,7 +695,7 @@ section.body {
 }
 
 .progress-bookState.completed {
-    color: var(--color-green);
+    color: var(--color-green-norm);
 }
 
 .progress-bookState.notStarted {
@@ -789,7 +793,7 @@ section.body {
 }
 
 .button-bookEdit.removeBook {
-    background-color: var(--color-red);
+    background-color: var(--color-red-norm);
     color: var(--color-dark-red);
 }
 
@@ -834,7 +838,7 @@ section.body {
 
 /* Book Addition */
 .button-fixed.bookAdd {
-    background-color: var(--color-blue);
+    background-color: var(--color-blue-norm);
     color: var(--color-blue-dark);
 }
 
@@ -876,6 +880,7 @@ section.body {
     background-color: var(--color-brown-light);
 
     margin-top: -5%;
+    margin-right: -5%;
 
     grid-template:
         [row-start1] "imageSection bookTab1 bookTab2" .65fr [row-end1] [row-start2] "imageSection main main" 1fr [row-end2] [row-start3] "imageSection main main" 1fr [row-end3] [row-start4] "imageSection main main" 1fr [row-end4] [row-start5] "imageSection main main" 1fr [row-end5] [row-start6] "imageSection main main" 1fr [row-end6] / 2.5fr 3fr 3fr;
@@ -889,7 +894,160 @@ section.body {
 /* SECTION Section1 Image Setup*/
 .book-section1 {
     grid-area: imageSection;
+
+    min-width: 30%;
+
+    padding: .5rem;
+
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
 }
+
+.image-book.edit {
+    height: 15rem;
+
+    margin: initial;
+}
+
+/* SECTION Image Add */
+
+.input-checkBox.editImage {
+    gap: 1rem;
+
+    margin-top: .8rem;
+
+
+    color: var(--color-brown-dark);
+    background-color: var(--color-brown-norm);
+
+    border: none;
+
+    width: 100%;
+    height: 2rem;
+}
+
+.input-checkBox.editImage::before {
+    width: 1.5rem;
+    height: 1.5rem;
+
+    background: url(./assets/web/svg-icons/image-edit.svg) no-repeat center / 1.5rem;
+
+    filter: var(--filter-brown-dark);
+}
+
+.input-checkBox.editImage:checked {
+    border-bottom-left-radius: 0rem;
+    border-bottom-right-radius: 0rem;
+}
+
+.input-element.openAddImage {
+    align-self: center;
+
+    /* Avoids Flex basis defined for input elements */
+    width: 100%;
+    max-height: 28%;
+
+    margin: 0 .25rem;
+
+    display: none;
+    flex-flow: column nowrap;
+    justify-content: center;
+
+    background-color: var(--color-brown-lighter);
+
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.input-checkBox.editImage:checked~.input-element.openAddImage {
+    display: flex;
+}
+
+
+.input-type.imageUrl {
+    margin: 0 auto;
+
+    max-width: 50%
+}
+
+.input-element.openAddImage>span.error-text::before {
+    background: url(./assets/web/svg-icons/link.svg) no-repeat center / 1rem;
+}
+
+/* ANCHOR Image Buttons */
+.button-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+
+    height: fit-content;
+    margin: 0 .5rem;
+}
+
+.button-image.addImage,
+.button-image.removeImage {
+    border-radius: 50%;
+
+    margin: 0;
+    padding: .45rem;
+    padding-left: .5rem;
+
+
+    width: 2.5rem;
+    height: 2.5rem;
+
+    opacity: .9;
+}
+
+.button-image.addImage {
+    background-color: var(--color-green-dark);
+}
+
+.button-image.removeImage {
+    background-color: var(--color-red-dark);
+}
+
+.icon-Button.addImage {
+    background: url(./assets/web/svg-icons/image-add.svg) no-repeat center / 1.5rem;
+
+    filter: var(--filter-green);
+}
+
+.icon-Button.removeImage {
+    background: url(./assets/web/svg-icons/image-remove.svg) no-repeat center / 1.5rem;
+
+    filter: var(--filter-red);
+}
+
+/* END !SECTION Image Add */
+
+/* ANCHOR Book Save Button */
+
+.button-element {
+    flex-basis: 100%;
+    margin-bottom: 10px;
+}
+
+.button.saveBook {
+    background-color: var(--color-green-norm);
+    color: var(--color-green-dark);
+
+    margin-top: auto;
+}
+
+.button.saveBook::after {
+    content: 'Save All Edit'
+}
+
+.icon-Button.saveBook {
+
+    background: url(./assets/web/svg-icons/save.svg) no-repeat center / 1.5rem;
+
+    filter: var(--filter-green-dark);
+}
+
 
 /* END !SECTION Section1 Image Setup*/
 
@@ -942,6 +1100,8 @@ section.body {
 .book-section2 {
     grid-area: main;
 
+    display: flex;
+
     overflow-y: auto;
     overflow-x: hidden;
 
@@ -952,6 +1112,7 @@ section.body {
 .tabWindow-bookDetails {
     display: flex;
     flex-flow: row wrap;
+
     position: relative;
 
 }
@@ -967,13 +1128,13 @@ section.body {
 /* ANCHOR Input Typed */
 
 .input-element {
-    flex-basis: 40%;
+    flex-basis: 30%;
     flex-grow: 1;
 
     display: flex;
     flex-flow: column;
 
-    margin: .45rem;
+    margin: .5rem;
 }
 
 .input-element.page {
@@ -988,8 +1149,34 @@ section.body {
 }
 
 .input-type {
-    border: none;
+    border: 3px solid var(--color-brown-norm);
     padding: 0rem 2.5rem;
+
+    color: var(--color-brown-dark);
+}
+
+.input-type:focus,
+.input-type:active {
+    outline: none;
+}
+
+.input-type.invalid {
+    border-color: var(--color-red-norm);
+}
+
+.input-type.invalid:focus,
+.input-type.invalid:active {
+    background-color: var(--color-red-light);
+}
+
+.input-type.valid {
+    border-color: var(--color-green-norm);
+}
+
+.input-type.valid:focus,
+.input-type.valid:active {
+    background-color: var(--color-green-light);
+
 }
 
 .input-element>label,
@@ -1005,19 +1192,27 @@ span.error-text {
     position: relative;
     min-height: 1rem;
 
+    font-size: .65rem;
+    font-weight: 600;
+
+    padding: .2rem .5rem;
+
+    color: var(--color-red-norm);
 }
 
 span.error-text::before {
     content: '';
 
     position: absolute;
-    top: -1.75rem;
+    top: -1.9rem;
     left: .85rem;
 
     width: 1.5rem;
     height: 1.5rem;
 
     filter: var(--filter-gray);
+
+    opacity: 1;
 }
 
 .input-type:active+span.error-text::before,
@@ -1044,17 +1239,13 @@ span.error-text::before {
 /* Adding Icons on Error Input */
 .input-type.error:active~span.error-text,
 .input-type.error:focus~span.error-text {
-    font-size: .7rem;
-    font-weight: 600;
 
     min-height: 1rem;
 
     padding: .2rem .5rem;
-
-    color: var(--color-red);
 }
 
-.input-type.error~span.error-text::after {
+.input-type~span.error-text::after {
     content: '';
 
     position: absolute;
@@ -1063,10 +1254,18 @@ span.error-text::before {
 
     width: 1.5rem;
     height: 1.5rem;
+}
 
+.input-type.invalid~span.error-text::after {
     background: url(./assets/web/svg-icons/error-report.svg) no-repeat center / 1.5rem;
 
     filter: var(--filter-red);
+}
+
+.input-type.valid~span.error-text::after {
+    background: url(./assets/web/svg-icons/check-circle.svg) no-repeat center / 1.5rem;
+
+    filter: var(--filter-green);
 }
 
 /* ANCHOR Star Rating */
@@ -1170,31 +1369,6 @@ input:checked~.ratingControl-stars {
     width: 1.03rem;
 }
 
-/* ANCHOR Book Save Button */
-
-.button-element {
-    flex-basis: 100%;
-    margin-bottom: 10px;
-}
-
-.button.saveBook {
-    background-color: var(--color-green);
-    color: var(--color-green-dark);
-
-    margin: auto;
-}
-
-.button.saveBook::after {
-    content: 'Save Edit'
-}
-
-.icon-Button.saveBook {
-
-    background: url(./assets/web/svg-icons/save.svg) no-repeat center / 1.5rem;
-
-    filter: var(--filter-green-dark);
-}
-
 /* END !SECTION Book Details */
 
 /* SECTION Book Logs */
@@ -1206,7 +1380,7 @@ input:checked~.ratingControl-stars {
 
 /* ANCHOR Book Addition Cancel Button */
 .button-fixed.bookCancel {
-    background-color: var(--color-red);
+    background-color: var(--color-red-norm);
     color: var(--color-red-dark);
 }
 

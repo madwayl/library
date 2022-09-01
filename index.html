@@ -238,13 +238,32 @@
                         - Images
                         - Add or Delete Buttons -->
             <main class="book-section1">
-                <img src="" alt="" class="image image-book edit">
-                <input type="url" name="image-url" id="imageUrl" placeholder="Paste Image URL">
-                <button class="button button-addImage">Add Image</button>
-                <button class="button button-removeImage">Remove Image</button>
+                <img src="./assets/web/svg-images/book/book3.svg" alt="" class="image image-book edit">
+
+                <input type="checkbox" class="input input-checkBox editImage" id="editImage" data-detailed="Edit Image">
+
+                <div class="input-element openAddImage">
+                    <input type="url" name="image-url" id="imageUrl" class="input input-type imageUrl"
+                        placeholder="Paste a Link">
+                    <span class="error-text"></span>
+
+                    <div class="button-image">
+                        <button class="button button-image addImage" id="addImageButton"><span
+                                class="icon-Button addImage">
+                            </span></button>
+                        <button class="button button-image removeImage" id="removeImageButton"><span
+                                class="icon-Button removeImage">
+                            </span></button>
+                    </div>
+                </div>
+
+                <button class="button saveBook" id="bookSaveButton"><span class="icon-Button saveBook">
+                    </span></button>
+
             </main>
             <!-- !SECTION BOOK SECTION 1 -->
 
+            <!-- ANCHOR Tabs for SECTION 2 -->
 
             <input type="radio" name="tab-status" id="bookDetails" class="input input-radioTab"
                 data-detailed="Book Detail" checked>
@@ -271,7 +290,7 @@
                     <div class="input-element author">
                         <label for="bookAuthor">Author</label>
                         <input type="text" name="book-author" id="bookAuthor" class="input input-type"
-                            placeholder="Author of the Book">
+                            placeholder="Author of the Book" required>
                         <span class="error-text"></span>
                     </div>
 
@@ -346,11 +365,6 @@
                         <input type="text" name="book-categories" id="bookCategories" class="input input-type"
                             placeholder="Comma Separated Text">
                         <span class="error-text"></span>
-                    </div>
-
-                    <div class="button-element">
-                        <button class="button saveBook" id="bookSaveButton"><span class="icon-Button saveBook">
-                            </span></button>
                     </div>
 
                 </main>
