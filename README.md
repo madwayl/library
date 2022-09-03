@@ -54,6 +54,14 @@ A Book Library Lookup
     - Have to set `display:block` to have it working
     - But why???
 
+- [] Tables are difficult to change the context of.
+    - Always have to use div inside them, for styling
+
+#### Text Wrapping
+
+- [] Can't wrap texts when on second line.
+    - Line should have a 
+
 #### CSS States
 
 - [x] Difference between Focus and Active

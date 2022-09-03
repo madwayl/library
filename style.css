@@ -21,8 +21,8 @@
     --color-white: #f3f3f3;
     --color-black: #0c0b08;
 
-    --color-brown-light: #F5ECE0;
     --color-brown-lighter: #FAF5F0;
+    --color-brown-light: #F5ECE0;
     --color-brown-norm: #D2A974;
     --color-brown-dark: #1F160A;
 
@@ -44,6 +44,9 @@
     --filter-gray: invert(91%) sepia(19%) saturate(190%) hue-rotate(21deg) brightness(79%) contrast(87%);
     --filter-red: invert(8%) sepia(52%) saturate(6057%) hue-rotate(342deg) brightness(130%) contrast(131%);
     --filter-green: invert(42%) sepia(48%) saturate(537%) hue-rotate(93deg) brightness(95%) contrast(91%);
+
+    --filter-red-light: invert(89%) sepia(25%) saturate(1372%) hue-rotate(294deg) brightness(115%) contrast(111%);
+    --filter-green-light: invert(95%) sepia(49%) saturate(189%) hue-rotate(68deg) brightness(97%) contrast(93%);
 
     --filter-invert: invert(1);
 }
@@ -112,7 +115,7 @@ body {
     border-radius: 5px;
     border: none;
 
-    font-family: 'Quicksand', sans-serif;
+    font-family: inherit;
     font-weight: 700;
     font-size: 1rem;
 
@@ -981,10 +984,16 @@ section.body {
     flex-flow: column nowrap;
     justify-content: center;
 
+    box-sizing: border-box;
+
     background-color: var(--color-brown-lighter);
 
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
+
+    border-width: 0px 3px 3px;
+    border-style: solid;
+    border-color: var(--color-brown-norm);
 }
 
 .input-checkBox.editImage:checked~.openAddImage {
@@ -1035,11 +1044,11 @@ section.body {
 }
 
 .button-image.addImage {
-    background-color: var(--color-green-dark);
+    background-color: var(--color-green-light);
 }
 
 .button-image.removeImage {
-    background-color: var(--color-red-dark);
+    background-color: var(--color-red-light);
 }
 
 .icon-Button.addImage {
@@ -1188,7 +1197,7 @@ section.body {
 
 .input-type {
     border: 3px solid var(--color-brown-norm);
-    padding: 0rem 2.5rem;
+    padding: 0rem 0.8rem 0rem 2.5rem;
 
     color: var(--color-brown-dark);
 }
@@ -1200,6 +1209,7 @@ section.body {
 
 .input-type.invalid {
     border-color: var(--color-red-norm);
+    padding: 0rem 2.5rem;
 }
 
 .input-type.invalid:focus,
@@ -1244,7 +1254,7 @@ span.error-text {
 }
 
 
-/* Adding Icons Front */
+/* Adding Icons for Input Element Front */
 
 
 span.error-text::before {
@@ -1296,7 +1306,7 @@ span.error-text::before {
     content: '';
 
     position: absolute;
-    top: -1.75rem;
+    top: -1.95rem;
     right: .75rem;
 
     width: 1.5rem;
@@ -1433,19 +1443,19 @@ input:checked~.ratingControl-stars {
     position: relative;
 }
 
-
-table {
-    border-spacing: 0rem;
-    /* border-collapse: collapse; */
-}
-
 .table>tr {
     height: 2.25rem;
 }
 
-th {
+thead {
     position: sticky;
     top: 0;
+
+    z-index: 5;
+    background-color: var(--color-white);
+}
+
+th {
 
     font-size: .9rem;
 
@@ -1455,6 +1465,8 @@ th {
     text-align: left;
 
     padding: .5rem;
+
+    white-space: nowrap;
 }
 
 td {
@@ -1466,10 +1478,80 @@ td {
 
 .table-body {
     font-size: .8rem;
-
-    text-overflow: ellipsis;
 }
 
+tbody>tr>td>div.logDesc {
+    max-height: 2rem;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    position: relative
+}
+
+tr.default.rowRevealed>td>div.logDesc::after,
+tr.default:hover>td>div.longDesc::after {
+    content: "";
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 70%;
+    height: 1.2em;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0), var(--color-brown-lighter) 70%);
+}
+
+tr.default:not(.rowRevealed)>td>div.longDesc::after {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0), var(--color-brown-light) 70%);
+
+}
+
+/* ANCHOR Sorting */
+
+.input.input-checkBox.header {
+    border: none;
+
+    padding: 0rem;
+    margin: 0rem;
+
+    position: relative;
+
+    min-height: initial;
+
+    font-weight: 700;
+    font-size: .9rem;
+}
+
+
+
+.input.input-checkBox.header::before {
+    content: attr(data-detailed);
+}
+
+.input.input-checkBox.header:checked:before {
+
+    width: inherit;
+    height: inherit;
+
+    background: none;
+    filter: initial;
+    color: var(--color-black);
+
+}
+
+.input.input-checkBox.header::after {
+
+    content: '';
+
+    width: 1.5rem;
+    height: 1.5rem;
+
+    background: url(./assets/web/svg-icons/triangle-up.svg) no-repeat center / 1.25rem;
+}
+
+.input.input-checkBox.header:checked::after {
+    background: url(./assets/web/svg-icons/triangle-down.svg) no-repeat center / 1.25rem;
+}
 
 /* ANCHOR Reveal Hidden */
 
@@ -1500,13 +1582,52 @@ tbody>tr.default>td {
     cursor: pointer;
 }
 
-tbody>tr.default:hover>td {
+tbody>tr.default:hover>td,
+tbody>tr.default.rowRevealed>td {
     background-color: var(--color-brown-lighter);
 }
 
 .head-onPage,
 .body-onPage {
     text-align: right;
+}
+
+.body-iconState {
+    vertical-align: top;
+    padding: .2rem;
+}
+
+
+
+/* Sticky Icon */
+
+.body-iconState>.iconWrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+
+    /* height: 1.5rem; */
+    /* width: 2rem; */
+
+    border-radius: 50%;
+    border: 3px solid var(--color-brown-norm);
+
+    background-color: var(--color-brown-light);
+
+    margin: .25rem 0rem;
+    position: sticky;
+    top: 2.95rem;
+
+}
+
+.iconWrapper>img.icon {
+    margin: .05rem;
+    padding: 0rem;
+
+    height: 1.5rem;
+    width: 1.5rem;
+
+    border-radius: 50%;
 }
 
 /* ANCHOR Revealed Inner Display */
@@ -1538,6 +1659,49 @@ tr.revealOnClick>td>div.hiddenRow {
     font-weight: 500;
 }
 
+.revealOnClick-list.logDesc>.revealOnClick-listDefinition {
+    hyphens: auto;
+}
+
+/* Log Notes Buttons */
+
+.revealOnClick-list.logEditButtons {
+    display: flex;
+    gap: 1.5rem;
+
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.revealOnClick-list>.button-image {
+    border-radius: 50%;
+
+    padding: 0rem;
+}
+
+.button-image.editLog {
+    background-color: var(--color-green-light);
+}
+
+.button-image.removeLog {
+    background-color: var(--color-red-light);
+}
+
+.revealOnClick-list>.button-image>.icon-Button {
+    margin: .2rem;
+}
+
+.icon-Button.editLog {
+    background: url(./assets/web/svg-icons/edit-note.svg) no-repeat center / 1.5rem;
+
+    filter: var(--filter-green);
+}
+
+.icon-Button.removeLog {
+    background: url(./assets/web/svg-icons/remove-note.svg) no-repeat center / 1.5rem;
+
+    filter: var(--filter-red);
+}
 
 /* END END !SECTION Log Table */
 
