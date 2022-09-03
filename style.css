@@ -1008,10 +1008,7 @@ section.body {
     max-width: 90%
 }
 
-.input-element.addImageUrl>.input-type {
-    margin: 0rem;
-    padding: 0rem 2.5rem;
-}
+
 
 .input-element.addImageUrl>span.error-text::before {
     background: url(./assets/web/svg-icons/link.svg) no-repeat center / 1rem;
@@ -1209,7 +1206,7 @@ section.body {
 
 .input-type.invalid {
     border-color: var(--color-red-norm);
-    padding: 0rem 2.5rem;
+    padding: 0rem 2.15rem;
 }
 
 .input-type.invalid:focus,
@@ -1219,6 +1216,7 @@ section.body {
 
 .input-type.valid {
     border-color: var(--color-green-norm);
+    padding: 0rem 2.15rem;
 }
 
 .input-type.valid:focus,
