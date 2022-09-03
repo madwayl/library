@@ -1745,13 +1745,14 @@ div.selected {
 
     background-color: var(--color-white);
 
-    margin-bottom: .25rem;
-
     border-radius: 5px;
     border: 3px solid var(--color-brown-norm);
 
     position: relative;
+}
 
+div.selected:hover {
+    background-color: var(--color-brown-light);
 }
 
 div.selected::after {
@@ -1800,7 +1801,7 @@ ul.list-selectOptions {
     flex-flow: column nowrap;
 
     padding: 0rem;
-    margin: 0rem;
+    margin: .25rem 0rem 0rem;
 
     position: absolute;
 
