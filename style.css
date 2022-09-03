@@ -1113,6 +1113,7 @@ section.body {
 }
 
 .input-radioTab#bookDetails:not(:checked)~.book-section2>.tabWindow-bookDetails {
+
     display: none;
 }
 
@@ -1123,6 +1124,12 @@ section.body {
 .input-radioTab:not(:checked) {
     background-color: var(--color-brown-norm);
 }
+
+.input-radioTab#bookLogs:not(:checked) {
+
+    border-top-right-radius: 10px;
+}
+
 
 .input-radioTab::before {
     content: '';
@@ -1164,6 +1171,8 @@ section.body {
 .heading.tabHeading {
     font-size: 1.65rem;
     margin-left: .65rem;
+
+    width: 1rem 0rem auto .25rem;
 
     flex-basis: 100%;
 }
