@@ -69,7 +69,23 @@ A Book Library Lookup
     - Active is when the user clicks / activates the element
         - The time for active is ususally quite short
 
+#### Input
 
+- [] `select` most difficult to manipulte with styles
+    - Element inherit OS Properties.
+    - Use Data List
+    - Can only change colors of `option` or `select` inner field
+
+#### z-Index
+
+- [x] Allow overflowing of one element only with z-index
+    - Remove `position: relative` 
+        - to avoid relatively positioning of `overflow: hidden` elements
+
+#### Scroll
+
+- [] `overflow: scroll` extends to additional space
+    - why???
 
 # Attribution
 
