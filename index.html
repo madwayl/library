@@ -33,7 +33,7 @@
             <button class="button button-login"><span class="icon-Button logIn"></span></button>
         </div>
     </header>
-    <!-- !SECTION Header -->
+    <!-- END !SECTION Header -->
 
     <!-- SECTION Filter Section 
         1. Filter
@@ -76,7 +76,7 @@
         </div>
 
     </section>
-    <!-- !SECTION Filter Section -->
+    <!-- END !SECTION Filter Section -->
 
     <!-- SECTION Main Body
         1. Books Section
@@ -125,7 +125,7 @@
                         class="icon-Button removeBook"></span>Delete</button>
             </div>
         </main>
-        <!-- !SECTION Book -->
+        <!-- END !SECTION Book -->
 
         <main class="book-overview displayNone" id="book2">
             <img src="https://i.guim.co.uk/img/media/a39b7a5a36961a7f4ba5ec245c4a20c43f087c84/0_0_226_346/master/226.jpg?width=300&quality=45&auto=format&fit=max&dpr=2&s=87a8f9e92fb6146f7e32a0ebd9f386da"
@@ -224,7 +224,7 @@
             </span></button>
 
     </section>
-    <!-- !SECTION Main Body -->
+    <!-- END !SECTION Main Body -->
 
     <!-- SECTION PopUp 
         1. Popup Overlay
@@ -242,10 +242,12 @@
 
                 <input type="checkbox" class="input input-checkBox editImage" id="editImage" data-detailed="Edit Image">
 
-                <div class="input-element openAddImage">
-                    <input type="url" name="image-url" id="imageUrl" class="input input-type imageUrl"
-                        placeholder="Paste a Link">
-                    <span class="error-text"></span>
+                <div class="openAddImage">
+                    <div class="input-element addImageUrl">
+                        <input type="url" name="image-url" id="imageUrl" class="input input-type imageUrl"
+                            placeholder="Paste a Link">
+                        <span class="error-text"></span>
+                    </div>
 
                     <div class="button-image">
                         <button class="button button-image addImage" id="addImageButton"><span
@@ -261,14 +263,15 @@
                     </span></button>
 
             </main>
-            <!-- !SECTION BOOK SECTION 1 -->
+            <!-- END !SECTION BOOK SECTION 1 -->
 
             <!-- ANCHOR Tabs for SECTION 2 -->
 
             <input type="radio" name="tab-status" id="bookDetails" class="input input-radioTab"
-                data-detailed="Book Detail" checked>
+                data-detailed="Book Detail">
 
-            <input type="radio" name="tab-status" id="bookLogs" class="input input-radioTab" data-detailed="Book Log">
+            <input type="radio" name="tab-status" id="bookLogs" class="input input-radioTab" data-detailed="Book Log"
+                checked>
 
             <!-- SECTION BOOK SECTION 2 
                         - Tab1: Book Details
@@ -319,6 +322,8 @@
                             class="input input-radioStatus filterCompleted" data-detailed="Completed">
                     </div>
 
+                    <!-- ANCHOR Star Rating
+                                LINK style.css:1139 -->
                     <div class="input-element rating">
                         <label class="text text-bookRating">Your Rating</label>
                         <div class="ratingControl">
@@ -369,36 +374,108 @@
 
                 </main>
 
-                <!-- !SECTION  Book Details Tab -->
+                <!-- END !SECTION  Book Details Tab -->
 
                 <!-- SECTION Book Logs Tab -->
-                <main class="tab tab-bookLogs displayNone">
-                    <h3 class="heading heading-tabHeading">Log your Book Reading</h3>
-                    <table class="table-bookLogs">
-                        <thead class="table table-header">
-                            <tr>
-                                <th class="head head-timeStamp">Timestamp</th>
-                                <th class="head head-entryLog">Entry Log</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table table-body">
-                            <tr>
-                                <td class="body body-timeStamp">12,321,32</td>
-                                <td class="body body-entryLog">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Quibusdam, sed!</td>
-                            </tr>
-                            <tr>
-                                <td class="body body-timeStamp">12,321,32</td>
-                                <td class="body body-entryLog">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Quibusdam, sed!</td>
-                            </tr>
-                            <tr>
-                                <td class="body body-timeStamp">12,321,32</td>
-                                <td class="body body-entryLog">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Quibusdam, sed!</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <main class="tabWindow tabWindow-bookLogs">
+                    <h3 class="heading tabHeading">Log your Book Reading</h3>
+                    <div class="tableWrapper">
+                        <table class="table-bookLogs">
+                            <thead class="table table-header">
+                                <tr>
+                                    <th class="head head-timeStamp">Timestamp</th>
+                                    <th class="head head-onPage">Book Page</th>
+                                    <th class="head head-entryLog">Log Description</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody class="table table-body">
+                                <tr class="default">
+                                    <td class="body body-timeStamp">12,321,32</td>
+                                    <td class="body body-onPage">321</td>
+                                    <td class="body body-entryLog">Lorem ipsum dolor sit amet consectetur adipisicing
+                                        elit.
+                                        Quibusdam, sed!</td>
+                                    <td class="body body-editArrow">
+                                        <input type="checkbox" name="" id=""
+                                            class="input input-checkBox button button-Row">
+                                    </td>
+                                </tr>
+                                <tr class="default">
+                                    <td class="body body-timeStamp">12,321,32</td>
+                                    <td class="body body-onPage">321</td>
+                                    <td class="body body-entryLog">Lorem ipsum dolor sit amet consectetur adipisicing
+                                        elit.
+                                        Quibusdam, sed!</td>
+                                    <td class="body body-editArrow">
+                                        <input type="checkbox" name="" id="checkBoxButtonRow"
+                                            class="input input-checkBox button button-Row">
+                                    </td>
+                                </tr>
+                                <tr class="revealOnClick">
+                                    <td colspan="12">
+                                        <div class="hiddenRow">
+                                            <dl class="revealOnClick-list createdDate">
+                                                <dt class="revealOnClick-listTerm">
+                                                    Created Date
+                                                </dt>
+                                                <dd class="revealOnClick-listDefinition">
+                                                    12.123.123:12312:123
+                                                </dd>
+                                            </dl>
+                                            <dl class="revealOnClick-list updatedDate">
+                                                <dt class="revealOnClick-listTerm">
+                                                    Updated Date
+                                                </dt>
+                                                <dd class="revealOnClick-listDefinition">
+                                                    12.123.123:12312:123
+                                                </dd>
+                                            </dl>
+                                            <dl class="revealOnClick-list onPage">
+                                                <dt class="revealOnClick-listTerm">
+                                                    On Page
+                                                </dt>
+                                                <dd class="revealOnClick-listDefinition">
+                                                    123
+                                                </dd>
+                                            </dl>
+                                            <dl class="revealOnClick-list logDesc">
+                                                <dt class="revealOnClick-listTerm">
+                                                    Log Description
+                                                </dt>
+                                                <dd class="revealOnClick-listDefinition">
+                                                    fasdfasdfadsfs adfsdfasdfasd fasfsafsdfasdfa sfasddddddd ddddddddd
+                                                    fasdf
+                                                    sadf
+                                                    asdf
+                                                    as fd asdf asdfsdf
+                                                </dd>
+                                            </dl>
+                                            <dl class="revealOnClick-list onPage">
+                                                <dt class="revealOnClick-listTerm">
+                                                    On Page
+                                                </dt>
+                                                <dd class="revealOnClick-listDefinition">
+                                                    123
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="default">
+                                    <td class="body body-timeStamp">12,321,32</td>
+                                    <td class="body body-onPage">321</td>
+                                    <td class="body body-entryLog">Lorem ipsum dolor sit amet consectetur adipisicing
+                                        elit.
+                                        Quibusdam, sed!</td>
+                                    <td class="body body-editArrow">
+                                        <input type="checkbox" name="" id=""
+                                            class="input input-checkBox button button-Row">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="table table-input">
                         <input type="datetime-local" name="timestamp" id="timestamp" class="input input-bookLog">
                         <textarea name="book-log" id="bookLog" class="input input-bookLog">
@@ -407,10 +484,10 @@
                     </div>
 
                 </main>
-                <!-- !SECTION Book Logs Tab -->
+                <!-- END !SECTION Book Logs Tab -->
 
             </main>
-            <!-- !SECTION BOOK SECTION 2  -->
+            <!-- END !SECTION BOOK SECTION 2  -->
 
         </main>
 
@@ -418,7 +495,7 @@
             </span></button>
 
     </section>
-    <!-- !SECTION PopUp -->
+    <!-- END !SECTION PopUp -->
 
     <!-- SECTION Footer
         1. Name & Logo & Year-->
@@ -429,7 +506,7 @@
         </a>
         <p class="text text-foot">2022</p>
     </footer>
-    <!-- !SECTION Footer -->
+    <!-- END !SECTION Footer -->
 
 
 </body>

@@ -62,8 +62,31 @@ body {
 
 
     font-family: 'Quicksand', sans-serif;
+}
+
+/* ANCHOR WebKit ScrollBar */
+::-webkit-scrollbar {
+    width: .25rem;
+
+    background-color: transparent;
 
 }
+
+::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 1.2rem;
+}
+
+:hover::-webkit-scrollbar {
+    width: .25rem;
+
+    background-color: var(--color-brown-light);
+}
+
+:hover::-webkit-scrollbar-thumb {
+    background-color: var(--color-brown-norm);
+}
+
 
 /* ANCHOR Heading */
 .heading {
@@ -171,6 +194,10 @@ body {
     height: 1.5rem;
     background: url(./assets/web/svg-icons/check-circle-fill.svg) no-repeat center / 1.2rem;
     filter: var(--filter-invert);
+}
+
+.input-checkBox.button:checked::before {
+    background: none;
 }
 
 .input-checkBox::after,
@@ -301,7 +328,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
 }
 
 
-/* !SECTION Header */
+/* END !SECTION Header */
 
 /* SECTION Filter */
 
@@ -443,7 +470,7 @@ option {
     background-color: #bd4b4b;
 }
 
-/* !SECTION Filter */
+/* END !SECTION Filter */
 
 /* SECTION Body */
 
@@ -821,7 +848,7 @@ section.body {
     filter: var(--filter-red-dark);
 }
 
-/* !SECTION Book Overview */
+/* END !SECTION Book Overview */
 
 /* ANCHOR Body Button */
 
@@ -853,7 +880,7 @@ section.body {
     filter: var(--filter-blue-dark);
 }
 
-/* !SECTION Body */
+/* END !SECTION Body */
 
 /* SECTION Pop Up */
 
@@ -880,7 +907,6 @@ section.body {
     background-color: var(--color-brown-light);
 
     margin-top: -5%;
-    margin-right: -5%;
 
     grid-template:
         [row-start1] "imageSection bookTab1 bookTab2" .65fr [row-end1] [row-start2] "imageSection main main" 1fr [row-end2] [row-start3] "imageSection main main" 1fr [row-end3] [row-start4] "imageSection main main" 1fr [row-end4] [row-start5] "imageSection main main" 1fr [row-end5] [row-start6] "imageSection main main" 1fr [row-end6] / 2.5fr 3fr 3fr;
@@ -924,7 +950,7 @@ section.body {
     border: none;
 
     width: 100%;
-    height: 2rem;
+    height: 2.5rem;
 }
 
 .input-checkBox.editImage::before {
@@ -941,7 +967,7 @@ section.body {
     border-bottom-right-radius: 0rem;
 }
 
-.input-element.openAddImage {
+.openAddImage {
     align-self: center;
 
     /* Avoids Flex basis defined for input elements */
@@ -949,6 +975,7 @@ section.body {
     max-height: 28%;
 
     margin: 0 .25rem;
+    padding: .35rem 0rem;
 
     display: none;
     flex-flow: column nowrap;
@@ -960,18 +987,24 @@ section.body {
     border-bottom-right-radius: 5px;
 }
 
-.input-checkBox.editImage:checked~.input-element.openAddImage {
+.input-checkBox.editImage:checked~.openAddImage {
     display: flex;
 }
 
 
-.input-type.imageUrl {
-    margin: 0 auto;
+.input-element.addImageUrl {
+    margin: 0rem auto;
+    padding: 0rem;
 
-    max-width: 50%
+    max-width: 90%
 }
 
-.input-element.openAddImage>span.error-text::before {
+.input-element.addImageUrl>.input-type {
+    margin: 0rem;
+    padding: 0rem 2.5rem;
+}
+
+.input-element.addImageUrl>span.error-text::before {
     background: url(./assets/web/svg-icons/link.svg) no-repeat center / 1rem;
 }
 
@@ -1021,7 +1054,7 @@ section.body {
     filter: var(--filter-red);
 }
 
-/* END !SECTION Image Add */
+/* END END !SECTION Image Add */
 
 /* ANCHOR Book Save Button */
 
@@ -1049,7 +1082,7 @@ section.body {
 }
 
 
-/* END !SECTION Section1 Image Setup*/
+/* END END !SECTION Section1 Image Setup*/
 
 
 /* SECTION Tab Radio */
@@ -1073,6 +1106,14 @@ section.body {
     gap: 1rem
 }
 
+.input-radioTab#bookDetails:not(:checked)~.book-section2>.tabWindow-bookDetails {
+    display: none;
+}
+
+.input-radioTab#bookLogs:not(:checked)~.book-section2>.tabWindow-bookLogs {
+    display: none;
+}
+
 .input-radioTab:not(:checked) {
     background-color: var(--color-brown-norm);
 }
@@ -1092,7 +1133,7 @@ section.body {
     background: url(./assets/web/svg-icons/table.svg) no-repeat center / 1.5rem;
 }
 
-/* END !SECTION Tab Radio */
+/* END END !SECTION Tab Radio */
 
 
 /* SECTION Section2 */
@@ -1109,12 +1150,9 @@ section.body {
 
 /* SECTION Book Details */
 
-.tabWindow-bookDetails {
+.tabWindow {
     display: flex;
     flex-flow: row wrap;
-
-    position: relative;
-
 }
 
 .heading.tabHeading {
@@ -1187,10 +1225,11 @@ section.body {
     margin: .25rem .5rem;
 }
 
-/* Adding Icons Front */
+/* Error Texts */
+
 span.error-text {
     position: relative;
-    min-height: 1rem;
+    min-height: 0rem;
 
     font-size: .65rem;
     font-weight: 600;
@@ -1199,6 +1238,14 @@ span.error-text {
 
     color: var(--color-red-norm);
 }
+
+.input-type.invalid+span.error-text {
+    min-height: 1rem;
+}
+
+
+/* Adding Icons Front */
+
 
 span.error-text::before {
     content: '';
@@ -1270,7 +1317,7 @@ span.error-text::before {
 
 /* ANCHOR Star Rating */
 
-/* How it Works:
+/* NOTE How it Works:
     1. Define a Div .ratingControl
     */
 
@@ -1369,13 +1416,135 @@ input:checked~.ratingControl-stars {
     width: 1.03rem;
 }
 
-/* END !SECTION Book Details */
+/* END END !SECTION Book Details */
 
 /* SECTION Book Logs */
 
-/* END !SECTION Book Logs */
+.tabWindow-bookLogs {}
 
-/* END !SECTION Section2 */
+/* SECTION Log Table */
+
+.tableWrapper {
+    max-height: 60%;
+    overflow-y: auto;
+
+    margin-left: .25rem;
+
+    position: relative;
+}
+
+
+table {
+    border-spacing: 0rem;
+    /* border-collapse: collapse; */
+}
+
+.table>tr {
+    height: 2.25rem;
+}
+
+th {
+    position: sticky;
+    top: 0;
+
+    font-size: .9rem;
+
+    background-color: var(--color-brown-light);
+    border-bottom: 3px solid var(--color-brown-norm);
+
+    text-align: left;
+
+    padding: .5rem;
+}
+
+td {
+    padding: .2rem .5rem;
+    margin: 0;
+
+    background-color: var(--color-white);
+}
+
+.table-body {
+    font-size: .8rem;
+
+    text-overflow: ellipsis;
+}
+
+
+/* ANCHOR Reveal Hidden */
+
+td.body-editArrow {
+    padding: 0rem;
+}
+
+.input-checkBox.button {
+    background: url(./assets/web/svg-icons/unfold-more.svg) no-repeat center / 1.15rem;
+
+    border: none;
+    border-radius: 0rem;
+
+    padding: 0rem;
+    margin: 0rem;
+
+    width: 100%;
+
+    /* Override Flex Properties defined in LINK style.css:147 */
+    display: block;
+}
+
+.input-checkBox.button:checked {
+    background: url(./assets/web/svg-icons/unfold-less.svg) no-repeat center / 1.15rem;
+}
+
+tbody>tr.default>td {
+    cursor: pointer;
+}
+
+tbody>tr.default:hover>td {
+    background-color: var(--color-brown-lighter);
+}
+
+.head-onPage,
+.body-onPage {
+    text-align: right;
+}
+
+/* ANCHOR Revealed Inner Display */
+
+tr.revealOnClick>td {
+    padding: 0;
+}
+
+tr.revealOnClick>td>div.hiddenRow {
+
+    padding: .5rem;
+
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.revealOnClick-list {
+    margin: .5rem 0;
+}
+
+.revealOnClick-listTerm {
+    font-weight: 800;
+}
+
+.revealOnClick-listDefinition {
+    margin: .25rem 0rem;
+    font-weight: 500;
+}
+
+
+/* END END !SECTION Log Table */
+
+
+/* END END !SECTION Book Logs */
+
+/* END END !SECTION Section2 */
 
 
 /* ANCHOR Book Addition Cancel Button */
@@ -1395,7 +1564,7 @@ input:checked~.ratingControl-stars {
     filter: var(--filter-red-dark);
 }
 
-/* END !SECTION Pop Up */
+/* END END !SECTION Pop Up */
 
 /* SECTION Foot */
 
@@ -1412,4 +1581,4 @@ footer.foot {
     display: contents;
 }
 
-/* END !SECTION Foot */
+/* END END !SECTION Foot */

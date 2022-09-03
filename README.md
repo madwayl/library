@@ -45,6 +45,15 @@ A Book Library Lookup
 
 - [x] Icons are best added with a `span` element below the element that needs to show on hover.
 
+##### Tables
+
+- [] Adding `flex` on table `td` affects it to one column only.
+    - Why???
+
+- [] Issues with `overflow` property on table
+    - Have to set `display:block` to have it working
+    - But why???
+
 #### CSS States
 
 - [x] Difference between Focus and Active
