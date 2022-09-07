@@ -1,9 +1,14 @@
+// SECTION Sort Default Rows
 
-// SECTION Display Detailed Row on Table Row Click
-// LINK index.html:395
+// END !SECTION Sort Default Rows
 
-// Default Row Selected
-const tableRows = document.querySelectorAll('tr.default')
+
+// SECTION Add New Log
+// Table Body
+const tableBody = document.querySelector('tbody.table.table-body')
+
+// Submit Log Button Element
+const logButton = document.querySelector('.button.icon-Button.log#logButton');
 
 // Input Elements
 const selectOption = document.querySelector('.table-input>.input-book-log>div.select-option.wrapper>div.selected>li')
@@ -11,10 +16,124 @@ const bookPageInput = document.querySelector('.input.input-bookLog#bookPage')
 const timeStampRead = document.querySelector('.input.input-bookLog#timestamp')
 const bookLog = document.querySelector('.input.input-bookLog#bookLog')
 
-// Submit Log Button Element
-const submitLogButton = document.querySelector('.button.icon-Button.submitLog#logButton')
+function getDate() {
+    let currentDate = new Date()
+    function appendZero(num) {
+        if (num < 10) return '0' + num
+        else return num
+    }
 
-// SECTION On Edit Button Event
+    return '' + currentDate.getFullYear() + '-' + appendZero(currentDate.getMonth() + 1) + '-' + appendZero(currentDate.getDate()) + ' ' + appendZero(currentDate.getHours()) + ':' + appendZero(currentDate.getMinutes())
+}
+
+// Limit Date
+timeStampRead.addEventListener('click', e => {
+    e.currentTarget.setAttribute('max', Date(getDate().replace(' ', 'T')))
+})
+
+function addLogRow(logTypeTextInput, logTypeImgInput, page, timeStampReadInput, bookLogInput) {
+    // SECTION Creating New Row
+    const newRow = document.createElement('tr')
+    newRow.classList.add('default')
+    date = new Date()
+
+    // Creating a Unique ID for Row
+    uniqueID = new Date().toISOString()
+
+    newRow.setAttribute('id', `default${uniqueID}`)
+
+    // ANCHOR Icon Data
+    const newIconData = document.createElement('td')
+    newIconData.className = 'body body-iconState'
+    newIconData.getAttribute('rowspan', '1')
+
+    const iconWrapper = document.createElement('div')
+    iconWrapper.classList.add('iconWrapper')
+
+    const iconImg = document.createElement('img')
+    iconImg.className = 'icon'
+    iconImg.setAttribute('src', logTypeImgInput)
+    iconImg.setAttribute('alt', logTypeTextInput)
+
+    iconWrapper.appendChild(iconImg)
+    newIconData.appendChild(iconWrapper)
+
+    // ANCHOR TimeStamp Data
+    const newtimeStampData = document.createElement('td')
+    newtimeStampData.className = 'body body-timeStamp'
+    newtimeStampData.textContent = timeStampReadInput
+
+    // ANCHOR onPage Data
+    const newPage = document.createElement('td')
+    newPage.className = 'body body-onPage'
+    newPage.textContent = page
+
+    // ANCHOR LogDesc Data
+    const newLog = document.createElement('td')
+    newLog.className = 'body body-entryLog'
+    const newlogDesc = document.createElement('div')
+    newlogDesc.className = 'logDesc'
+    newlogDesc.textContent = bookLogInput
+
+    newLog.appendChild(newlogDesc)
+
+    // ANCHOR Arrow Option
+    const newArrowLook = document.createElement('td')
+    newArrowLook.className = 'body body-editArrow'
+    const arrowIcon = document.createElement('input')
+    arrowIcon.className = 'input input-checkBox button button-Row'
+    arrowIcon.setAttribute('type', 'checkbox')
+    newArrowLook.appendChild(arrowIcon)
+
+    // ANCHOR Append to new Row
+    newRow.appendChild(newIconData)
+    newRow.appendChild(newtimeStampData)
+    newRow.appendChild(newPage)
+    newRow.appendChild(newLog)
+    newRow.appendChild(newArrowLook)
+
+    // END !SECTION Creating New Row
+
+    tableBody.appendChild(newRow)
+
+    newRow.scrollIntoView();
+
+    newRow.addEventListener('click', toggleRowClass)
+}
+
+// Submit Button Action
+function submitNewLog(e) {
+    let logTypeTextInput, logTypeImgInput, page, timeStampReadInput, bookLogInput;
+
+    logTypeTextInput = selectOption.children[0].getAttribute('alt')
+    logTypeImgInput = selectOption.children[0].getAttribute('src')
+
+    if (bookLog.value == "") bookLogInput = ''
+
+    if (timeStampRead.value == "") {
+        timeStampReadInput = getDate()
+    }
+
+    // TODO Change After Object Creation
+    if (bookPageInput.value == "") page = 321
+
+    // LINK layout.js:15
+    addLogRow(logTypeTextInput, logTypeImgInput, page, timeStampReadInput, bookLogInput)
+}
+
+// Submit Button Event Listener
+logButton.addEventListener('click', submitNewLog);
+
+// END !SECTION Add New Row
+
+
+// SECTION Display Detailed Row
+// LINK index.html:395
+
+// Default Row Selected
+const tableRows = document.querySelectorAll('tr.default')
+
+// 3.2 SECTION Edit Button Event
 function editLogButtonEvent(editLogButton, defaultRow, dataObject, logTypeImageInit) {
 
     editLogButton.addEventListener('click', () => {
@@ -39,8 +158,18 @@ function editLogButtonEvent(editLogButton, defaultRow, dataObject, logTypeImageI
         // Update bookLog Input Element
         bookLog.value = dataObject['Log Description'].replace(/ {2,}/g, "")
 
-        // ANCHOR Trigger on Submit Button
-        submitLogButton.addEventListener('click', () => {
+        // Remove Event Listerner for Submit Button
+        logButton.removeEventListener('click', submitNewLog);
+
+        // Update Class from Submit Button to Update Button
+        logButton.className = 'button icon-Button log updateLog'
+
+        // Select Update Button
+        const updateLogButton = document.querySelector('.button.icon-Button.log.updateLog#logButton');
+
+
+        // 3.2.1 ANCHOR Trigger on Update Button
+        updateLogButton.addEventListener('click', () => {
             if (bookLog.value == null) {
                 return false;
             }
@@ -81,16 +210,25 @@ function editLogButtonEvent(editLogButton, defaultRow, dataObject, logTypeImageI
             defaultRow.nextElementSibling.remove()
             defaultRow.firstElementChild.setAttribute('rowspan', '1')
 
+            // Change Class from Update to Submit Button
+            updateLogButton.className = 'button icon-Button log submitLog'
+
+            // Add Event Listener for Submit Button
+            logButton.addEventListener('click', submitNewLog);
+
+
             // Re-Initiate Hidden Row Creation
             // LINK layout.js:179
             hiddenRowPreWork(defaultRow)
 
+            defaultRow.scrollIntoView();
+
         }, { once: true })
     })
 }
-// END !SECTION On Edit Button Event
+// END !SECTION Edit Button Event
 
-// SECTION On Remove Button Event
+// 3.1 SECTION Remove Button Event
 function removeLogButtonEvent(removeLogButton, defaultRow) {
     removeLogButton.addEventListener('click', () => {
         defaultRow.nextElementSibling.remove()
@@ -99,7 +237,7 @@ function removeLogButtonEvent(removeLogButton, defaultRow) {
 }
 // END !SECTION On Remove Button Event
 
-// Function SECTION Create's Detailed Row
+// 3. SECTION Create Detailed Row
 function createDetailRow(defaultRow, dataObject, logTypeImage) {
 
     const detailRow = document.createElement('tr')
@@ -111,8 +249,8 @@ function createDetailRow(defaultRow, dataObject, logTypeImage) {
     const detailRowDiv = document.createElement('div')
     detailRowDiv.className = 'hiddenRow'
 
-    // ANCHOR Add DataList 
-    // for each Hidden Detailed Lists
+    // ANCHOR Add DataList <dl> 
+    // for each Element
     for (data in dataObject) {
         // Hidden List
         const detailedList = document.createElement('dl')
@@ -133,7 +271,6 @@ function createDetailRow(defaultRow, dataObject, logTypeImage) {
 
         detailRowDiv.appendChild(detailedList)
     }
-
 
     // Hidden Icon List
     const logEditButtons = document.createElement('div')
@@ -156,7 +293,9 @@ function createDetailRow(defaultRow, dataObject, logTypeImage) {
     removeLogButton.appendChild(removeLogIcon)
 
     // Creating Events for Edits and Remove Button
+    // LINK layout.js:114
     editLogButtonEvent(editLogButton, defaultRow, dataObject, logTypeImage);
+    // LINK layout.js:209
     removeLogButtonEvent(removeLogButton, defaultRow);
 
     // Adding Log Edit Buttons to Detail Row's Div
@@ -171,10 +310,12 @@ function createDetailRow(defaultRow, dataObject, logTypeImage) {
 
     // Appending Hidden Row before the Default's Row Sibling
     defaultRow.parentNode.insertBefore(detailRow, defaultRow.nextSibling)
-}
-// END Function !SECTION Create's Detailed Row
 
-// SECTION Pre-Work to Facilitate to Hidden Row Creation
+    defaultRow.scrollIntoView({ behavior: 'auto' /*or smooth*/, block: 'center' })
+}
+// END !SECTION Create's Detailed Row
+
+// 2. SECTION Prepare defaultRow
 function hiddenRowPreWork(defaultRow) {
 
     // defaultRow Child Elements Values
@@ -197,6 +338,7 @@ function hiddenRowPreWork(defaultRow) {
                 "Reading Date": readDate,
                 "Log Type": logTypeText,
                 "In Page": readPage,
+                // TODO Change After Object Creation
                 "In Progress": "12%",
                 "Log Description": entryLog
             }, logTypeImage
@@ -207,11 +349,13 @@ function hiddenRowPreWork(defaultRow) {
 
     } else {
         // Set to Default if Hidden Row not Revealed
+        // LINK layout.js:331
         setDefault(defaultRow)
     }
 }
+// END !SECTION Prepare defaultRow
 
-// Set to Default Values
+// 2.1 ANCHOR Set to Default Values
 function setDefault(row) {
     row.classList.remove('rowRevealed');
     row.children[0].setAttribute('rowspan', '1')
@@ -224,8 +368,8 @@ function setDefault(row) {
     row.lastElementChild.children[0].checked = false
 }
 
-// Click event for each TableRow
-tableRows.forEach(row => row.addEventListener('click', (e) => {
+// 1. Toggling Class on Event
+function toggleRowClass(e) {
     e.currentTarget.classList.toggle('rowRevealed')
 
     for (let rowPresent of tableRows) {
@@ -233,18 +377,23 @@ tableRows.forEach(row => row.addEventListener('click', (e) => {
 
         // For Other row's on Not Click
         if (rowPresent !== e.currentTarget) {
+            // LINK layout.js:331
             setDefault(rowPresent)
         }
     }
 
     // Start PreWork for Hidden Row
+    // LINK layout.js:292
     hiddenRowPreWork(e.currentTarget);
-}));
+}
+
+// Event for Each Present Row
+tableRows.forEach(row => row.addEventListener('click', toggleRowClass));
 
 // END !SECTION Display Detailed Row
 
 
-// SECTION Imitate Dropdown for div element created
+// SECTION Dropdown Imitation
 // LINK index.html:631
 
 // Div as Select Elements
@@ -294,4 +443,4 @@ divSelect.addEventListener('click', () => {
     })
 })
 
-// END !SECTION Imitate Dropdown
+// END !SECTION Dropdown Imitation

@@ -1786,7 +1786,7 @@ tr.revealOnClick>td>div.hiddenRow {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     gap: .35rem;
 
     box-sizing: border-box;
@@ -1922,7 +1922,7 @@ textarea.input-bookLog {
 
 /* ANCHOR Save Button */
 
-.icon-Button.submitLog {
+.icon-Button.log {
     background: url(./assets/web/svg-icons/log-add.svg) no-repeat center / 1.5rem var(--color-white);
 
     filter: var(--filter-brown-dark);
@@ -1934,6 +1934,15 @@ textarea.input-bookLog {
     margin: 0rem;
 
 }
+
+.icon-Button.log.submitLog {
+    background: url(./assets/web/svg-icons/log-add.svg) no-repeat center / 1.5rem var(--color-white);
+}
+
+.icon-Button.log.updateLog {
+    background: url(./assets/web/svg-icons/log-update.svg) no-repeat center / 1.5rem var(--color-white);
+}
+
 
 
 /* END !SECTION Log Table Input */

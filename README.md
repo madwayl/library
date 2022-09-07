@@ -101,6 +101,8 @@ A Book Library Lookup
 
 - [x] All **DOM Element can be same if having similar properties**, eventhough they are different elements in a DOM Tree.
 
+- [x] Scroll into View with `.scrollIntoView()`
+
 # Attribution
 
 - Icons from:
