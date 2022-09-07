@@ -8,6 +8,10 @@ A Book Library Lookup
 - [x] Always rely on UTF-8
 - [x] Depend on `.ico` for Favicon Icons
 
+#### Input Elements
+
+- [x] Always use `rows` and `cols` to define and align the `textarea` input element
+
 ### CSS
 
 #### Relevant to Creating Shapes
@@ -76,6 +80,8 @@ A Book Library Lookup
     - Use Data List
     - Can only change colors of `option` or `select` inner field
 
+- [x] input elments don't have a `.textContent`. Should always refer to its `.value`
+
 #### z-Index
 
 - [x] Allow overflowing of one element only with z-index
@@ -84,8 +90,16 @@ A Book Library Lookup
 
 #### Scroll
 
-- [] `overflow: scroll` extends to additional space
-    - why???
+- [x] Scroll as overlay, use `overflow: overlay`
+
+### JS
+#### DOM Events
+- [x] Close popup on click outside
+    - using `.closest` to get the closest sibling / parent / child
+
+- [x] using `:scope` within the selector to select elements within that element's scope
+
+- [x] All **DOM Element can be same if having similar properties**, eventhough they are different elements in a DOM Tree.
 
 # Attribution
 
