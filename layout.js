@@ -226,7 +226,7 @@ function setDefault(row) {
 
 // Click event for each TableRow
 tableRows.forEach(row => row.addEventListener('click', (e) => {
-    e.currentTarget.classList.add('rowRevealed')
+    e.currentTarget.classList.toggle('rowRevealed')
 
     for (let rowPresent of tableRows) {
         // console.log(rowDefault)
@@ -269,6 +269,7 @@ divSelect.addEventListener('click', () => {
 
             // Set Attributes on DropDown Header
             divSelect.children[0].children[0].setAttribute('src', imgSrc)
+            divSelect.children[0].children[0].setAttribute('alt', textSrc)
             divSelect.children[0].children[1].textContent = textSrc
 
             // Close divSelectOptions after Selection
