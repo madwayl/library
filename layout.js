@@ -13,35 +13,48 @@ tableRowSorting.sort((first, next) => {
 tableRowSorting.forEach(sortRow => tableBody.appendChild(sortRow))
 
 // Sorting Headers
-const headerSort = document.querySelector('.head-timeStamp>.input.input-checkBox.header')
+const headerSort = Array.from(document.querySelectorAll('.input.input-checkBox.header'))
 
-headerSort.addEventListener('click', e => {
+headerSort.forEach((sortHead, index) => {
+    sortHead.addEventListener('click', e => {
 
-    const newTableSort = [...tableRowSorting]
 
-    if (headerSort.dataset.detailed == 'Time Stamp') {
-        if (headerSort.checked) {
-            // Sort Descending
-            newTableSort.sort((first, next) => {
-                return new Date(next.children[1].textContent) - new Date(first.children[1].textContent)
-            })
+        const newTableSort = [...tableRowSorting]
+
+        if (e.currentTarget.dataset.detailed == 'Time Stamp') {
+
+            headerSort[1].classList.add('hideSort')
+
+            e.currentTarget.classList.remove('hideSort')
+
+            if (e.currentTarget.checked) {
+                // Sort Descending
+                newTableSort.sort((first, next) => {
+                    return new Date(next.children[1].textContent) - new Date(first.children[1].textContent)
+                })
+            }
         }
-    }
-    else {
-        if (headerSort.checked) {
-            // Sort in Descending
-            newTableSort.sort((first, next) => {
-                return next.children[2].textContent - first.children[2].textContent;
-            })
-        } else {
-            // Sort in Ascending
-            newTableSort.sort((first, next) => {
-                return first.children[2].textContent - next.children[2].textContent
-            })
-        }
-    }
+        else {
 
-    newTableSort.forEach(sortRow => tableBody.appendChild(sortRow))
+            headerSort[0].classList.add('hideSort')
+
+            e.currentTarget.classList.remove('hideSort')
+
+            if (e.currentTarget.checked) {
+                // Sort in Descending
+                newTableSort.sort((first, next) => {
+                    return next.children[2].textContent - first.children[2].textContent;
+                })
+            } else {
+                // Sort in Ascending
+                newTableSort.sort((first, next) => {
+                    return first.children[2].textContent - next.children[2].textContent
+                })
+            }
+        }
+
+        newTableSort.forEach(sortRow => tableBody.appendChild(sortRow))
+    });
 })
 
 // END !SECTION Sort Default Rows
@@ -77,10 +90,9 @@ function addLogRow(logTypeTextInput, logTypeImgInput, page, timeStampReadInput, 
     // SECTION Creating New Row
     const newRow = document.createElement('tr')
     newRow.classList.add('default')
-    date = new Date()
 
     // Creating a Unique ID for Row
-    uniqueID = new Date().toISOString()
+    const uniqueID = new Date().toISOString()
 
     newRow.setAttribute('id', `default${uniqueID}`)
 
@@ -102,12 +114,12 @@ function addLogRow(logTypeTextInput, logTypeImgInput, page, timeStampReadInput, 
 
     // ANCHOR TimeStamp Data
     const newtimeStampData = document.createElement('td')
-    newtimeStampData.className = 'body body-timeStamp'
+    newtimeStampData.className = 'body body-timeStamp sort'
     newtimeStampData.textContent = timeStampReadInput
 
     // ANCHOR onPage Data
     const newPage = document.createElement('td')
-    newPage.className = 'body body-onPage'
+    newPage.className = 'body body-onPage sort'
     newPage.textContent = page
 
     // ANCHOR LogDesc Data

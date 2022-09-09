@@ -1580,7 +1580,7 @@ tr.default:hover>td>div.logDesc::after {
     content: attr(data-detailed);
 }
 
-.input.input-checkBox.header:checked:before {
+.input.input-checkBox.header:checked::before {
 
     width: inherit;
     height: inherit;
@@ -1602,7 +1602,13 @@ tr.default:hover>td>div.logDesc::after {
 }
 
 .input.input-checkBox.header:checked::after {
+    content: '';
     background: url(./assets/web/svg-icons/triangle-down.svg) no-repeat center / 1.25rem;
+}
+
+.input.input-checkBox.header.hideSort::after {
+    content: '';
+    background: none;
 }
 
 /* ANCHOR Reveal Hidden */
@@ -1648,8 +1654,6 @@ tbody>tr.default.rowRevealed>td {
     vertical-align: top;
     padding: .2rem;
 }
-
-
 
 /* Sticky Icon */
 
@@ -1943,8 +1947,6 @@ textarea.input-bookLog {
     background: url(./assets/web/svg-icons/log-update.svg) no-repeat center / 1.5rem var(--color-white);
 }
 
-
-
 /* END !SECTION Log Table Input */
 
 /* END !SECTION Book Logs */
@@ -1969,7 +1971,7 @@ textarea.input-bookLog {
     filter: var(--filter-red-dark);
 }
 
-/* END END !SECTION Pop Up */
+/* END !SECTION Pop Up */
 
 /* SECTION Foot */
 
@@ -1986,4 +1988,4 @@ footer.foot {
     display: contents;
 }
 
-/* END END !SECTION Foot */
+/* END !SECTION Foot */
