@@ -1517,6 +1517,7 @@ th {
 
 th.head,
 th>*::before {
+    font-weight: 700;
     font-size: .85rem;
 }
 
@@ -1571,9 +1572,8 @@ tr.default:hover>td>div.logDesc::after {
     min-height: initial;
 
     font-weight: 700;
-    font-size: .9rem;
+    font-size: .85rem;
 }
-
 
 
 .input.input-checkBox.header::before {
