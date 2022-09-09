@@ -1,11 +1,53 @@
 // SECTION Sort Default Rows
 
+// Table Body
+const tableBody = document.querySelector('tbody.table.table-body')
+
+const tableRowSorting = Array.from(tableBody.children);
+
+// Sort by Ascending Prior on TimeStamp
+tableRowSorting.sort((first, next) => {
+    return new Date(first.children[1].textContent) - new Date(next.children[1].textContent)
+})
+
+tableRowSorting.forEach(sortRow => tableBody.appendChild(sortRow))
+
+// Sorting Headers
+const headerSort = document.querySelector('.head-timeStamp>.input.input-checkBox.header')
+
+headerSort.addEventListener('click', e => {
+
+    const newTableSort = [...tableRowSorting]
+
+    if (headerSort.dataset.detailed == 'Time Stamp') {
+        if (headerSort.checked) {
+            // Sort Descending
+            newTableSort.sort((first, next) => {
+                return new Date(next.children[1].textContent) - new Date(first.children[1].textContent)
+            })
+        }
+    }
+    else {
+        if (headerSort.checked) {
+            // Sort in Descending
+            newTableSort.sort((first, next) => {
+                return next.children[2].textContent - first.children[2].textContent;
+            })
+        } else {
+            // Sort in Ascending
+            newTableSort.sort((first, next) => {
+                return first.children[2].textContent - next.children[2].textContent
+            })
+        }
+    }
+
+    newTableSort.forEach(sortRow => tableBody.appendChild(sortRow))
+})
+
 // END !SECTION Sort Default Rows
 
 
 // SECTION Add New Log
-// Table Body
-const tableBody = document.querySelector('tbody.table.table-body')
 
 // Submit Log Button Element
 const logButton = document.querySelector('.button.icon-Button.log#logButton');
