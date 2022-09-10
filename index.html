@@ -245,7 +245,7 @@
                 <div class="openAddImage">
                     <div class="input-element addImageUrl">
                         <input type="url" name="image-url" id="imageUrl" class="input input-type imageUrl"
-                            placeholder="Paste a Link">
+                            placeholder="Paste a Link" pattern="(?:https|http):\/\/[a-zA-Z0-9.]+[\/a-zA-Z0-9.\-\?=]+">
                         <span class="error-text"></span>
                     </div>
 
@@ -268,10 +268,9 @@
             <!-- ANCHOR Tabs for SECTION 2 -->
 
             <input type="radio" name="tab-status" id="bookDetails" class="input input-radioTab"
-                data-detailed="Book Detail">
+                data-detailed="Book Detail" checked>
 
-            <input type="radio" name="tab-status" id="bookLogs" class="input input-radioTab" data-detailed="Book Log"
-                checked>
+            <input type="radio" name="tab-status" id="bookLogs" class="input input-radioTab" data-detailed="Book Log">
 
             <!-- SECTION BOOK SECTION 2 
                         - Tab1: Book Details
@@ -286,7 +285,7 @@
                     <div class="input-element title">
                         <label for="bookTitle">Title</label>
                         <input type="text" name="book-title" id="bookTitle" class="input input-type"
-                            placeholder="Title of the Book">
+                            placeholder="Title of the Book" required>
                         <span class="error-text"></span>
                     </div>
 
@@ -307,7 +306,7 @@
                     <div class="input-element page Total">
                         <label for="bookPages">Total Pages</label>
                         <input type="number" name="book-pages" id="bookPages" class="input input-type"
-                            placeholder="Pages in Book">
+                            placeholder="Pages in Book" required>
                         <span class="error-text"> </span>
                     </div>
 

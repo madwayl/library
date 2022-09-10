@@ -1,3 +1,113 @@
+// SECTION Section 1
+
+// Image to be revealed
+const bookImage = document.querySelector('.image.image-book.edit');
+
+// Image Input URL
+const imageURLInput = document.querySelector('.input.input-type.imageUrl');
+
+// Button for Image 
+const buttonAddImage = document.querySelector('.button.button-image.addImage');
+const buttonRemoveImage = document.querySelector('.button.button-image.removeImage');
+
+// Event on Input URL Image
+imageURLInput.addEventListener('focusout', e => {
+    if (e.target.validity.patternMismatch) {
+        e.target.nextElementSibling.textContent = 'Not a Valid Image Link'
+        e.target.classList.add('invalid');
+        e.target.classList.remove('valid');
+    } else {
+        if (e.target.value.length > 0) {
+            e.target.classList.add('valid');
+            e.target.nextElementSibling.textContent = '';
+        }
+        e.target.classList.remove('invalid');
+    }
+});
+
+// Add / Remove Image Button
+[buttonAddImage, buttonRemoveImage].forEach(button => {
+    button.addEventListener('click', e => {
+        if (e.currentTarget == buttonAddImage) {
+            bookImage.setAttribute('src', imageURLInput.value)
+        } else {
+            bookImage.setAttribute('src', './assets/web/svg-images/book/book3.svg')
+        }
+        // TODO Add Image to Image Section
+    })
+})
+
+// END !SECTION Section 1
+
+// SECTION Section 2
+
+// SECTION Book Detail
+
+// All the Inputs
+const inputs = Array.from(document.querySelectorAll('.tabWindow-bookDetails>.input-element:not(.radioCheck)'))
+
+// Page Number Inputs
+const inputPage = Array.from(document.querySelectorAll('.tabWindow-bookDetails>.input-element.page>input'))
+
+// Radio Check Inputs
+const inputPageCheck = Array.from(document.querySelectorAll('.input-element.radioCheck>input'))
+
+inputs.forEach(input => {
+
+    input.querySelector('input').addEventListener('focusout', e => {
+
+        // Set Max Value for Page Read so Far
+        inputPage[0].max = inputPage[1].value;
+
+        // Check Validity for Each Input Element
+        if (!e.target.validity.valid) {
+            e.target.nextElementSibling.textContent = 'This value is required!';
+            e.target.classList.add('invalid');
+            e.target.classList.remove('valid');
+
+        } else {
+
+            if (e.target.value.length > 0) {
+                e.target.classList.add('valid');
+                e.target.nextElementSibling.textContent = '';
+            }
+            e.target.classList.remove('invalid');
+        }
+
+        // Specific Validation for bookPages
+        if (e.target.id == 'bookPagesRead' || e.target.id == 'bookPages') {
+
+            // Check on Value Entry Only
+            if (inputPage[0].value.length > 0 && inputPage[1].value.length > 0) {
+                if (inputPage[0].validity.valid) {
+                    inputPage[0].classList.add('valid')
+                    inputPage[0].nextElementSibling.textContent = ''
+                    inputPage[0].classList.remove('invalid')
+                } else {
+                    inputPage[0].classList.add('invalid')
+                    inputPage[0].classList.remove('valid')
+                    inputPage[0].nextElementSibling.textContent = 'Value can\'t be less than Total Page'
+                }
+
+                // Radio Button Check on Page Number Entry
+                if (inputPage[0].value == inputPage[1].value) {
+                    inputPageCheck[2].checked = true
+                } else if (inputPage[0].value == null || inputPage[0].value == 0) {
+                    inputPageCheck[0].checked = true
+                } else {
+                    inputPageCheck[1].checked = true
+                }
+            }
+
+        }
+    })
+
+})
+
+// END !SECTION Book Detail
+
+// SECTION Book Logs Table
+
 // SECTION Sort Default Rows
 
 // Table Body
@@ -498,3 +608,8 @@ divSelect.addEventListener('click', () => {
 })
 
 // END !SECTION Dropdown Imitation
+
+// END !SECTION Book Logs Table
+
+// END !SECTION Section 2
+

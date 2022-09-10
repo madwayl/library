@@ -1217,6 +1217,8 @@ section.body {
     flex-flow: column;
 
     margin: .5rem;
+
+    min-width: 40%;
 }
 
 .input-element.page {
@@ -1229,6 +1231,8 @@ section.body {
     flex-direction: row;
     justify-content: space-evenly;
 }
+
+.input-element.rating {}
 
 .input-type {
     border: 3px solid var(--color-brown-norm);
@@ -1462,7 +1466,7 @@ input:checked~.ratingControl-stars {
 /* 7. Define a half width for half stars on Labels */
 
 .ratingControl-stars--half {
-    width: 1.03rem;
+    width: 1.08rem;
 }
 
 /* END END !SECTION Book Details */
