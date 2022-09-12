@@ -63,16 +63,13 @@
         <!-- ANCHOR CheckBox -->
         <input type="radio" class="input input-radioStatus filterReading" id="readingLabel" name="filterBook-status"
             data-detailed="Reading">
-        <input type="radio" class="input input-Status filterCompleted" id="completedLabel" name="filterBook-status"
+        <input type="radio" class="input input-radioStatus filterCompleted" id="completedLabel" name="filterBook-status"
             data-detailed="Completed">
         <input type="radio" class="input input-radioStatus filterNotStarted" name="filterBook-status" id="startedLabel"
             data-detailed="Not Started">
 
         <!-- ANCHOR Filter Labels -->
         <div class="filter-label">
-            <input type="checkbox" class="input input-checkBox label-horror" id="horrorLabel" data-detailed="# horror">
-            <input type="checkbox" class="input input-checkBox label-thriller" id="thrillerLabel"
-                data-detailed="# thriller">
         </div>
 
     </section>
@@ -86,139 +83,7 @@
                 b. Book Logs -->
     <section class="body">
 
-        <!-- SECTION Book Overview -->
-        <main class="book-overview displayNone" id="book1">
-            <img src="./assets/web/svg-images/book/book3.svg" alt="" class="image image-book overview">
-            <h5 class="heading heading-bookAuthor"> Randomfsd </h5>
-            <div class="heading-element">
-                <h2 class="heading heading-bookTitle">
-                    lorem Mrak fsd</h2>
-                <p class="tooltip heading-toolTip"> lorem Mrak fsd</p>
-            </div>
 
-
-
-            <div class="ratingBox">
-                <span class="ratingBox-rate">0.0</span>
-                <span class="ratingBox-total">of 5</span>
-            </div>
-            <div class="progress progress-pages">
-                <span class="progress-pageLeft">
-                    246
-                </span>
-                <span class="progress-pageNoun">
-                    pages
-                </span>
-                <span class="progress-pageAction">
-                    left
-                </span>
-            </div>
-            <div class="bookLabels">
-                <span class="bookLabels label-thriller">Thriller</span>
-                <span class="bookLabels label-horror">Horror</span>
-            </div>
-            <input type="checkbox" name="edit-book" class="input input-bookEdit">
-            <div class="books-bookEdits displayNone">
-                <button class="button button-bookEdit editBook"><span class="icon-Button editBook"></span>Edit</button>
-                <button class="button button-bookEdit logBook"><span class="icon-Button logBook"></span>Log</button>
-                <button class="button button-bookEdit removeBook"><span
-                        class="icon-Button removeBook"></span>Delete</button>
-            </div>
-        </main>
-        <!-- END !SECTION Book -->
-
-        <main class="book-overview displayNone" id="book2">
-            <img src="https://i.guim.co.uk/img/media/a39b7a5a36961a7f4ba5ec245c4a20c43f087c84/0_0_226_346/master/226.jpg?width=300&quality=45&auto=format&fit=max&dpr=2&s=87a8f9e92fb6146f7e32a0ebd9f386da"
-                alt="" class="image image-book overview">
-            <h5 class="heading heading-bookAuthor"> Gillian McAllister </h5>
-            <div class="heading-element">
-                <h2 class="heading heading-bookTitle">
-                    Wrong Place Wrong Time</h2>
-                <p class="tooltip heading-toolTip"> Wrong Place Wrong Time </p>
-            </div>
-
-
-            <div class="ratingBox ">
-                <span class="ratingBox-rate">3.0</span>
-                <span class="ratingBox-total">of 5</span>
-            </div>
-            <div class="progress progress-state">
-                <!-- <span class="progress-pageLeft">
-                    246
-                </span>
-                <span class="progress-pageNoun">
-                    pages
-                </span>
-                <span class="progress-pageEnd">
-                    left
-                </span> -->
-                <span class="progress-bookNoun">
-                    Book
-                </span>
-                <span class="progress-bookState completed">
-                    Completed
-                </span>
-
-            </div>
-            <div class="bookLabels">
-                <span class="bookLabels label-thriller">Thriller</span>
-                <span class="bookLabels label-horror">Horror</span>
-            </div>
-
-            <input type="checkbox" name="edit-book" class="input input-bookEdit">
-            <div class="books-bookEdits displayNone">
-                <button class="button button-bookEdit editBook"><span class="icon-Button editBook"></span>Edit</button>
-                <button class="button button-bookEdit logBook"><span class="icon-Button logBook"></span>Log</button>
-                <button class="button button-bookEdit removeBook"><span
-                        class="icon-Button removeBook"></span>Delete</button>
-            </div>
-        </main>
-
-        <main class="book-overview displayNone" id="book3">
-            <img src="https://edit.org/photos/images/cat/book-covers-big-2019101610.jpg-1300.jpg" alt=""
-                class="image image-book overview">
-            <h5 class="heading heading-bookAuthor"> Randomfsd </h5>
-            <div class="heading-element">
-                <h2 class="heading heading-bookTitle">
-                    My Book Cover </h2>
-                <p class="tooltip heading-toolTip"> My Book Cover </p>
-            </div>
-
-            <div class="ratingBox">
-                <span class="ratingBox-rate">0.0</span>
-                <span class="ratingBox-total">of 5</span>
-            </div>
-            <div class="progress progress-state">
-                <!-- <span class="progress-pageLeft">
-                    246
-                </span>
-                <span class="progress-pageNoun">
-                    pages
-                </span>
-                <span class="progress-pageEnd">
-                    left
-                </span> -->
-                <span class="progress-bookNoun">
-                    Book
-                </span>
-                <span class="progress-bookState notStarted">
-                    Not Started
-                </span>
-
-            </div>
-            <div class="bookLabels">
-                <span class="bookLabels label-thriller">Thriller</span>
-                <span class="bookLabels label-horror">Horror</span>
-            </div>
-
-            <input type="checkbox" name="edit-book" class="input input-bookEdit">
-            <div class="books-bookEdits displayNone">
-                <button class="button button-bookEdit editBook"><span class="icon-Button editBook"></span>Edit</button>
-                <button class="button button-bookEdit logBook"><span class="icon-Button logBook"></span>Log</button>
-                <button class="button button-bookEdit removeBook"><span
-                        class="icon-Button removeBook"></span>Delete</button>
-            </div>
-        </main>
 
         <button class="button button-fixed bookAdd" id="bookAddButton"><span class="icon-Button bookAdd">
             </span></button>
@@ -230,7 +95,7 @@
         1. Popup Overlay
             i. Popup-->
 
-    <section class="popup-overlay">
+    <section class="popup-overlay displayNone">
 
         <main class="popup">
 
@@ -397,7 +262,7 @@
                             <tbody class="table table-body">
 
                                 <!-- Default Reveals the rowHidden  -->
-                                <tr class="default" id="default1418">
+                                <tr class="default" id="default-1418">
                                     <td class="body body-iconState" rowspan="1">
                                         <div class="iconWrapper">
                                             <img class="icon" src="./assets/web/svg-icons/bookmark.svg" alt="Bookmark">
@@ -539,6 +404,7 @@
     </footer>
     <!-- END !SECTION Footer -->
 
+    <script src="./data.js"></script>
     <script src="./layout.js"></script>
 </body>
 

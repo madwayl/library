@@ -93,7 +93,9 @@ A Book Library Lookup
 - [x] Scroll as overlay, use `overflow: overlay`
 
 ### JS
-#### DOM Events
+#### DOM 
+
+##### DOM Events
 - [x] Close popup on click outside
     - using `.closest` to get the closest sibling / parent / child
 
@@ -102,6 +104,9 @@ A Book Library Lookup
 - [x] All **DOM Element can be same if having similar properties**, eventhough they are different elements in a DOM Tree.
 
 - [x] Scroll into View with `.scrollIntoView()`
+
+##### DOM Elements
+- [x] Create DOM Text Nodes with `.createTextNode()`
 
 # Attribution
 

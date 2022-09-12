@@ -1,3 +1,323 @@
+// SECTION Book Overview
+
+const popupOverlay = document.querySelector('section.popup-overlay');
+
+let bookTags = [[], []]
+let bookTagsCSS = '';
+
+const filterLabels = document.querySelector('.filter-label')
+
+// SECTION Create Book Overview
+
+// Change Image
+function changeBookImage(book) {
+    // ANCHOR Image
+    const bookOvImage = document.createElement('img')
+    bookOvImage.className = 'image image-book overview'
+    bookOvImage.setAttribute('src', book['imageSrc'])
+    bookOvImage.setAttribute('alt', `${book}-Image`)
+
+    return bookOvImage
+}
+
+function changeAuthor(book) {
+    // ANCHOR Author
+    const author = document.createElement('h5')
+    author.className = 'heading heading-bookAuthor'
+    author.textContent = book['author']
+
+    return author
+}
+
+function changeHeading(book) {
+    // ANCHOR Heading
+    const headingDiv = document.createElement('div')
+    headingDiv.className = 'heading-element'
+    const heading = document.createElement('h2')
+    heading.className = 'heading heading-bookTitle'
+    heading.textContent = book.title
+    const headingTooltip = document.createElement('p')
+    headingTooltip.className = 'tooltip heading-toolTip'
+    headingTooltip.textContent = book.title
+
+    headingDiv.appendChild(heading)
+    headingDiv.appendChild(headingTooltip)
+
+    return headingDiv
+}
+
+function changeRating(book) {
+    // ANCHOR Rating
+    const rating = document.createElement('div')
+    rating.classList.add('ratingBox')
+    const ratingRate = document.createElement('span')
+    ratingRate.classList.add('ratingBox-rate')
+    ratingRate.textContent = book.rating
+    const ratingTotal = document.createElement('span')
+    ratingTotal.classList.add('ratingBox-total')
+    ratingTotal.textContent = 'of 5'
+
+    rating.appendChild(ratingRate)
+    rating.appendChild(ratingTotal)
+
+    return rating
+}
+
+function changeProgress(book) {
+    // ANCHOR Progress
+    if (book.bookStatus == 'In-Progress') {
+        // Show Number of Pages Left
+        const progressDiv = document.createElement('div')
+        progressDiv.className = 'progress progress-pages'
+
+        const progressLeft = document.createElement('span')
+        progressLeft.className = 'progress-pageLeft'
+        progressLeft.textContent = book.haveRead
+
+        const progressNoun = document.createElement('span')
+        progressNoun.className = 'progress-pageNoun'
+        progressNoun.textContent = `pages`
+
+        const progressAction = document.createElement('span')
+        progressAction.className = 'progress-pageAction'
+        progressAction.textContent = `left`
+
+        progressDiv.appendChild(progressLeft)
+        progressDiv.appendChild(progressNoun)
+        progressDiv.appendChild(progressAction)
+
+        return progressDiv
+
+    } else {
+        // Text Based Progress
+        const progressDiv = document.createElement('div')
+        progressDiv.className = 'progress progress-state'
+
+        const progressNoun = document.createElement('span')
+        progressNoun.className = 'progress-bookNoun'
+        progressNoun.textContent = 'Book'
+
+        progressDiv.appendChild(progressNoun)
+
+        if (book.bookStatus == 'Completed') {
+
+            // Show Completed
+            const progressState = document.createElement('span')
+            progressState.className = 'progress-bookState completed'
+            progressState.textContent = 'Completed'
+
+            progressDiv.appendChild(progressState)
+
+        } else {
+
+            // Show Not Started
+            const progressState = document.createElement('span')
+            progressState.className = 'progress-bookState notStarted'
+            progressState.textContent = 'Not Started'
+
+            progressDiv.appendChild(progressState)
+
+        }
+
+        return progressDiv
+
+    }
+}
+
+function changeTags(book) {
+    // ANCHOR Tags
+    // Add Tags in Global
+    function createCSS_Filters(tag) {
+        if (bookTags[0].includes(tag)) return false
+
+        // Colors for Tags
+        function rgbGen() {
+
+            let r, g, b;
+            let times = 0;
+
+            while (true) {
+
+                r = Math.floor(Math.random() * (230 - 100) + 100)
+                g = Math.floor(Math.random() * (230 - 100) + 100)
+                b = Math.floor(Math.random() * (230 - 100) + 100)
+
+                // console.log('before', bookTags[1])
+
+                for (let colors of bookTags[1]) {
+
+                    // console.log('done', bookTags[1])
+                    // console.log(typeof colors, colors)
+
+                    let total = colors.reduce((first, next) => first + next)
+
+                    if (total - r + g + b < 100) break
+                    times += 1
+                }
+
+                if (times == bookTags[0].length || times == 0) return [r, g, b]
+
+            }
+        }
+
+        let rgbValues = rgbGen()
+
+        bookTagsCSS += `.label-${tag}{ background-color : rgb(${rgbValues.toString()})}`
+        bookTags[0].push(tag)
+        bookTags[1].push([rgbValues])
+
+        // Label in Filter Section
+        const label = document.createElement('input')
+        label.setAttribute('type', 'checkbox')
+        label.className = `input input-checkBox label-${tag}`
+        label.id = `${tag}Label`
+        label.setAttribute('data-detailed', `# ${tag}`)
+        filterLabels.appendChild(label)
+    }
+
+    // Label Container
+    const bookLabel = document.createElement('div')
+    bookLabel.className = 'bookLabels'
+
+    // Check Tags on Book Overview
+    for (let tag of book['bookCategory']) {
+        tag = tag.toLowerCase()
+
+        createCSS_Filters(tag)
+
+        const spanLabel = document.createElement('span')
+        spanLabel.className = `bookLabels label-${tag}`
+        spanLabel.textContent = tag.charAt(0).toUpperCase() + tag.slice(1)
+
+        bookLabel.appendChild(spanLabel)
+    }
+
+    // Append Style Element
+    let style = document.createElement('style')
+    style.setAttribute('type', 'text/css');
+    style.textContent = bookTagsCSS;
+    document.querySelector('head').appendChild(style);
+
+    return bookLabel
+}
+
+function addEditButtons(book) {
+    // ANCHOR Edit Book
+    const bookEditCheckBox = document.createElement('input')
+    bookEditCheckBox.setAttribute('type', 'checkbox')
+    bookEditCheckBox.setAttribute('name', 'edit-book')
+    bookEditCheckBox.className = 'input input-bookEdit'
+
+    // ANCHOR Edit Book Buttons
+    const bookEditDisp = document.createElement('div')
+    bookEditDisp.className = 'books-bookEdits displayNone'
+
+    // Buttons Edit
+    const buttonEdit = document.createElement('button')
+    buttonEdit.className = 'button button-bookEdit editBook'
+    const buttonEditSpan = document.createElement('span')
+    buttonEditSpan.className = 'icon-Button editBook'
+    buttonEdit.appendChild(buttonEditSpan)
+    buttonEdit.appendChild(document.createTextNode('Edit'))
+    bookEditDisp.appendChild(buttonEdit)
+
+    // Buttons Log
+    const buttonLog = document.createElement('button')
+    buttonLog.className = 'button button-bookEdit logBook'
+    const buttonLogSpan = document.createElement('span')
+    buttonLogSpan.className = 'icon-Button logBook'
+    buttonLog.appendChild(buttonLogSpan)
+    buttonLog.appendChild(document.createTextNode('Log'))
+    bookEditDisp.appendChild(buttonLog)
+
+    // Buttons Delete
+    const buttonDel = document.createElement('button')
+    buttonDel.className = 'button button-bookEdit removeBook'
+    const buttonDelSpan = document.createElement('span')
+    buttonDelSpan.className = 'icon-Button removeBook'
+    buttonDel.appendChild(buttonDelSpan)
+    buttonDel.appendChild(document.createTextNode('Delete'))
+    bookEditDisp.appendChild(buttonDel)
+
+    return [bookEditCheckBox, bookEditDisp]
+}
+
+// Create A book for Initial Values Set on
+// LINK data.js
+const bodySec = document.querySelector('section.body')
+
+for (let [bookName, bookValue] of Object.entries(library)) {
+
+    const bookOverview = document.createElement('main')
+    bookOverview.classList.add('book-overview')
+    bookOverview.id = bookName
+
+    bookOverview.appendChild(changeBookImage(bookValue))
+    bookOverview.appendChild(changeAuthor(bookValue))
+    bookOverview.appendChild(changeHeading(bookValue))
+    bookOverview.appendChild(changeRating(bookValue))
+    bookOverview.appendChild(changeProgress(bookValue))
+    bookOverview.appendChild(changeTags(bookValue))
+    bookEdit = addEditButtons(bookValue)
+    bookOverview.append(bookEdit[0], bookEdit[1])
+
+    bodySec.appendChild(bookOverview)
+}
+
+// function setBookOverview() { }
+
+// END !SECTION Create Book Overview
+
+// SECTION Book Edit Button Dialog
+
+const bookEditCheck = document.querySelectorAll('input.input.input-bookEdit')
+
+bookEditCheck.forEach(bookEdit => {
+    bookEdit.addEventListener('change', e => {
+        e.currentTarget.nextElementSibling.classList.toggle('displayNone')
+    })
+})
+
+// Radio Tabs
+const radioTab = document.querySelectorAll('input.input.input-radioTab')
+
+// ANCHOR Book Edit Buttons
+
+// Edit Button
+const bookEditButtons = document.querySelectorAll('button.button.button-bookEdit.editBook')
+
+bookEditButtons.forEach(bookEditButton => {
+    bookEditButton.addEventListener('click', e => {
+        setBookOverview(e.currentTarget.parentElement.parentElement.id)
+        radioTab[0].checked = true;
+    })
+})
+
+// Log Button
+const bookLogButtons = document.querySelectorAll('button.button.button-bookEdit.logBook')
+
+bookLogButtons.forEach(bookLogButton => {
+    bookLogButton.addEventListener('click', e => {
+        setBookOverview(e.currentTarget.parentElement.parentElement.id);
+        radioTab[1].checked = true;
+    })
+})
+
+// Delete Button
+const bookDeleteButtons = document.querySelectorAll('button.button.button-bookEdit.removeBook')
+
+bookDeleteButtons.forEach(bookDeleteButton => {
+    bookDeleteButton.addEventListener('click', e => {
+        e.currentTarget.parentElement.parentElement.remove()
+    })
+})
+
+// END !SECTION Book Edit Dialog
+
+// END !SECTION Book Overview
+
+// SECTION Overlay Popup
+
 // SECTION Section 1
 
 // Image to be revealed
@@ -102,6 +422,14 @@ inputs.forEach(input => {
         }
     })
 
+})
+
+inputPageCheck[0].addEventListener('input', e => {
+    inputPage[0].value = 0
+})
+
+inputPageCheck[2].addEventListener('input', e => {
+    inputPage[0].value = inputPage[1].value
 })
 
 // END !SECTION Book Detail
@@ -613,3 +941,18 @@ divSelect.addEventListener('click', () => {
 
 // END !SECTION Section 2
 
+// ANCHOR Cancel Book Add / Edit
+const cancelBookPopup = document.querySelector('button.button-fixed.bookCancel')
+
+cancelBookPopup.addEventListener('click', e => {
+    popupOverlay.classList.add('displayNone')
+})
+
+// END !SECTION Overlay Popup
+
+// ANCHOR Add / Edit Book
+const addBookPopup = document.querySelector('button.button-fixed.bookAdd')
+
+addBookPopup.addEventListener('click', e => {
+    popupOverlay.classList.remove('displayNone')
+})
