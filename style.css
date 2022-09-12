@@ -63,13 +63,15 @@ body {
 
     color: var(--color-brown-dark);
 
-
     font-family: 'Quicksand', sans-serif;
+
+    overflow: hidden;
 }
 
 /* ANCHOR WebKit ScrollBar */
 ::-webkit-scrollbar {
     width: .25rem;
+    height: .25rem;
 
     background-color: transparent;
 
@@ -451,18 +453,25 @@ option {
     flex-basis: 20%;
     /* flex-grow: 1; */
 
+    max-width: 100%;
+
     display: flex;
     justify-content: center;
+    /* overflow-x: scroll; */
+    /* overflow-y: hidden; */
 }
 
 [class*="label-"] {
     border-radius: 20px;
     font-weight: 700;
     border: none;
+
+    min-width: max-content;
 }
 
 .filter-label>.input-checkBox:checked {
     color: inherit;
+    min-width: fit-content;
 }
 
 .filter-label>.input-checkBox:checked::before {
@@ -488,7 +497,7 @@ section.body {
 
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-    gap: 3rem 2rem;
+    gap: 3rem;
     justify-items: center;
 }
 
@@ -1193,7 +1202,6 @@ section.body {
 
 .tabWindow-bookDetails {
     flex-flow: row wrap;
-    flex-basis: 100%;
 }
 
 .heading.tabHeading {
@@ -1215,7 +1223,7 @@ section.body {
 
     margin: .5rem;
 
-    min-width: 40%;
+    min-width: 47%;
 }
 
 .input-element.page {

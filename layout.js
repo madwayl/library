@@ -172,6 +172,7 @@ function changeTags(book) {
         label.className = `input input-checkBox label-${tag}`
         label.id = `${tag}Label`
         label.setAttribute('data-detailed', `# ${tag}`)
+        label.checked = true
         filterLabels.appendChild(label)
     }
 
@@ -193,6 +194,7 @@ function changeTags(book) {
     }
 
     // Append Style Element
+    document.querySelector('style').remove()
     let style = document.createElement('style')
     style.setAttribute('type', 'text/css');
     style.textContent = bookTagsCSS;
@@ -269,7 +271,7 @@ for (let [bookName, bookValue] of Object.entries(library)) {
 // END !SECTION Create Book Overview
 
 // SECTION Book Edit Button Dialog
-
+// TODO Check to Edit For Each
 const bookEditCheck = document.querySelectorAll('input.input.input-bookEdit')
 
 bookEditCheck.forEach(bookEdit => {
