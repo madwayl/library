@@ -1,10 +1,5 @@
 // SECTION Book Overview
 
-let bookTags = [[], []]
-let bookTagsCSS = '';
-
-const filterLabels = document.querySelector('.filter-label')
-
 // SECTION Create Book Overview
 
 // Change Image
@@ -123,6 +118,11 @@ function changeProgress(book) {
 }
 
 // ANCHOR Tags
+let bookTags = [[], []]
+let bookTagsCSS = '';
+
+const filterLabels = document.querySelector('.filter-label')
+
 function changeTags(book) {
     // Add Tags in Global
     function createCSS_Filters(tag) {
@@ -170,7 +170,6 @@ function changeTags(book) {
         label.className = `input input-checkBox label-${tag}`
         label.id = `${tag}Label`
         label.setAttribute('data-detailed', `# ${tag}`)
-        label.checked = true
         filterLabels.appendChild(label)
     }
 
@@ -945,8 +944,7 @@ function hiddenRowPreWork(defaultRow) {
                 "Reading Date": readDate,
                 "Log Type": logTypeText,
                 "In Page": readPage,
-                // TODO Change After Object Creation
-                "In Progress": "12%",
+                "In Progress": `${library[defaultRow.dataset.book].logs[defaultRow.id]['body-onProgress']()}%`,
                 "Log Description": entryLog
             }, logTypeImage
         );

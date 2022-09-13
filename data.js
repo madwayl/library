@@ -20,7 +20,7 @@ function book(title, author, haveRead, pages, bookStatus, rating, bookCategory, 
         for (let log of Object.values(logs)) {
             log['body-totalPage'] = this.totalPages
             log['body-onProgress'] = function () {
-                return Math.floor(Number(this['body-onPage']) / Number(this['body-totalPage']) * 100).toFixed(2)
+                return Math.floor(Number(this['body-onPage']) / Number(this['body-totalPage']) * 100)
             }
         }
     }
