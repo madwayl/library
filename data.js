@@ -24,6 +24,9 @@ function book(title, author, haveRead, pages, bookStatus, rating, bookCategory, 
             }
         }
     }
+
+    this.dateCreated = new Date()
+    this.dateUpdated = new Date()
 }
 
 book.prototype.imageSrc = './assets/web/svg-images/book/book3.svg'
@@ -56,7 +59,7 @@ let library = {
         '0.0',
         ['thriller', 'unknown']),
     'book-17290': new book(
-        'Lorem Ipsum So Some',
+        'Lorem Ipsum So Some None Some So You',
         'You MyAl',
         '123',
         '244',
@@ -64,7 +67,7 @@ let library = {
         '2.0',
         ['fiction', 'sample'],
         'https://edit.org/photos/images/cat/book-covers-big-2019101610.jpg-1300.jpg')
-}
+};
 
 library['book-14190'].logs = {
     'default-1418': {
@@ -96,9 +99,41 @@ library['book-14190'].logs = {
         'body-onPage': '324',
         'body-entryLog': `Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet consectetur, dipisicing elit. Dolor voluptatibus est velit.`
     }
-}
+};
 
-library['book-15690'].log = {
+library['book-15690'].logs = {
+    'default-1418': {
+        'body-iconState': {
+            'src': './assets/web/svg-icons/bookmark.svg',
+            'alt': 'Bookmark'
+        },
+        'body-timeStamp': '2022-09-16 18:55',
+        'body-onPage': '321',
+        'body-entryLog': `Lorem ipsum dolor dsafsdfsdfsdfasdfasdfsit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Molestias, quidem eos, minima dolorem esse quisquam dolor provident eaque quibusdam dignissimos quia architecto deleniti animi non possimus suscipit debitis. Repellendus, saepe?`
+    },
+    'default-1419': {
+        'body-iconState': {
+            'src': './assets/web/svg-icons/comment.svg',
+            'alt': 'Comment'
+        },
+        'body-timeStamp': '2022-01-16 16:55',
+        'body-onPage': '521',
+        'body-entryLog': `Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+        Itaque, esse.`
+    },
+    'default-1420': {
+        'body-iconState': {
+            'src': './assets/web/svg-icons/summary.svg',
+            'alt': 'Summary'
+        },
+        'body-timeStamp': '2022-05-16 21:55',
+        'body-onPage': '',
+        'body-entryLog': `Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet consectetur, dipisicing elit. Dolor voluptatibus est velit.`
+    }
+};
+
+library['book-16690'].log = {
     'default-1418': {
         'body-iconState': {
             'src': './assets/web/svg-icons/bookmark.svg',
@@ -128,9 +163,46 @@ library['book-15690'].log = {
         'body-onPage': '324',
         'body-entryLog': `Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet consectetur, dipisicing elit. Dolor voluptatibus est velit.`
     }
+};
+
+
+library['book-17290'].log = {
+    'default-1418': {
+        'body-iconState': {
+            'src': './assets/web/svg-icons/summary.svg',
+            'alt': 'Summary'
+        },
+        'body-timeStamp': '2022-09-16 18:55',
+        'body-onPage': '',
+        'body-entryLog': `Lorem ipsum dolor dsafsdfsdfsdfasdfasdfsit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Molestias, quidem eos, minima dolorem esse quisquam dolor provident eaque quibusdam dignissimos quia architecto deleniti animi non possimus suscipit debitis. Repellendus, saepe?`
+    },
+    'default-1419': {
+        'body-iconState': {
+            'src': './assets/web/svg-icons/comment.svg',
+            'alt': 'Comment'
+        },
+        'body-timeStamp': '2022-01-16 16:55',
+        'body-onPage': '521',
+        'body-entryLog': `Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+        Itaque, esse.`
+    },
+    'default-1420': {
+        'body-iconState': {
+            'src': './assets/web/svg-icons/summary.svg',
+            'alt': 'Summary'
+        },
+        'body-timeStamp': '2022-05-16 21:55',
+        'body-onPage': '324',
+        'body-entryLog': `Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet consectetur, dipisicing elit. Dolor voluptatibus est velit.`
+    }
+};
+
+function setTotalPage() {
+    for (let book in library) {
+        library[book].setTotalPageOnLog(library[book].logs)
+        // console.log(library[book].logs)
+    }
 }
 
-for (let book in library) {
-    library[book].setTotalPageOnLog(library[book].logs)
-    // console.log(library[book].logs)
-}
+setTotalPage()

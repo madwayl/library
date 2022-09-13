@@ -1,7 +1,5 @@
 // SECTION Book Overview
 
-const popupOverlay = document.querySelector('section.popup-overlay');
-
 let bookTags = [[], []]
 let bookTagsCSS = '';
 
@@ -10,8 +8,8 @@ const filterLabels = document.querySelector('.filter-label')
 // SECTION Create Book Overview
 
 // Change Image
+// ANCHOR Image
 function changeBookImage(book) {
-    // ANCHOR Image
     const bookOvImage = document.createElement('img')
     bookOvImage.className = 'image image-book overview'
     bookOvImage.setAttribute('src', book['imageSrc'])
@@ -20,8 +18,8 @@ function changeBookImage(book) {
     return bookOvImage
 }
 
+// ANCHOR Author
 function changeAuthor(book) {
-    // ANCHOR Author
     const author = document.createElement('h5')
     author.className = 'heading heading-bookAuthor'
     author.textContent = book['author']
@@ -29,8 +27,8 @@ function changeAuthor(book) {
     return author
 }
 
+// ANCHOR Heading
 function changeHeading(book) {
-    // ANCHOR Heading
     const headingDiv = document.createElement('div')
     headingDiv.className = 'heading-element'
     const heading = document.createElement('h2')
@@ -46,8 +44,8 @@ function changeHeading(book) {
     return headingDiv
 }
 
+// ANCHOR Rating
 function changeRating(book) {
-    // ANCHOR Rating
     const rating = document.createElement('div')
     rating.classList.add('ratingBox')
     const ratingRate = document.createElement('span')
@@ -63,8 +61,8 @@ function changeRating(book) {
     return rating
 }
 
+// ANCHOR Progress
 function changeProgress(book) {
-    // ANCHOR Progress
     if (book.bookStatus == 'In-Progress') {
         // Show Number of Pages Left
         const progressDiv = document.createElement('div')
@@ -124,8 +122,8 @@ function changeProgress(book) {
     }
 }
 
+// ANCHOR Tags
 function changeTags(book) {
-    // ANCHOR Tags
     // Add Tags in Global
     function createCSS_Filters(tag) {
         if (bookTags[0].includes(tag)) return false
@@ -203,8 +201,8 @@ function changeTags(book) {
     return bookLabel
 }
 
+// ANCHOR Edit Book
 function addEditButtons(book) {
-    // ANCHOR Edit Book
     const bookEditCheckBox = document.createElement('input')
     bookEditCheckBox.setAttribute('type', 'checkbox')
     bookEditCheckBox.setAttribute('name', 'edit-book')
@@ -266,8 +264,6 @@ for (let [bookName, bookValue] of Object.entries(library)) {
     bodySec.appendChild(bookOverview)
 }
 
-// function setBookOverview() { }
-
 // END !SECTION Create Book Overview
 
 // SECTION Book Edit Button Dialog
@@ -285,31 +281,110 @@ const radioTab = document.querySelectorAll('input.input.input-radioTab')
 
 // ANCHOR Book Edit Buttons
 
+const popupOverlay = document.querySelector('section.popup-overlay');
+
+function setBookOverview(book) {
+
+}
+
 // Edit Button
 const bookEditButtons = document.querySelectorAll('button.button.button-bookEdit.editBook')
 
 bookEditButtons.forEach(bookEditButton => {
     bookEditButton.addEventListener('click', e => {
         setBookOverview(e.currentTarget.parentElement.parentElement.id)
+        popupOverlay.classList.remove('displayNone')
         radioTab[0].checked = true;
     })
 })
+
+const logTableBody = document.querySelector('tbody.table.table-body')
+
+// SECTION Set Book Logs
+function setBookLogOverview(book) {
+
+    logTableBody.textContent = ''
+
+    for ([logName, logValue] of Object.entries(library[book].logs)) {
+
+        // console.log(logName, logValue)
+
+        const defaultRow = document.createElement('tr')
+        defaultRow.className = 'default'
+        defaultRow.dataset.book = book
+        defaultRow.id = logName
+
+        // Icon State
+        const dataIcon = document.createElement('td')
+        dataIcon.className = 'body body-iconState'
+        const dataIconWrapper = document.createElement('div')
+        dataIconWrapper.className = 'iconWrapper'
+        const icon = document.createElement('img')
+        icon.className = 'icon'
+        icon.setAttribute('src', logValue['body-iconState']['src'])
+        icon.setAttribute('alt', logValue['body-iconState']['alt'])
+
+        dataIconWrapper.appendChild(icon)
+        dataIcon.appendChild(dataIconWrapper)
+
+        // Body TimeStamp
+        const dataTime = document.createElement('td')
+        dataTime.className = 'body body-timeStamp'
+        dataTime.textContent = logValue['body-timeStamp']
+
+        // Body onPage
+        const dataOnPage = document.createElement('td')
+        dataOnPage.className = 'body body-onPage'
+        dataOnPage.textContent = logValue['body-onPage']
+
+        // Body EntryLog
+        const dataEntryLog = document.createElement('td')
+        dataEntryLog.className = 'body body-entryLog'
+        const dataEntryLogDesc = document.createElement('div')
+        dataEntryLogDesc.className = 'logDesc'
+        dataEntryLogDesc.textContent = logValue['body-entryLog']
+
+        dataEntryLog.appendChild(dataEntryLogDesc)
+
+        // Body Arrow
+        const dataArrow = document.createElement('td')
+        dataArrow.className = 'body body-editArrow'
+        const arrowInput = document.createElement('input')
+        arrowInput.setAttribute('type', 'checkbox')
+        arrowInput.className = 'input input-checkBox button button-Row'
+        dataArrow.appendChild(arrowInput)
+
+        // Append All
+        defaultRow.append(dataIcon, dataTime, dataOnPage, dataEntryLog, dataArrow)
+
+        logRowEvent(defaultRow);
+
+        logTableBody.appendChild(defaultRow)
+    }
+}
 
 // Log Button
 const bookLogButtons = document.querySelectorAll('button.button.button-bookEdit.logBook')
 
 bookLogButtons.forEach(bookLogButton => {
     bookLogButton.addEventListener('click', e => {
-        setBookOverview(e.currentTarget.parentElement.parentElement.id);
+        setBookLogOverview(e.currentTarget.parentElement.parentElement.id);
+        sortPriorTimeASC();
+
+        popupOverlay.classList.remove('displayNone')
         radioTab[1].checked = true;
     })
+
 })
+
+// END !SECTION Set Log Book
 
 // Delete Button
 const bookDeleteButtons = document.querySelectorAll('button.button.button-bookEdit.removeBook')
 
 bookDeleteButtons.forEach(bookDeleteButton => {
     bookDeleteButton.addEventListener('click', e => {
+        delete library[e.currentTarget.parentElement.parentElement.id]
         e.currentTarget.parentElement.parentElement.remove()
     })
 })
@@ -443,23 +518,26 @@ inputPageCheck[2].addEventListener('input', e => {
 // Table Body
 const tableBody = document.querySelector('tbody.table.table-body')
 
-const tableRowSorting = Array.from(tableBody.children);
+function sortPriorTimeASC() {
+    let tableRowSorting = Array.from(tableBody.children);
 
-// Sort by Ascending Prior on TimeStamp
-tableRowSorting.sort((first, next) => {
-    return new Date(first.children[1].textContent) - new Date(next.children[1].textContent)
-})
+    // Prior Sort by Ascending on TimeStamp
+    tableRowSorting.sort((first, next) => {
+        return new Date(first.children[1].textContent) - new Date(next.children[1].textContent)
+    })
 
-tableRowSorting.forEach(sortRow => tableBody.appendChild(sortRow))
+    tableRowSorting.forEach(sortRow => tableBody.appendChild(sortRow))
+}
+
+sortPriorTimeASC();
 
 // Sorting Headers
 const headerSort = Array.from(document.querySelectorAll('.input.input-checkBox.header'))
 
-headerSort.forEach((sortHead, index) => {
+headerSort.forEach((sortHead) => {
     sortHead.addEventListener('click', e => {
 
-
-        const newTableSort = [...tableRowSorting]
+        const tableSortRows = Array.from(tableBody.children)
 
         if (e.currentTarget.dataset.detailed == 'Time Stamp') {
 
@@ -469,9 +547,14 @@ headerSort.forEach((sortHead, index) => {
 
             if (e.currentTarget.checked) {
                 // Sort Descending
-                newTableSort.sort((first, next) => {
+                tableSortRows.sort((first, next) => {
                     return new Date(next.children[1].textContent) - new Date(first.children[1].textContent)
                 })
+
+                tableSortRows.forEach(sortRow => tableBody.appendChild(sortRow))
+
+            } else {
+                sortPriorTimeASC();
             }
         }
         else {
@@ -482,18 +565,18 @@ headerSort.forEach((sortHead, index) => {
 
             if (e.currentTarget.checked) {
                 // Sort in Descending
-                newTableSort.sort((first, next) => {
+                tableSortRows.sort((first, next) => {
                     return next.children[2].textContent - first.children[2].textContent;
                 })
             } else {
                 // Sort in Ascending
-                newTableSort.sort((first, next) => {
+                tableSortRows.sort((first, next) => {
                     return first.children[2].textContent - next.children[2].textContent
                 })
             }
-        }
 
-        newTableSort.forEach(sortRow => tableBody.appendChild(sortRow))
+            tableSortRows.forEach(sortRow => tableBody.appendChild(sortRow))
+        }
     });
 })
 
@@ -526,15 +609,13 @@ timeStampRead.addEventListener('click', e => {
     e.currentTarget.setAttribute('max', Date(getDate().replace(' ', 'T')))
 })
 
-function addLogRow(logTypeTextInput, logTypeImgInput, page, timeStampReadInput, bookLogInput) {
+function addLogRow(logTypeTextInput, logTypeImgInput, pageInput, timeStampReadInput, bookLogInput, logName, bookName) {
+
     // SECTION Creating New Row
     const newRow = document.createElement('tr')
     newRow.classList.add('default')
-
-    // Creating a Unique ID for Row
-    const uniqueID = new Date().toISOString()
-
-    newRow.setAttribute('id', `default${uniqueID}`)
+    newRow.id = logName
+    newRow.dataset.book = bookName
 
     // ANCHOR Icon Data
     const newIconData = document.createElement('td')
@@ -560,7 +641,7 @@ function addLogRow(logTypeTextInput, logTypeImgInput, page, timeStampReadInput, 
     // ANCHOR onPage Data
     const newPage = document.createElement('td')
     newPage.className = 'body body-onPage sort'
-    newPage.textContent = page
+    newPage.textContent = pageInput
 
     // ANCHOR LogDesc Data
     const newLog = document.createElement('td')
@@ -592,27 +673,51 @@ function addLogRow(logTypeTextInput, logTypeImgInput, page, timeStampReadInput, 
 
     newRow.scrollIntoView();
 
-    newRow.addEventListener('click', toggleRowClass)
+    logRowEvent(newRow)
+
+    // Set Sort Order by ASC
+    sortPriorTimeASC();
+
 }
 
 // Submit Button Action
-function submitNewLog(e) {
-    let logTypeTextInput, logTypeImgInput, page, timeStampReadInput, bookLogInput;
+function submitNewLog() {
+    // Adding Log Row to Object
+    let bookName = document.querySelector('tr.default').dataset.book;
+    // Creating a Unique ID for LogRow
+    let logName = `default-${new Date()}`;
 
-    logTypeTextInput = selectOption.children[0].getAttribute('alt')
-    logTypeImgInput = selectOption.children[0].getAttribute('src')
+    let logTypeTextInput = selectOption.children[0].getAttribute('alt');
+    let logTypeImgInput = selectOption.children[0].getAttribute('src');
 
-    if (bookLog.value == "") bookLogInput = ''
+    let pageInput = bookPageInput.value;
+    let timeStampReadInput = timeStampRead.value;
+    let bookLogInput = bookLog.value;
 
-    if (timeStampRead.value == "") {
-        timeStampReadInput = getDate()
-    }
+    // if (bookLog.value == "") 
+    //     bookLogInput = ''
+    // else
+    //     bookLogInput = bookLog.value
 
-    // TODO Change After Object Creation
-    if (bookPageInput.value == "") page = 321
+    if (timeStampReadInput == "")
+        timeStampReadInput = getDate();
+
+    if (pageInput == "")
+        pageInput = library[bookName].haveRead;
 
     // LINK layout.js:15
-    addLogRow(logTypeTextInput, logTypeImgInput, page, timeStampReadInput, bookLogInput)
+    addLogRow(logTypeTextInput, logTypeImgInput, pageInput, timeStampReadInput, bookLogInput, logName, bookName)
+
+    library[bookName].logs[logName] = {}
+    library[bookName].logs[logName]['body-iconState'] = {}
+
+    library[bookName].logs[logName]['body-iconState']['src'] = logTypeImgInput
+    library[bookName].logs[logName]['body-iconState']['alt'] = logTypeTextInput
+    library[bookName].logs[logName]['body-timeStamp'] = timeStampReadInput
+    library[bookName].logs[logName]['body-onPage'] = pageInput
+    library[bookName].logs[logName]['body-entryLog'] = bookLogInput
+
+    setTotalPage();
 }
 
 // Submit Button Event Listener
@@ -624,10 +729,7 @@ logButton.addEventListener('click', submitNewLog);
 // SECTION Display Detailed Row
 // LINK index.html:395
 
-// Default Row Selected
-const tableRows = document.querySelectorAll('tr.default')
-
-// 3.2 SECTION Edit Button Event
+// 3.2 SECTION Edit Log Button Event
 function editLogButtonEvent(editLogButton, defaultRow, dataObject, logTypeImageInit) {
 
     editLogButton.addEventListener('click', () => {
@@ -668,22 +770,24 @@ function editLogButtonEvent(editLogButton, defaultRow, dataObject, logTypeImageI
                 return false;
             }
 
+            let logValue = library[defaultRow.dataset.book].logs[defaultRow.id]
+
             // Get Current atrtibutes of Div Made Selection Element
             selectImg = selectOption.children[0].getAttribute('src')
             selectAlt = selectOption.children[0].getAttribute('alt')
 
             // Get Page Input and Update to None
-            inputPage = bookPageInput.value
+            let inputedPage = bookPageInput.value
             bookPageInput.value = ""
 
             // Get Timestamp Input and Update to None
-            initDate = timeStampRead.value.split('T')
-            inputDate = initDate[0] + ' ' + initDate[1]
+            let initDate = timeStampRead.value.split('T')
+            let inputDate = initDate[0] + ' ' + initDate[1]
 
             timeStampRead.value = ''
 
             // Get Book Log Input and Update to None
-            inputLog = bookLog.value
+            let inputLog = bookLog.value
             bookLog.value = ""
 
             // Add to DefaultRow
@@ -696,9 +800,17 @@ function editLogButtonEvent(editLogButton, defaultRow, dataObject, logTypeImageI
             logTypeImage.setAttribute('src', selectImg)
             logTypeText.setAttribute('alt', selectAlt)
 
-            readPage.textContent = inputPage
+            logValue['body-iconState']['src'] = selectImg
+            logValue['body-iconState']['alt'] = selectAlt
+
+            readPage.textContent = inputedPage
+            logValue['body-onPage'] = inputedPage
+
             readDate.textContent = inputDate
+            logValue['body-timeStamp'] = inputDate
+
             entryLog.textContent = inputLog
+            logValue['body-entryLog'] = inputLog
 
             // Remove Hidden Row
             defaultRow.nextElementSibling.remove()
@@ -722,10 +834,11 @@ function editLogButtonEvent(editLogButton, defaultRow, dataObject, logTypeImageI
 }
 // END !SECTION Edit Button Event
 
-// 3.1 SECTION Remove Button Event
+// 3.1 SECTION Remove Log Button Event
 function removeLogButtonEvent(removeLogButton, defaultRow) {
     removeLogButton.addEventListener('click', () => {
         defaultRow.nextElementSibling.remove()
+        delete library[defaultRow.dataset.book].logs[defaultRow.id]
         defaultRow.remove();
     })
 }
@@ -844,13 +957,13 @@ function hiddenRowPreWork(defaultRow) {
     } else {
         // Set to Default if Hidden Row not Revealed
         // LINK layout.js:331
-        setDefault(defaultRow)
+        setToDefault(defaultRow)
     }
 }
 // END !SECTION Prepare defaultRow
 
 // 2.1 ANCHOR Set to Default Values
-function setDefault(row) {
+function setToDefault(row) {
     row.classList.remove('rowRevealed');
     row.children[0].setAttribute('rowspan', '1')
 
@@ -862,27 +975,27 @@ function setDefault(row) {
     row.lastElementChild.children[0].checked = false
 }
 
-// 1. Toggling Class on Event
-function toggleRowClass(e) {
-    e.currentTarget.classList.toggle('rowRevealed')
+function logRowEvent(defaultRow) {
 
-    for (let rowPresent of tableRows) {
-        // console.log(rowDefault)
+    defaultRow.addEventListener('click', e => {
+        // 1. Toggling Class on Event
+        e.currentTarget.classList.toggle('rowRevealed')
 
-        // For Other row's on Not Click
-        if (rowPresent !== e.currentTarget) {
-            // LINK layout.js:331
-            setDefault(rowPresent)
+        for (let rowPresent of document.querySelectorAll('tr.default')) {
+            // console.log(rowDefault)
+
+            // For Other row's on Not Click
+            if (rowPresent !== e.currentTarget) {
+                // LINK layout.js:331
+                setToDefault(rowPresent)
+            }
         }
-    }
 
-    // Start PreWork for Hidden Row
-    // LINK layout.js:292
-    hiddenRowPreWork(e.currentTarget);
+        // Start PreWork for Hidden Row
+        // LINK layout.js:292
+        hiddenRowPreWork(e.currentTarget);
+    })
 }
-
-// Event for Each Present Row
-tableRows.forEach(row => row.addEventListener('click', toggleRowClass));
 
 // END !SECTION Display Detailed Row
 

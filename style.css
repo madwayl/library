@@ -1086,7 +1086,7 @@ section.body {
 }
 
 .button.saveBook::after {
-    content: 'Save Edits'
+    content: 'Save'
 }
 
 .icon-Button.saveBook {
