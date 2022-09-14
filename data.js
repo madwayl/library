@@ -39,7 +39,7 @@ let library = {
         '1025',
         'In-Progress',
         '3.0',
-        ['thriller', 'horror', 'fantasy'],
+        ['thriller', 'horror', 'fantasy', 'unknown'],
         'https://i0.wp.com/stonesoup.com/wp-content/uploads/2018/05/2018-6-The-Hobbit.jpg?fit=306%2C500&ssl=1'),
     'book-15690': new book(
         'Wrong Place Wrong Time',

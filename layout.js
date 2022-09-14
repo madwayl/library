@@ -121,7 +121,7 @@ function changeProgress(book) {
 let bookTags = [[], []]
 let bookTagsCSS = '';
 
-const filterLabels = document.querySelector('.filter-label')
+const filterLabelWrapper = document.querySelector('.filter-labelWrapper')
 
 function changeTags(book) {
     // Add Tags in Global
@@ -170,12 +170,15 @@ function changeTags(book) {
         label.className = `input input-checkBox label-${tag}`
         label.id = `${tag}Label`
         label.setAttribute('data-detailed', `# ${tag}`)
-        filterLabels.appendChild(label)
+        label.checked = true;
+        filterLabelWrapper.appendChild(label)
     }
 
     // Label Container
     const bookLabel = document.createElement('div')
-    bookLabel.className = 'bookLabels'
+    bookLabel.className = 'bookLabels-div'
+    const bookLabelWrapper = document.createElement('div')
+    bookLabelWrapper.className = 'bookLabels-wrapper'
 
     // Check Tags on Book Overview
     for (let tag of book['bookCategory']) {
@@ -187,7 +190,7 @@ function changeTags(book) {
         spanLabel.className = `bookLabels label-${tag}`
         spanLabel.textContent = tag.charAt(0).toUpperCase() + tag.slice(1)
 
-        bookLabel.appendChild(spanLabel)
+        bookLabelWrapper.appendChild(spanLabel)
     }
 
     // Append Style Element
@@ -197,10 +200,12 @@ function changeTags(book) {
     style.textContent = bookTagsCSS;
     document.querySelector('head').appendChild(style);
 
+    bookLabel.appendChild(bookLabelWrapper)
+
     return bookLabel
 }
 
-// ANCHOR Edit Book
+// ANCHOR Edit Book Buttons
 function addEditButtons(book) {
     const bookEditCheckBox = document.createElement('input')
     bookEditCheckBox.setAttribute('type', 'checkbox')
