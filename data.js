@@ -1,6 +1,6 @@
 // Constructor
 
-function book(title, author, haveRead, pages, bookStatus, rating, bookCategory, imgSrc) {
+function book(title, author, haveRead, pages, bookStatus, rating, bookCategory, imageSrc) {
     this.title = title
     this.author = author
 
@@ -13,8 +13,8 @@ function book(title, author, haveRead, pages, bookStatus, rating, bookCategory, 
 
     this.logs = {}
 
-    if (imgSrc)
-        this.imageSrc = imgSrc
+    if (imageSrc)
+        this.imageSrc = imageSrc
 
     this.setTotalPageOnLog = function (logs) {
         for (let log of Object.values(logs)) {

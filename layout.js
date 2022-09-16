@@ -2,8 +2,7 @@
 
 // SECTION Create Book Overview
 
-// Change Image
-// ANCHOR Image
+// ANCHOR Change Image
 function changeBookImage(book) {
     const bookOvImage = document.createElement('img')
     bookOvImage.className = 'image image-book overview'
@@ -13,7 +12,7 @@ function changeBookImage(book) {
     return bookOvImage
 }
 
-// ANCHOR Author
+// ANCHOR Change Author
 function changeAuthor(book) {
     const author = document.createElement('h5')
     author.className = 'heading heading-bookAuthor'
@@ -22,7 +21,7 @@ function changeAuthor(book) {
     return author
 }
 
-// ANCHOR Heading
+// ANCHOR Change book Title
 function changeHeading(book) {
     const headingDiv = document.createElement('div')
     headingDiv.className = 'heading-element'
@@ -39,7 +38,7 @@ function changeHeading(book) {
     return headingDiv
 }
 
-// ANCHOR Rating
+// ANCHOR Change Rating
 function changeRating(book) {
     const rating = document.createElement('div')
     rating.classList.add('ratingBox')
@@ -56,7 +55,7 @@ function changeRating(book) {
     return rating
 }
 
-// ANCHOR Progress
+// ANCHOR Change Progress
 function changeProgress(book) {
     if (book.bookStatus == 'In-Progress') {
         // Show Number of Pages Left
@@ -117,7 +116,7 @@ function changeProgress(book) {
     }
 }
 
-// ANCHOR Tags
+// ANCHOR Change Tags
 let bookTags = [[], []]
 let bookTagsCSS = '';
 
@@ -170,7 +169,7 @@ function changeTags(book) {
         label.className = `input input-checkBox label-${tag}`
         label.id = `${tag}Label`
         label.setAttribute('data-detailed', `# ${tag}`)
-        label.checked = true;
+        // label.checked = true;
         filterLabelWrapper.appendChild(label)
     }
 
@@ -193,7 +192,7 @@ function changeTags(book) {
         bookLabelWrapper.appendChild(spanLabel)
     }
 
-    // Append Style Element
+    // Append Style Element in Head
     document.querySelector('style').remove()
     let style = document.createElement('style')
     style.setAttribute('type', 'text/css');
@@ -205,14 +204,14 @@ function changeTags(book) {
     return bookLabel
 }
 
-// ANCHOR Edit Book Buttons
+// ANCHOR Add Editing Buttons
 function addEditButtons(book) {
     const bookEditCheckBox = document.createElement('input')
     bookEditCheckBox.setAttribute('type', 'checkbox')
     bookEditCheckBox.setAttribute('name', 'edit-book')
     bookEditCheckBox.className = 'input input-bookEdit'
 
-    // ANCHOR Edit Book Buttons
+    // Buttons Container
     const bookEditDisp = document.createElement('div')
     bookEditDisp.className = 'books-bookEdits displayNone'
 
@@ -246,8 +245,7 @@ function addEditButtons(book) {
     return [bookEditCheckBox, bookEditDisp]
 }
 
-// Create A book for Initial Values Set on
-// LINK data.js
+// Setup Initial Values from LINK data.js:12
 const bodySec = document.querySelector('section.body')
 
 for (let [bookName, bookValue] of Object.entries(library)) {
@@ -270,7 +268,10 @@ for (let [bookName, bookValue] of Object.entries(library)) {
 
 // END !SECTION Create Book Overview
 
-// SECTION Book Edit Button Dialog
+// SECTION Book Edits
+
+const bookSection2 = document.querySelector('.book-section2')
+
 // TODO Check to Edit For Each
 const bookEditCheck = document.querySelectorAll('input.input.input-bookEdit')
 
@@ -283,28 +284,85 @@ bookEditCheck.forEach(bookEdit => {
 // Radio Tabs
 const radioTab = document.querySelectorAll('input.input.input-radioTab')
 
-// ANCHOR Book Edit Buttons
-
 const popupOverlay = document.querySelector('section.popup-overlay');
+
+// SECTION Set Book Details
+
+// All Inputs
+const inputAll = Array.from(document.querySelectorAll('.input-element:not(.radioCheck)'))
+
+// Individual Inputs
+
+const picSrc = document.querySelector('main.book-section1>img')
+
+const picInput = document.querySelector('.input-element.addImageUrl>input.input.input-type.imageUrl')
+
+const titleInput = document.querySelector('.input-element.title>input.input.input-type')
+
+const authorInput = document.querySelector('.input-element.author>input.input.input-type')
+
+const pageRead = document.querySelector('.input-element.page.Read>input.input.input-type')
+
+const pageTotal = document.querySelector('.input-element.page.Total>input.input.input-type')
+
+const labelInput = document.querySelector('.input-element.label>input.input-type')
 
 function setBookOverview(book) {
 
+    if (library[book].hasOwnProperty('imageSrc')) {
+        picSrc.setAttribute('src', library[book].imageSrc)
+        picInput.value = library[book].imageSrc
+    }
+
+    titleInput.value = library[book].title
+    authorInput.value = library[book].author
+    pageRead.value = library[book].haveRead
+    pageTotal.value = library[book].totalPages
+
+    document.querySelector(`input.input.input-radioStatus[name="book-status"][value="${library[book].bookStatus}"]`).checked = true
+
+    if (library[book].rating > 0)
+        document.querySelector(`div.ratingControl>input[name="rating"][value="${library[book].rating}"]`).checked = true
+
+    labelInput.value = library[book].bookCategory.toString()
 }
 
-// Edit Button
+function setOnEdit(bookId) {
+    popupOverlay.classList.remove('displayNone')
+
+    setBookOverview(bookId);
+    sortPriorTimeASC();
+    setBookLogOverview(bookId);
+
+    cancelBookPopup.classList.add('edit')
+    cancelBookPopup.classList.remove('add')
+
+    bookSection2.scrollTop = 0
+
+    inputAll.forEach(input => input.querySelector('input').classList.add('valid'))
+
+}
+
+// ANCHOR Edit Book Event
 const bookEditButtons = document.querySelectorAll('button.button.button-bookEdit.editBook')
+
+const cancelBookPopup = document.querySelector('button.button-fixed.bookCancel')
+
 
 bookEditButtons.forEach(bookEditButton => {
     bookEditButton.addEventListener('click', e => {
-        setBookOverview(e.currentTarget.parentElement.parentElement.id)
-        popupOverlay.classList.remove('displayNone')
+        setOnEdit(e.currentTarget.parentElement.parentElement.id);
+
         radioTab[0].checked = true;
     })
 })
 
-const logTableBody = document.querySelector('tbody.table.table-body')
+// END !SECTION Set Book Details
 
 // SECTION Set Book Logs
+
+const logTableBody = document.querySelector('tbody.table.table-body')
+
 function setBookLogOverview(book) {
 
     logTableBody.textContent = ''
@@ -367,15 +425,13 @@ function setBookLogOverview(book) {
     }
 }
 
-// Log Button
+// ANCHOR Log Book Event
 const bookLogButtons = document.querySelectorAll('button.button.button-bookEdit.logBook')
 
 bookLogButtons.forEach(bookLogButton => {
     bookLogButton.addEventListener('click', e => {
-        setBookLogOverview(e.currentTarget.parentElement.parentElement.id);
-        sortPriorTimeASC();
+        setOnEdit(e.currentTarget.parentElement.parentElement.id)
 
-        popupOverlay.classList.remove('displayNone')
         radioTab[1].checked = true;
     })
 
@@ -393,13 +449,13 @@ bookDeleteButtons.forEach(bookDeleteButton => {
     })
 })
 
-// END !SECTION Book Edit Dialog
+// END !SECTION Book Edits
 
 // END !SECTION Book Overview
 
 // SECTION Overlay Popup
 
-// SECTION Section 1
+// SECTION Book - Section 1
 
 // Image to be revealed
 const bookImage = document.querySelector('.image.image-book.edit');
@@ -438,13 +494,13 @@ imageURLInput.addEventListener('focusout', e => {
     })
 })
 
-// END !SECTION Section 1
+// END !SECTION Book - Section 1
 
-// SECTION Section 2
+// SECTION Book - Section 2
 
-// SECTION Book Detail
+// SECTION Section 2 - Book Detail
 
-// All the Inputs
+// Regular Inputs
 const inputs = Array.from(document.querySelectorAll('.tabWindow-bookDetails>.input-element:not(.radioCheck)'))
 
 // Page Number Inputs
@@ -487,7 +543,7 @@ inputs.forEach(input => {
                 } else {
                     inputPage[0].classList.add('invalid')
                     inputPage[0].classList.remove('valid')
-                    inputPage[0].nextElementSibling.textContent = 'Value can\'t be less than Total Page'
+                    inputPage[0].nextElementSibling.textContent = 'Value can\'t be more than Total Page'
                 }
 
                 // Radio Button Check on Page Number Entry
@@ -515,9 +571,9 @@ inputPageCheck[2].addEventListener('input', e => {
 
 // END !SECTION Book Detail
 
-// SECTION Book Logs Table
+// SECTION Section 2 - Book Logs
 
-// SECTION Sort Default Rows
+// SECTION Sorting Log Table
 
 // Table Body
 const tableBody = document.querySelector('tbody.table.table-body')
@@ -584,10 +640,9 @@ headerSort.forEach((sortHead) => {
     });
 })
 
-// END !SECTION Sort Default Rows
+// END !SECTION Sorting Log Table
 
-
-// SECTION Add New Log
+// SECTION Adding New Log
 
 // Submit Log Button Element
 const logButton = document.querySelector('.button.icon-Button.log#logButton');
@@ -613,9 +668,10 @@ timeStampRead.addEventListener('click', e => {
     e.currentTarget.setAttribute('max', Date(getDate().replace(' ', 'T')))
 })
 
+// SECTION Creating New Row
+
 function addLogRow(logTypeTextInput, logTypeImgInput, pageInput, timeStampReadInput, bookLogInput, logName, bookName) {
 
-    // SECTION Creating New Row
     const newRow = document.createElement('tr')
     newRow.classList.add('default')
     newRow.id = logName
@@ -684,10 +740,12 @@ function addLogRow(logTypeTextInput, logTypeImgInput, pageInput, timeStampReadIn
 
 }
 
-// Submit Button Action
+// ANCHOR Submit Button Event Handler
 function submitNewLog() {
+
     // Adding Log Row to Object
     let bookName = document.querySelector('tr.default').dataset.book;
+
     // Creating a Unique ID for LogRow
     let logName = `default-${new Date()}`;
 
@@ -724,7 +782,7 @@ function submitNewLog() {
     setTotalPage();
 }
 
-// Submit Button Event Listener
+// ANCHOR Submit Button Event
 logButton.addEventListener('click', submitNewLog);
 
 // END !SECTION Add New Row
@@ -1055,15 +1113,38 @@ divSelect.addEventListener('click', () => {
 
 // END !SECTION Dropdown Imitation
 
-// END !SECTION Book Logs Table
+// END !SECTION Section 2 - Book Logs
 
-// END !SECTION Section 2
+// END !SECTION Book - Section 2
 
 // ANCHOR Cancel Book Add / Edit
-const cancelBookPopup = document.querySelector('button.button-fixed.bookCancel')
+
+// Empty the Inputs
+function clearAll() {
+    picSrc.setAttribute('src', './assets/web/svg-images/book/book3.svg')
+    picInput.value = ''
+    titleInput.value = ''
+    authorInput.value = ''
+    pageRead.value = ''
+    pageTotal.value = ''
+    labelInput.value = ''
+
+    inputAll.forEach(input => input.querySelector('input').classList.remove('valid'))
+
+    const bookStatusDef = document.querySelector(`input.input.input-radioStatus[name="book-status"]:checked`)
+    if (bookStatusDef)
+        bookStatusDef.checked = false
+
+    const ratingDef = document.querySelector(`div.ratingControl>input[name="rating"]:checked`)
+    if (ratingDef)
+        ratingDef.checked = false
+
+    logTableBody.textContent = ''
+}
 
 cancelBookPopup.addEventListener('click', e => {
-    popupOverlay.classList.add('displayNone')
+    popupOverlay.classList.add('displayNone');
+    clearAll();
 })
 
 // END !SECTION Overlay Popup
@@ -1073,4 +1154,11 @@ const addBookPopup = document.querySelector('button.button-fixed.bookAdd')
 
 addBookPopup.addEventListener('click', e => {
     popupOverlay.classList.remove('displayNone')
+
+    cancelBookPopup.classList.remove('edit')
+    cancelBookPopup.classList.add('add')
+
+    radioTab[0].checked = true;
+    bookSection2.scrollTop = 0
+
 })

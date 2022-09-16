@@ -180,14 +180,16 @@
                     </div>
 
                     <div class="input-element radioCheck">
-                        <input type="radio" name="book-status" id="completed"
-                            class="input input-radioStatus filterNotStarted" data-detailed="Not Started" checked>
+                        <input type="radio" name="book-status" id="notStarted"
+                            class="input input-radioStatus filterNotStarted" data-detailed="Not Started"
+                            value="Not Started">
+
+                        <input type="radio" name="book-status" id="reading"
+                            class="input input-radioStatus filterReading" data-detailed="In-Progress"
+                            value="In-Progress">
 
                         <input type="radio" name="book-status" id="completed"
-                            class="input input-radioStatus filterReading" data-detailed="In Progress">
-
-                        <input type="radio" name="book-status" id="completed"
-                            class="input input-radioStatus filterCompleted" data-detailed="Completed">
+                            class="input input-radioStatus filterCompleted" data-detailed="Completed" value="Completed">
                     </div>
 
                     <!-- ANCHOR Star Rating
@@ -195,35 +197,35 @@
                     <div class="input-element rating">
                         <label class="text text-bookRating">Your Rating</label>
                         <div class="ratingControl">
-                            <input type="radio" id="rating-5" name="rating" value="5">
+                            <input type="radio" id="rating-5" name="rating" value="5.0">
                             <label class="ratingControl-stars ratingControl-stars--5" for="rating-5">5</label>
 
                             <input type="radio" id="rating-45" name="rating" value="4.5">
                             <label class="ratingControl-stars ratingControl-stars--45 ratingControl-stars--half"
                                 for="rating-45">45</label>
 
-                            <input type="radio" id="rating-4" name="rating" value="4">
+                            <input type="radio" id="rating-4" name="rating" value="4.0">
                             <label class="ratingControl-stars ratingControl-stars--4" for="rating-4">4</label>
 
                             <input type="radio" id="rating-35" name="rating" value="3.5">
                             <label class="ratingControl-stars ratingControl-stars--35 ratingControl-stars--half"
                                 for="rating-35">35</label>
 
-                            <input type="radio" id="rating-3" name="rating" value="3">
+                            <input type="radio" id="rating-3" name="rating" value="3.0">
                             <label class="ratingControl-stars ratingControl-stars--3" for="rating-3">3</label>
 
                             <input type="radio" id="rating-25" name="rating" value="2.5">
                             <label class="ratingControl-stars ratingControl-stars--25 ratingControl-stars--half"
                                 for="rating-25">25</label>
 
-                            <input type="radio" id="rating-2" name="rating" value="2">
+                            <input type="radio" id="rating-2" name="rating" value="2.0">
                             <label class="ratingControl-stars ratingControl-stars--2" for="rating-2">2</label>
 
                             <input type="radio" id="rating-15" name="rating" value="1.5">
                             <label class="ratingControl-stars ratingControl-stars--15 ratingControl-stars--half"
                                 for="rating-15">15</label>
 
-                            <input type="radio" id="rating-1" name="rating" value="1">
+                            <input type="radio" id="rating-1" name="rating" value="1.0">
                             <label class="ratingControl-stars ratingControl-stars--1" for="rating-1">1</label>
 
                             <input type="radio" id="rating-05" name="rating" value="0.5">
@@ -332,7 +334,8 @@
 
         </main>
 
-        <button class="button button-fixed bookCancel" id="bookCancelButton"><span class="icon-Button cancelBookAdd">
+        <button class="button button-fixed bookCancel add" id="bookCancelButton"><span
+                class="icon-Button cancelBookAdd">
             </span></button>
 
     </section>

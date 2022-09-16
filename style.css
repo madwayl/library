@@ -457,6 +457,9 @@ option {
     overflow: hidden;
 
     position: relative;
+
+    display: flex;
+    justify-content: center;
 }
 
 .filter-label::after {
@@ -593,7 +596,7 @@ section.body {
 
     margin: 0rem 0rem .15rem 0rem;
 
-    max-width: 230px;
+    max-width: 215px;
 
     position: relative;
 }
@@ -1305,6 +1308,8 @@ section.body {
     padding: 0rem 0.8rem 0rem 2.5rem;
 
     color: var(--color-brown-dark);
+
+    font-weight: 600;
 }
 
 .input-type:focus,
@@ -1558,6 +1563,7 @@ input:checked~.ratingControl-stars {
 
 table {
     border-spacing: .1rem;
+    width: 100%;
 }
 
 .table>tr {
@@ -2030,8 +2036,12 @@ textarea.input-bookLog {
     color: var(--color-red-dark);
 }
 
-.button-fixed.bookCancel::after {
+.button-fixed.bookCancel.add::after {
     content: 'Cancel Add'
+}
+
+.button-fixed.bookCancel.edit::after {
+    content: 'Cancel Edit'
 }
 
 .icon-Button.cancelBookAdd {
