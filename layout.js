@@ -1,3 +1,16 @@
+const bookSection2 = document.querySelector('.book-section2')
+
+// Radio Tabs
+const radioTab = document.querySelectorAll('input.input.input-radioTab')
+
+const popupOverlay = document.querySelector('section.popup-overlay');
+
+const logTableBody = document.querySelector('tbody.table.table-body')
+
+const saveBookPopup = document.querySelector('button.button.saveBook')
+
+const cancelBookPopup = document.querySelector('button.button-fixed.bookCancel')
+
 // SECTION Book Overview
 
 // SECTION Create Book Overview
@@ -128,6 +141,7 @@ let bookTagsCSS = [];
 const filterLabelWrapper = document.querySelector('.filter-labelWrapper')
 
 function changeTags(book) {
+
     // Add Tags in Global
     function createCSS_Filters(tag) {
         if (bookTags[0].includes(tag)) return false
@@ -166,7 +180,7 @@ function changeTags(book) {
 
         bookTags[0].push(tag)
         bookTags[1].push([rgbValues])
-        bookTagsCSS.push(`.${tag}{ background-color : rgb(${rgbValues.toString()})}`)
+        bookTagsCSS.push(`.label-${tag}{ background-color : rgb(${rgbValues.toString()})}`)
 
         // Label in Filter Section
         const label = document.createElement('input')
@@ -257,6 +271,14 @@ function addEditButtons(book) {
     buttonEditSpan.className = 'icon-Button editBook'
     buttonEdit.appendChild(buttonEditSpan)
     buttonEdit.appendChild(document.createTextNode('Edit'))
+    buttonEdit.addEventListener('click', e => {
+        setOnEdit(e.currentTarget.parentElement.parentElement, e.currentTarget.parentElement.parentElement.id);
+
+        radioTab[0].checked = true;
+        radioTab[1].disabled = false;
+
+    })
+
     bookEditDisp.appendChild(buttonEdit)
 
     // Buttons Log
@@ -266,6 +288,14 @@ function addEditButtons(book) {
     buttonLogSpan.className = 'icon-Button logBook'
     buttonLog.appendChild(buttonLogSpan)
     buttonLog.appendChild(document.createTextNode('Log'))
+    buttonLog.addEventListener('click', e => {
+        setOnEdit(e.currentTarget.parentElement.parentElement, e.currentTarget.parentElement.parentElement.id)
+
+        radioTab[1].checked = true;
+        radioTab[1].disabled = false;
+
+    })
+
     bookEditDisp.appendChild(buttonLog)
 
     // Buttons Delete
@@ -275,16 +305,17 @@ function addEditButtons(book) {
     buttonDelSpan.className = 'icon-Button removeBook'
     buttonDel.appendChild(buttonDelSpan)
     buttonDel.appendChild(document.createTextNode('Delete'))
+    buttonDel.addEventListener('click', e => {
+        delete library[e.currentTarget.parentElement.parentElement.id]
+        e.currentTarget.parentElement.parentElement.remove()
+    })
+
     bookEditDisp.appendChild(buttonDel)
 
     return [bookEditCheckBox, bookEditDisp]
 }
 
-// Setup Initial Values from LINK data.js:12
-const bodySec = document.querySelector('section.body')
-
-for (let [bookName, bookValue] of Object.entries(library)) {
-
+function createBookOverview(bookName, bookValue) {
     const bookOverview = document.createElement('main')
     bookOverview.classList.add('book-overview')
     bookOverview.id = bookName
@@ -295,31 +326,27 @@ for (let [bookName, bookValue] of Object.entries(library)) {
     bookOverview.appendChild(changeRating(bookValue))
     bookOverview.appendChild(changeProgress(bookValue))
     bookOverview.appendChild(changeTags(bookValue))
+
     bookEdit = addEditButtons(bookValue)
     bookOverview.append(bookEdit[0], bookEdit[1])
 
+    bookEdit[0].addEventListener('change', e => {
+        e.currentTarget.nextElementSibling.classList.toggle('displayNone')
+    })
+
     bodySec.appendChild(bookOverview)
+}
+
+// Setup Initial Values from LINK data.js:12
+const bodySec = document.querySelector('section.body')
+
+for (let [bookName, bookValue] of Object.entries(library)) {
+    createBookOverview(bookName, bookValue);
 }
 
 // END !SECTION Create Book Overview
 
 // SECTION Book Edits
-
-const bookSection2 = document.querySelector('.book-section2')
-
-// TODO Check to Edit For Each
-const bookEditCheck = document.querySelectorAll('input.input.input-bookEdit')
-
-bookEditCheck.forEach(bookEdit => {
-    bookEdit.addEventListener('change', e => {
-        e.currentTarget.nextElementSibling.classList.toggle('displayNone')
-    })
-})
-
-// Radio Tabs
-const radioTab = document.querySelectorAll('input.input.input-radioTab')
-
-const popupOverlay = document.querySelector('section.popup-overlay');
 
 // SECTION Set Book Details
 
@@ -327,7 +354,7 @@ const popupOverlay = document.querySelector('section.popup-overlay');
 const inputAll = Array.from(document.querySelectorAll('.input-element:not(.radioCheck)'))
 
 // Individual Inputs
-const picSrc = document.querySelector('main.book-section1>img')
+const picShowOnEdit = document.querySelector('main.book-section1>img.image.image-book.edit')
 
 const picInput = document.querySelector('.input-element.addImageUrl>input.input.input-type.imageUrl')
 
@@ -345,7 +372,7 @@ const labelInput = document.querySelector('.input-element.label>input.input-type
 function setBookOverview(book) {
 
     if (library[book].hasOwnProperty('imageSrc')) {
-        picSrc.setAttribute('src', library[book].imageSrc)
+        picShowOnEdit.setAttribute('src', library[book].imageSrc)
         picInput.value = library[book].imageSrc
     }
 
@@ -451,10 +478,9 @@ function setOnEdit(parentBook, bookId) {
 
         // Check on Pic Input
         let picInputed = picInput.value.trim()
-        if (picInputed != library[bookId].imageSrc && picSrc.getAttribute('src') == picInputed) {
+        if (picInputed != library[bookId].imageSrc && picShowOnEdit.getAttribute('src') == picInputed) {
             library[bookId].imageSrc = picInputed
         }
-
 
         // Check on Title
         let titleInputed = titleInput.value.trim()
@@ -523,47 +549,6 @@ function setOnEdit(parentBook, bookId) {
 
 }
 
-// ANCHOR Edit Book Event
-
-const bookEditButtons = document.querySelectorAll('button.button.button-bookEdit.editBook')
-
-const cancelBookPopup = document.querySelector('button.button-fixed.bookCancel')
-
-const saveBookPopup = document.querySelector('button.button.saveBook')
-
-bookEditButtons.forEach(bookEditButton => {
-    bookEditButton.addEventListener('click', e => {
-        setOnEdit(e.currentTarget.parentElement.parentElement, e.currentTarget.parentElement.parentElement.id);
-
-        radioTab[0].checked = true;
-    })
-})
-
-// ANCHOR Log Book Event
-
-const logTableBody = document.querySelector('tbody.table.table-body')
-
-const bookLogButtons = document.querySelectorAll('button.button.button-bookEdit.logBook')
-
-bookLogButtons.forEach(bookLogButton => {
-    bookLogButton.addEventListener('click', e => {
-        setOnEdit(e.currentTarget.parentElement.parentElement, e.currentTarget.parentElement.parentElement.id)
-
-        radioTab[1].checked = true;
-    })
-
-})
-
-// ANCHOR Delete Button Event
-const bookDeleteButtons = document.querySelectorAll('button.button.button-bookEdit.removeBook')
-
-bookDeleteButtons.forEach(bookDeleteButton => {
-    bookDeleteButton.addEventListener('click', e => {
-        delete library[e.currentTarget.parentElement.parentElement.id]
-        e.currentTarget.parentElement.parentElement.remove()
-    })
-})
-
 // END !SECTION Book Edits
 
 // END !SECTION Book Overview
@@ -572,18 +557,12 @@ bookDeleteButtons.forEach(bookDeleteButton => {
 
 // SECTION Book - Section 1
 
-// Image to be revealed
-const bookImage = document.querySelector('.image.image-book.edit');
-
-// Image Input URL
-const imageURLInput = document.querySelector('.input.input-type.imageUrl');
-
 // Button for Image 
 const buttonAddImage = document.querySelector('.button.button-image.addImage');
 const buttonRemoveImage = document.querySelector('.button.button-image.removeImage');
 
 // Event on Input URL Image
-imageURLInput.addEventListener('focusout', e => {
+picInput.addEventListener('focusout', e => {
     if (e.target.validity.patternMismatch) {
         e.target.nextElementSibling.textContent = 'Not a Valid Image Link'
         e.target.classList.add('invalid');
@@ -601,9 +580,9 @@ imageURLInput.addEventListener('focusout', e => {
 [buttonAddImage, buttonRemoveImage].forEach(button => {
     button.addEventListener('click', e => {
         if (e.currentTarget == buttonAddImage) {
-            bookImage.setAttribute('src', imageURLInput.value)
+            picShowOnEdit.setAttribute('src', picInput.value)
         } else {
-            bookImage.setAttribute('src', './assets/web/svg-images/book/book3.svg')
+            picShowOnEdit.setAttribute('src', './assets/web/svg-images/book/book3.svg')
             picInput.textContent = ''
         }
     })
@@ -782,7 +761,7 @@ timeStampRead.addEventListener('click', e => {
     e.currentTarget.setAttribute('max', Date(getDate().replace(' ', 'T')))
 })
 
-// SECTION Creating New Row
+// SECTION Create New Log Row
 
 function addLogRow(logTypeTextInput, logTypeImgInput, pageInput, timeStampReadInput, bookLogInput, logName, bookName) {
 
@@ -939,7 +918,7 @@ function editLogButtonEvent(editLogButton, defaultRow, dataObject, logTypeImageI
         const updateLogButton = document.querySelector('.button.icon-Button.log.updateLog#logButton');
 
 
-        // 3.2.1 ANCHOR Trigger on Update Button
+        // 3.2.1 ANCHOR Trigger on Update Log Button
         updateLogButton.addEventListener('click', () => {
             if (bookLog.value == null) {
                 return false;
@@ -1234,7 +1213,7 @@ divSelect.addEventListener('click', () => {
 
 // Empty the Inputs
 function clearAll() {
-    picSrc.setAttribute('src', './assets/web/svg-images/book/book3.svg')
+    picShowOnEdit.setAttribute('src', './assets/web/svg-images/book/book3.svg')
     picInput.value = ''
     titleInput.value = ''
     authorInput.value = ''
@@ -1282,6 +1261,34 @@ addBookPopup.addEventListener('click', e => {
     saveBookPopup.classList.add('add')
 
     radioTab[0].checked = true;
+    radioTab[1].disabled = true;
     bookSection2.scrollTop = 0
 
+    // SECTION Save Add Book
+    document.querySelector('button.button.saveBook.add').addEventListener('click', e => {
+        const newBookId = `book-${new Date().toISOString()}`
+
+        const bookRate = document.querySelector(`div.ratingControl>input[name="rating"]:checked`)
+        const newBookRating = bookRate ? bookRate.value : '0.0'
+
+        // Add Object Entry
+        library[newBookId] = new book(
+            titleInput.value.trim(),
+            authorInput.value.trim(),
+            pageRead.value.trim(),
+            pageTotal.value.trim(),
+            document.querySelector(`input.input.input-radioStatus[name="book-status"]:checked`).value,
+            newBookRating,
+            labelInput.value.replace(' ', '').split(',').filter(Boolean),
+            picInput.value.trim()
+        )
+
+        createBookOverview(newBookId, library[newBookId])
+
+        popupOverlay.classList.add('displayNone');
+        clearAll();
+
+    }, { once: true })
+
+    // END !SECTION Save Add Book
 })
