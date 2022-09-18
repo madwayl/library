@@ -627,7 +627,6 @@ const inputPageCheck = Array.from(document.querySelectorAll('.input-element.radi
 inputs.forEach(input => {
 
     // ANCHOR Validation Input Elements
-
     input.querySelector('input').addEventListener('focusout', e => {
 
         // Set Max Value for Page Read so Far
@@ -1252,6 +1251,13 @@ function clearAll() {
     const ratingDef = document.querySelector(`div.ratingControl>input[name="rating"]:checked`)
     if (ratingDef)
         ratingDef.checked = false
+
+    // Clear All Error Messages
+    document.querySelectorAll('span.error-text').forEach(text => {
+        text.textContent = '';
+        text.previousElementSibling.classList.remove('invalid')
+        text.previousElementSibling.classList.remove('valid')
+    })
 
     logTableBody.textContent = ''
 }
