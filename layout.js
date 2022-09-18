@@ -451,9 +451,10 @@ function setOnEdit(parentBook, bookId) {
 
         // Check on Pic Input
         let picInputed = picInput.value.trim()
-        if (picInputed != library[bookId].imageSrc) {
+        if (picInputed != library[bookId].imageSrc && picSrc.getAttribute('src') == picInputed) {
             library[bookId].imageSrc = picInputed
         }
+
 
         // Check on Title
         let titleInputed = titleInput.value.trim()
@@ -603,8 +604,8 @@ imageURLInput.addEventListener('focusout', e => {
             bookImage.setAttribute('src', imageURLInput.value)
         } else {
             bookImage.setAttribute('src', './assets/web/svg-images/book/book3.svg')
+            picInput.textContent = ''
         }
-        // TODO Add Image to Image Section
     })
 })
 
@@ -624,6 +625,8 @@ const inputPage = Array.from(document.querySelectorAll('.tabWindow-bookDetails>.
 const inputPageCheck = Array.from(document.querySelectorAll('.input-element.radioCheck>input'))
 
 inputs.forEach(input => {
+
+    // ANCHOR Validation Input Elements
 
     input.querySelector('input').addEventListener('focusout', e => {
 
@@ -852,7 +855,7 @@ function addLogRow(logTypeTextInput, logTypeImgInput, pageInput, timeStampReadIn
 
 }
 
-// ANCHOR Submit Button Event Handler
+// ANCHOR Log Submit Event Handler
 function submitNewLog() {
 
     // Adding Log Row to Object
@@ -894,7 +897,7 @@ function submitNewLog() {
     setTotalPage();
 }
 
-// ANCHOR Submit Button Event
+// ANCHOR Log Submit Event
 logButton.addEventListener('click', submitNewLog);
 
 // END !SECTION Add New Row
