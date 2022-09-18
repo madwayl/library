@@ -1,3 +1,34 @@
+// SECTION Search
+
+const searchCancel = document.querySelector('span.search-cancel')
+
+const searchInput = document.querySelector('input.search.search-bar')
+
+searchInput.addEventListener('input', e => {
+    if (e.target.value.length > 0) {
+        searchCancel.addEventListener('click', e => {
+            searchInput.value = ''
+        })
+
+    }
+})
+
+
+// END !SECTION Search
+
+// SECTION Filter
+
+const filterToggle = document.querySelector('input.input-checkBox.search-filter')
+
+const filterSection = document.querySelector('section.filter')
+
+filterToggle.addEventListener('input', e => {
+    filterSection.classList.toggle('displayNone')
+})
+
+// END !SECTION Filter
+
+// Common Attributes
 const bookSection2 = document.querySelector('.book-section2')
 
 // Radio Tabs
