@@ -133,7 +133,7 @@ library['book-15690'].logs = {
     }
 };
 
-library['book-16690'].log = {
+library['book-16690'].logs = {
     'default-1418': {
         'body-iconState': {
             'src': './assets/web/svg-icons/bookmark.svg',
@@ -166,7 +166,7 @@ library['book-16690'].log = {
 };
 
 
-library['book-17290'].log = {
+library['book-17290'].logs = {
     'default-1418': {
         'body-iconState': {
             'src': './assets/web/svg-icons/summary.svg',
@@ -198,6 +198,7 @@ library['book-17290'].log = {
     }
 };
 
+//  Set Book Progress for Each Log
 function setTotalPage() {
     for (let book in library) {
         library[book].setTotalPageOnLog(library[book].logs)

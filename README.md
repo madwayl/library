@@ -7,6 +7,7 @@ A Book Library Lookup
 
 - [x] Always rely on UTF-8
 - [x] Depend on `.ico` for Favicon Icons
+- [x] Elements always reatins its position. Hidden doesn't change it.
 
 #### Input Elements
 

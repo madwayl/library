@@ -114,7 +114,7 @@
                 <div class="openAddImage">
                     <div class="input-element addImageUrl">
                         <input type="url" name="image-url" id="imageUrl" class="input input-type imageUrl"
-                            placeholder="Paste a Link" pattern="(?:https|http):\/\/[a-zA-Z0-9.]+[\/a-zA-Z0-9.\-\?=]+">
+                            placeholder="Paste a Link" pattern="(?:https|http):\/\/[a-zA-Z0-9.]+.+">
                         <span class="error-text"></span>
                     </div>
 
@@ -128,7 +128,7 @@
                     </div>
                 </div>
 
-                <button class="button saveBook" id="bookSaveButton"><span class="icon-Button saveBook">
+                <button class="button saveBook add" id="bookSaveButton"><span class="icon-Button saveBook">
                     </span></button>
 
             </main>
@@ -168,14 +168,14 @@
                     <div class="input-element page Read">
                         <label for="bookPagesRead">Pages Read</label>
                         <input type="number" name="book-pages-read" id="bookPagesRead" class="input input-type"
-                            placeholder="Pages Read so Far">
+                            placeholder="Pages Read so Far" min="0">
                         <span class="error-text"></span>
                     </div>
 
                     <div class="input-element page Total">
                         <label for="bookPages">Total Pages</label>
                         <input type="number" name="book-pages" id="bookPages" class="input input-type"
-                            placeholder="Pages in Book" required>
+                            placeholder="Pages in Book" min="0" required>
                         <span class="error-text"> </span>
                     </div>
 

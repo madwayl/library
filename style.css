@@ -1151,8 +1151,12 @@ section.body {
     margin-top: auto;
 }
 
-.button.saveBook::after {
-    content: 'Save'
+.button.saveBook.add::after {
+    content: 'Save Add'
+}
+
+.button.saveBook.edit::after {
+    content: 'Save Edit'
 }
 
 .icon-Button.saveBook {
@@ -1304,7 +1308,7 @@ section.body {
 }
 
 .input-type {
-    border: 3px solid var(--color-brown-norm);
+    border: 2px solid var(--color-brown-norm);
     padding: 0rem 0.8rem 0rem 2.5rem;
 
     color: var(--color-brown-dark);
