@@ -20,7 +20,7 @@ function book(title, author, haveRead, pages, bookStatus, rating, bookCategory, 
         for (let log of Object.values(logs)) {
             log['body-totalPage'] = this.totalPages
             log['body-onProgress'] = function () {
-                return Math.floor(Number(this['body-onPage']) / Number(this['body-totalPage']) * 100)
+                return Math.floor((Number(this['body-onPage']) / Number(this['body-totalPage'])) * 100)
             }
         }
     }
@@ -54,7 +54,7 @@ let library = {
         'Lorem Ipsum So Some',
         'You MyAl',
         '0',
-        '244',
+        '644',
         'Not Started',
         '0.0',
         ['thriller', 'unknown']),
@@ -183,7 +183,7 @@ library['book-17290'].logs = {
             'alt': 'Comment'
         },
         'body-timeStamp': '2022-01-16 16:55',
-        'body-onPage': '521',
+        'body-onPage': '121',
         'body-entryLog': `Lorem ipsum dolor sit, amet consectetur adipisicing elit.
         Itaque, esse.`
     },
@@ -193,7 +193,7 @@ library['book-17290'].logs = {
             'alt': 'Summary'
         },
         'body-timeStamp': '2022-05-16 21:55',
-        'body-onPage': '324',
+        'body-onPage': '24',
         'body-entryLog': `Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet consectetur, dipisicing elit. Dolor voluptatibus est velit.`
     }
 };

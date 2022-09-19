@@ -721,7 +721,11 @@ const headerSort = Array.from(document.querySelectorAll('.input.input-checkBox.h
 headerSort.forEach((sortHead) => {
     sortHead.addEventListener('click', e => {
 
-        const tableSortRows = Array.from(tableBody.children)
+        const tableSortRows = Array.from(tableBody.querySelectorAll(':scope>tr.default'))
+
+        tableSortRows.forEach(row => {
+            setToDefault(row)
+        })
 
         if (e.currentTarget.dataset.detailed == 'Time Stamp') {
 
@@ -771,12 +775,13 @@ headerSort.forEach((sortHead) => {
 // Submit Log Button Element
 const logButton = document.querySelector('.button.icon-Button.log#logButton');
 
-// Input Elements
+// Log Input Elements
 const selectOption = document.querySelector('.table-input>.input-book-log>div.select-option.wrapper>div.selected>li')
 const bookPageInput = document.querySelector('.input.input-bookLog#bookPage')
 const timeStampRead = document.querySelector('.input.input-bookLog#timestamp')
 const bookLog = document.querySelector('.input.input-bookLog#bookLog')
 
+// Date in format YYYY-MM-DD HH:mm
 function getDate() {
     let currentDate = new Date()
     function appendZero(num) {
@@ -787,21 +792,20 @@ function getDate() {
     return '' + currentDate.getFullYear() + '-' + appendZero(currentDate.getMonth() + 1) + '-' + appendZero(currentDate.getDate()) + ' ' + appendZero(currentDate.getHours()) + ':' + appendZero(currentDate.getMinutes())
 }
 
-// Limit Date
+// Set Max to Today
 timeStampRead.addEventListener('click', e => {
-    e.currentTarget.setAttribute('max', Date(getDate().replace(' ', 'T')))
+    timeStampRead.max = getDate().replace(' ', 'T')
 })
 
-// SECTION Create New Log Row
-
-function addLogRow(logTypeTextInput, logTypeImgInput, pageInput, timeStampReadInput, bookLogInput, logName, bookName) {
+// SECTION New Log HTML Creation
+function addNewDefaultRow(logTypeTextInput, logTypeImgInput, pageInput, timeStampReadInput, bookLogInput, logName, bookName) {
 
     const newRow = document.createElement('tr')
     newRow.classList.add('default')
     newRow.id = logName
     newRow.dataset.book = bookName
 
-    // ANCHOR Icon Data
+    // ANCHOR Set Icon Data
     const newIconData = document.createElement('td')
     newIconData.className = 'body body-iconState'
     newIconData.getAttribute('rowspan', '1')
@@ -817,17 +821,17 @@ function addLogRow(logTypeTextInput, logTypeImgInput, pageInput, timeStampReadIn
     iconWrapper.appendChild(iconImg)
     newIconData.appendChild(iconWrapper)
 
-    // ANCHOR TimeStamp Data
+    // ANCHOR Set TimeStamp Data
     const newtimeStampData = document.createElement('td')
     newtimeStampData.className = 'body body-timeStamp sort'
     newtimeStampData.textContent = timeStampReadInput
 
-    // ANCHOR onPage Data
+    // ANCHOR Set onPage Data
     const newPage = document.createElement('td')
     newPage.className = 'body body-onPage sort'
     newPage.textContent = pageInput
 
-    // ANCHOR LogDesc Data
+    // ANCHOR Set LogDesc Data
     const newLog = document.createElement('td')
     newLog.className = 'body body-entryLog'
     const newlogDesc = document.createElement('div')
@@ -836,7 +840,7 @@ function addLogRow(logTypeTextInput, logTypeImgInput, pageInput, timeStampReadIn
 
     newLog.appendChild(newlogDesc)
 
-    // ANCHOR Arrow Option
+    // ANCHOR Set Arrow Option
     const newArrowLook = document.createElement('td')
     newArrowLook.className = 'body body-editArrow'
     const arrowIcon = document.createElement('input')
@@ -851,8 +855,6 @@ function addLogRow(logTypeTextInput, logTypeImgInput, pageInput, timeStampReadIn
     newRow.appendChild(newLog)
     newRow.appendChild(newArrowLook)
 
-    // END !SECTION Creating New Row
-
     tableBody.appendChild(newRow)
 
     newRow.scrollIntoView();
@@ -863,9 +865,14 @@ function addLogRow(logTypeTextInput, logTypeImgInput, pageInput, timeStampReadIn
     sortPriorTimeASC();
 
 }
+// END !SECTION New Log HTML Creation
 
 // ANCHOR Log Submit Event Handler
 function submitNewLog() {
+
+    if (bookLog.value == '') {
+        return false;
+    }
 
     // Adding Log Row to Object
     let bookName = document.querySelector('tr.default').dataset.book;
@@ -877,7 +884,13 @@ function submitNewLog() {
     let logTypeImgInput = selectOption.children[0].getAttribute('src');
 
     let pageInput = bookPageInput.value;
-    let timeStampReadInput = timeStampRead.value;
+    if (pageInput == "")
+        pageInput = library[bookName].haveRead;
+
+    let timeStampReadInput = timeStampRead.value.replace('T', ' ');
+    if (timeStampReadInput == "")
+        timeStampReadInput = getDate();
+
     let bookLogInput = bookLog.value;
 
     // if (bookLog.value == "") 
@@ -885,15 +898,7 @@ function submitNewLog() {
     // else
     //     bookLogInput = bookLog.value
 
-    if (timeStampReadInput == "")
-        timeStampReadInput = getDate();
-
-    if (pageInput == "")
-        pageInput = library[bookName].haveRead;
-
-    // LINK layout.js:15
-    addLogRow(logTypeTextInput, logTypeImgInput, pageInput, timeStampReadInput, bookLogInput, logName, bookName)
-
+    // Add to Data Object
     library[bookName].logs[logName] = {}
     library[bookName].logs[logName]['body-iconState'] = {}
 
@@ -904,12 +909,22 @@ function submitNewLog() {
     library[bookName].logs[logName]['body-entryLog'] = bookLogInput
 
     setTotalPage();
+
+    //Create HTML LINK layout.js:15
+    addNewDefaultRow(logTypeTextInput, logTypeImgInput, pageInput, timeStampReadInput, bookLogInput, logName, bookName)
+
+    bookPageInput.value = ''
+    timeStampRead.value = ''
+    bookLog.value = ''
+    selectOption.children[0].setAttribute('alt', 'Comment');
+    selectOption.children[0].setAttribute('src', './assets/web/svg-icons/comment.svg')
+    selectOption.children[1].textContent = 'Comment'
 }
 
-// ANCHOR Log Submit Event
+// ANCHOR Log Submit Event Listener
 logButton.addEventListener('click', submitNewLog);
 
-// END !SECTION Add New Row
+// END !SECTION Add New Log Row
 
 // SECTION Display Detailed Row
 // LINK index.html:395
@@ -932,9 +947,7 @@ function editLogButtonEvent(editLogButton, defaultRow, dataObject, logTypeImageI
         bookPageInput.value = dataObject['In Page']
 
         // Update timeStampRead Input Element
-        dates = dataObject['Reading Date'].split(' ')
-        dates_original = dates[0] + 'T' + dates[1]
-        timeStampRead.value = dates_original
+        timeStampRead.value = dataObject['Reading Date'].replace(' ', 'T')
 
         // Update bookLog Input Element
         bookLog.value = dataObject['Log Description'].replace(/ {2,}/g, "")
@@ -945,13 +958,10 @@ function editLogButtonEvent(editLogButton, defaultRow, dataObject, logTypeImageI
         // Update Class from Submit Button to Update Button
         logButton.className = 'button icon-Button log updateLog'
 
-        // Select Update Button
-        const updateLogButton = document.querySelector('.button.icon-Button.log.updateLog#logButton');
-
 
         // 3.2.1 ANCHOR Trigger on Update Log Button
-        updateLogButton.addEventListener('click', () => {
-            if (bookLog.value == null) {
+        document.querySelector('.button.icon-Button.log.updateLog#logButton').addEventListener('click', () => {
+            if (bookLog.value == '') {
                 return false;
             }
 
@@ -976,6 +986,7 @@ function editLogButtonEvent(editLogButton, defaultRow, dataObject, logTypeImageI
             bookLog.value = ""
 
             // Add to DefaultRow
+            // Default Row Elements
             const logTypeImage = defaultRow.querySelector(':scope>td.body.body-iconState>div.iconWrapper>img')
             const logTypeText = defaultRow.querySelector(':scope>td.body.body-iconState>div.iconWrapper>img')
             const readDate = defaultRow.querySelector(':scope>td.body.body-timeStamp')
@@ -1001,23 +1012,22 @@ function editLogButtonEvent(editLogButton, defaultRow, dataObject, logTypeImageI
             defaultRow.nextElementSibling.remove()
             defaultRow.firstElementChild.setAttribute('rowspan', '1')
 
-            // Change Class from Update to Submit Button
+            // Change from Update to Submit Button
             updateLogButton.className = 'button icon-Button log submitLog'
 
             // Add Event Listener for Submit Button
             logButton.addEventListener('click', submitNewLog);
 
-
             // Re-Initiate Hidden Row Creation
             // LINK layout.js:179
             hiddenRowPreWork(defaultRow)
 
-            defaultRow.scrollIntoView();
+            defaultRow.nextElementSibling.scrollTop = 0;
 
         }, { once: true })
     })
 }
-// END !SECTION Edit Button Event
+// END !SECTION Edit Log Button Event
 
 // 3.1 SECTION Remove Log Button Event
 function removeLogButtonEvent(removeLogButton, defaultRow) {
@@ -1027,7 +1037,7 @@ function removeLogButtonEvent(removeLogButton, defaultRow) {
         defaultRow.remove();
     })
 }
-// END !SECTION On Remove Button Event
+// END !SECTION Remove Log Button Event
 
 // 3. SECTION Create Detailed Row
 function createDetailRow(defaultRow, dataObject, logTypeImage) {
@@ -1107,7 +1117,7 @@ function createDetailRow(defaultRow, dataObject, logTypeImage) {
 }
 // END !SECTION Create's Detailed Row
 
-// 2. SECTION Prepare defaultRow
+// 2. ANCHOR Prepare defaultRow
 function hiddenRowPreWork(defaultRow) {
 
     // defaultRow Child Elements Values
@@ -1144,7 +1154,6 @@ function hiddenRowPreWork(defaultRow) {
         setToDefault(defaultRow)
     }
 }
-// END !SECTION Prepare defaultRow
 
 // 2.1 ANCHOR Set to Default Values
 function setToDefault(row) {
@@ -1251,6 +1260,9 @@ function clearAll() {
     pageRead.value = ''
     pageTotal.value = ''
     labelInput.value = ''
+    selectOption.children[0].setAttribute('alt', 'Comment');
+    selectOption.children[0].setAttribute('src', './assets/web/svg-icons/comment.svg')
+    selectOption.children[1].textContent = 'Comment'
 
     inputAll.forEach(input => input.querySelector('input').classList.remove('valid'))
 

@@ -1772,6 +1772,8 @@ td.body-editArrow {
 
     /* Override Flex Properties defined in LINK style.css:147 */
     display: block;
+
+    box-shadow: none;
 }
 
 .input-checkBox.button:checked {
