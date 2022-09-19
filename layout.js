@@ -384,23 +384,12 @@ function createBookOverview(bookName, bookValue) {
     })
 
     bookOverview.addEventListener('click', (e) => {
-        if (!e.target.closest('.input-bookEdit')) {
-            // debugger;
+        if (!e.target.closest('.input-bookEdit') &&
+            !e.target.closest('.books-bookEdits')) {
+            debugger;
             e.currentTarget.lastElementChild.classList.toggle('displayNone')
             e.currentTarget.lastElementChild.previousElementSibling.checked = !e.currentTarget.lastElementChild.previousElementSibling.checked
-            //     const bookOvChild = Array.from(bookOverview.children)
 
-            //     if (!e.target.closest('input.input.input-bookEdit')) {
-            //         if (e.target.closest('.books-bookEdits')) {
-            //             e.target.closest('.books-bookEdits').classList.toggle('displayNone')
-            //         }
-
-            //         const inputDispCheck = e.target.lastElementChild.previousElementSibling
-
-            //         if (inputDispCheck.checked)
-            //             inputDispCheck.checked = false
-            //         else
-            //             inputDispCheck.checked = true
         }
     })
 
