@@ -90,6 +90,7 @@
 #### Scroll
 
 - [x] Scroll as overlay, use `overflow: overlay`
+    - Doesn't work on Mozilla
 
 ### JS
 #### DOM 

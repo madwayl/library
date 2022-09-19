@@ -54,7 +54,7 @@
 body {
     display: grid;
     grid-template-rows:
-        [head] 5rem [filter] .1fr [body] repeat(5, 1fr) [foot] .25fr;
+        [head] 5rem [filter] 0fr [body] repeat(5, 1fr) [foot] .25fr;
 
     height: 100vh;
     margin: 0;
@@ -129,7 +129,14 @@ body {
     gap: .5rem;
 
     cursor: pointer;
+
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
+
+.button:hover {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
 
 /* ANCHOR Buttons with Icons */
 .icon-Button {
@@ -165,6 +172,7 @@ body {
     padding: 0;
 
     font-family: 'Quicksand', sans-serif;
+
 }
 
 /* ANCHOR Input Checkboxes */
@@ -179,12 +187,17 @@ body {
 
     border-width: 2.75px;
     border-style: solid;
+
+    cursor: pointer;
+
 }
 
 .input-checkBox:checked,
 .input-radioStatus:checked {
     padding: 0rem .5rem 0rem .25rem;
     color: var(--color-white);
+
+
 }
 
 .input-checkBox::before,
@@ -229,7 +242,7 @@ header.head {
     /* justify-content: space-between; */
     align-items: center;
 
-    margin: 0 1rem;
+    padding: 0 1rem;
 
     z-index: 10;
 
@@ -378,7 +391,7 @@ section.filter {
     align-items: center;
     gap: .5rem;
 
-    padding: .25rem 2.5rem;
+    padding: 0rem 2.5rem 1rem;
 
     z-index: 10;
 
@@ -552,11 +565,11 @@ section.body {
 
     position: relative;
 
-    padding: 1rem 2rem;
+    padding: 1rem 3rem;
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-    gap: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(324px, 1fr));
+    gap: 2.8rem;
     justify-items: center;
 }
 
@@ -587,10 +600,10 @@ section.body {
 
     border-radius: 10px;
 
-
-
     z-index: 5;
     background-color: var(--color-brown-light);
+
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 .image-book {
@@ -598,6 +611,8 @@ section.body {
 
     max-height: 175px;
     width: auto;
+
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 .book-overview .heading {
@@ -827,6 +842,8 @@ section.body {
 
     padding: .2rem;
     margin-right: .54rem;
+
+    scrollbar-width: none;
 }
 
 .bookLabels-wrapper::-webkit-scrollbar {
@@ -1209,6 +1226,7 @@ section.body {
 
 .input-radioTab:disabled {
     opacity: .9;
+    cursor: not-allowed;
 }
 
 .input-radioTab {
@@ -1282,6 +1300,7 @@ section.body {
 
     display: flex;
 
+    overflow-y: auto;
     overflow-y: overlay;
     overflow-x: hidden;
 }
@@ -1600,6 +1619,7 @@ input:checked~.ratingControl-stars {
 
     margin-left: .25rem;
 
+    overflow-y: auto;
     overflow-y: overlay;
 
     position: relative;
