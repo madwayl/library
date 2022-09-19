@@ -10,7 +10,7 @@ A Book Library Lookup
     - Feather Icons
     - Google Fonts
 
-- Favicon : [School material icons created by kerismaker - Flaticon](https://www.flaticon.com/free-icons/school-material)
+- Favicon : [Cropped from Image](https://www.vecteezy.com/vector-art/4629763-library-logo-icon-set)
 
 - Fonts from:
     - Google Fonts

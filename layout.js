@@ -364,7 +364,7 @@ function createBookOverview(bookName, bookValue) {
     bookOverview.append(bookEdit[0], bookEdit[1])
 
     bookEdit[0].addEventListener('input', e => {
-        debugger;
+        // debugger;
         e.currentTarget.nextElementSibling.classList.toggle('displayNone')
 
         const bookTarget = e.currentTarget
@@ -385,7 +385,7 @@ function createBookOverview(bookName, bookValue) {
 
     bookOverview.addEventListener('click', (e) => {
         if (!e.target.closest('.input-bookEdit')) {
-            debugger;
+            // debugger;
             e.currentTarget.lastElementChild.classList.toggle('displayNone')
             e.currentTarget.lastElementChild.previousElementSibling.checked = !e.currentTarget.lastElementChild.previousElementSibling.checked
             //     const bookOvChild = Array.from(bookOverview.children)
