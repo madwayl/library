@@ -131,6 +131,8 @@ body {
     cursor: pointer;
 
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+    transition: all .5s ease;
 }
 
 .button:hover {
@@ -190,14 +192,13 @@ body {
 
     cursor: pointer;
 
+    transition: all .5s ease;
 }
 
 .input-checkBox:checked,
 .input-radioStatus:checked {
     padding: 0rem .5rem 0rem .25rem;
     color: var(--color-white);
-
-
 }
 
 .input-checkBox::before,
