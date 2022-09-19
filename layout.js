@@ -36,6 +36,8 @@ const radioTab = document.querySelectorAll('input.input.input-radioTab')
 
 const popupOverlay = document.querySelector('section.popup-overlay');
 
+const popupMenu = document.querySelector('main.popup');
+
 const logTableBody = document.querySelector('tbody.table.table-body')
 
 const saveBookPopup = document.querySelector('button.button.saveBook')
@@ -361,8 +363,45 @@ function createBookOverview(bookName, bookValue) {
     bookEdit = addEditButtons(bookValue)
     bookOverview.append(bookEdit[0], bookEdit[1])
 
-    bookEdit[0].addEventListener('change', e => {
+    bookEdit[0].addEventListener('input', e => {
+        debugger;
         e.currentTarget.nextElementSibling.classList.toggle('displayNone')
+
+        const bookTarget = e.currentTarget
+
+        document.body.addEventListener('click', (e) => {
+            if (!e.target.closest('.books-bookEdits') &&
+                e.target != popupOverlay &&
+                e.target != bookTarget &&
+                e.target != bookOverview) {
+
+                document.querySelector('.books-bookEdits').classList.add('displayNone')
+
+                bookTarget.checked = false
+            }
+        })
+
+    })
+
+    bookOverview.addEventListener('click', (e) => {
+        if (!e.target.closest('.input-bookEdit')) {
+            debugger;
+            e.currentTarget.lastElementChild.classList.toggle('displayNone')
+            e.currentTarget.lastElementChild.previousElementSibling.checked = !e.currentTarget.lastElementChild.previousElementSibling.checked
+            //     const bookOvChild = Array.from(bookOverview.children)
+
+            //     if (!e.target.closest('input.input.input-bookEdit')) {
+            //         if (e.target.closest('.books-bookEdits')) {
+            //             e.target.closest('.books-bookEdits').classList.toggle('displayNone')
+            //         }
+
+            //         const inputDispCheck = e.target.lastElementChild.previousElementSibling
+
+            //         if (inputDispCheck.checked)
+            //             inputDispCheck.checked = false
+            //         else
+            //             inputDispCheck.checked = true
+        }
     })
 
     bodySec.appendChild(bookOverview)
@@ -378,8 +417,6 @@ for (let [bookName, bookValue] of Object.entries(library)) {
 // END !SECTION Create Book Overview
 
 // SECTION Book Edits
-
-// SECTION Set Book Details
 
 // All Inputs
 const inputAll = Array.from(document.querySelectorAll('.input-element:not(.radioCheck)'))
@@ -578,7 +615,13 @@ function setOnEdit(parentBook, bookId) {
     }, { once: true })
     // END !SECTION Save Edits on Book
 
+    // Close on Click Outside Menu
+    popupOverlay.addEventListener('click', (e) => {
+        if (!e.target.closest('main.popup'))
+            popupOverlay.classList.add('displayNone')
+    })
 }
+
 
 // END !SECTION Book Edits
 
@@ -913,6 +956,7 @@ function submitNewLog() {
     //Create HTML LINK layout.js:15
     addNewDefaultRow(logTypeTextInput, logTypeImgInput, pageInput, timeStampReadInput, bookLogInput, logName, bookName)
 
+    // Reset All Log Inputs
     bookPageInput.value = ''
     timeStampRead.value = ''
     bookLog.value = ''
@@ -1294,6 +1338,7 @@ cancelBookPopup.addEventListener('click', e => {
 // ANCHOR Add / Edit Book
 const addBookPopup = document.querySelector('button.button-fixed.bookAdd')
 
+
 addBookPopup.addEventListener('click', e => {
     popupOverlay.classList.remove('displayNone')
 
@@ -1332,6 +1377,13 @@ addBookPopup.addEventListener('click', e => {
         clearAll();
 
     }, { once: true })
+
+    // Close on Click Outside Menu
+    popupOverlay.addEventListener('click', (e) => {
+        // console.log(new Date().toLocaleTimeString(), e.target.closest('main.popup'))
+        if (!e.target.closest('main.popup'))
+            popupOverlay.classList.add('displayNone')
+    })
 
     // END !SECTION Save Add Book
 })
