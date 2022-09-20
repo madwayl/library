@@ -4,8 +4,7 @@
 ### HTML
 
 - [x] Always rely on UTF-8
-- [x] Depend on `.ico` for Favicon Icons
-- [x] Elements always reatins its position. Hidden doesn't change it.
+- [x] Elements always reatins its Node position. Hidden doesn't change it.
 
 #### Input Elements
 
@@ -38,7 +37,7 @@
         - Works for:
             - Radio Button
             - Checkboxes
-    - Doesn't works for `select`
+    - Doesn't works for `select` because they're rendered
 
 - [x] Centering a `position: fixed` element needs a negative margin to the height and width of the element to center it appropriately.
 
@@ -49,6 +48,8 @@
 - [x] Icons are best added with a `span` element below the element that needs to show on hover.
 
 ##### Tables
+
+- [x] Tables are always with `display:table`
 
 - [] Adding `flex` on table `td` affects it to one column only.
     - Why???
@@ -93,9 +94,13 @@
     - Doesn't work on Mozilla
 
 ### JS
+
+- [x] Toggle Booleans with `bool = !bool`
+
 #### DOM 
 
 ##### DOM Events
+
 - [x] Close popup on click outside
     - using `.closest` to get the closest sibling / parent / child
 
@@ -106,4 +111,5 @@
 - [x] Scroll into View with `.scrollIntoView()`
 
 ##### DOM Elements
+
 - [x] Create DOM Text Nodes with `.createTextNode()`

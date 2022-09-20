@@ -2,6 +2,21 @@
 
 A Digital Library Markup
 
+## Features
+
+- [x] Add New Books
+- [x] Delete Books
+- [x] Edit Existing Books
+    - [x] Create Book Logs
+- [x] Filter & Sorting
+    - Filter by:
+        - Search
+        - Tags
+    - Sort by Types in DropDown
+- [] Local Storage 
+- [] Login with Firebase
+
+
 ## Learn
 
 [Learnt over the process](./miss'n'take.md)
@@ -13,7 +28,8 @@ A Digital Library Markup
     - Feather Icons
     - Google Fonts
 
-- Favicon : [Cropped from Image](https://www.vecteezy.com/vector-art/4629763-library-logo-icon-set)
+- Favicon: 
+    - [Cropped from Image](https://www.vecteezy.com/vector-art/4629763-library-logo-icon-set)
 
 - Fonts from:
     - Google Fonts: Libre Bodoni + Quicksand
