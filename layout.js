@@ -327,6 +327,11 @@ function addEditButtons(book) {
     buttonDel.addEventListener('click', e => {
         delete library[e.currentTarget.parentElement.parentElement.id]
         e.currentTarget.parentElement.parentElement.remove()
+
+        if (!document.querySelectorAll('.book-overview').length) {
+            document.querySelector('section.body>main.nothing').classList.remove('displayNone')
+        }
+
     })
 
     bookEditDisp.appendChild(buttonDel)
@@ -1392,6 +1397,10 @@ addBookPopup.addEventListener('click', e => {
 
         popupOverlay.classList.add('displayNone');
         clearAll();
+
+        if (document.querySelectorAll('.book-overview')) {
+            document.querySelector('section.body>main.nothing').classList.add('displayNone')
+        }
 
     }, { once: true })
 

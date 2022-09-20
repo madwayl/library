@@ -157,32 +157,41 @@ function filterBook() {
     console.log('Book Status Filter', filteredBookIDs)
 
     // ANCHOR Show / Hide
+
     // Labels To Hide
     let restBookIDs = allBookOv
         .filter(function (bookId) {
             return !filteredBookIDs.includes(bookId)
         })
 
-    // Show All if None Selected
-    if (!checkedLabels.length &&
-        !checkedStatus.length &&
-        !searchValue.length) {
-
-        return allBookOv.forEach(bookID => {
-            document.querySelector(`#${bookID}`).classList.remove('displayNone')
-
-        })
-    }
-
     // To Show Filtered
     filteredBookIDs.forEach(bookID => {
         document.querySelector(`#${bookID}`).classList.remove('displayNone')
     })
 
+    // debugger
+    if (!filteredBookIDs.length) {
+        document.querySelector('section.body>main.nothing').classList.remove('displayNone')
+    } else {
+        document.querySelector('section.body>main.nothing').classList.add('displayNone')
+    }
+
     // To Hide Rest
     restBookIDs.forEach(bookID => {
         document.querySelector(`#${bookID}`).classList.add('displayNone')
     })
+
+    // Show All if None Selected
+    if (!checkedLabels.length &&
+        !checkedStatus.length &&
+        !searchValue.length) {
+
+        document.querySelector('section.body>main.nothing').classList.add('displayNone')
+
+        return allBookOv.forEach(bookID => {
+            document.querySelector(`#${bookID}`).classList.remove('displayNone')
+        })
+    }
 }
 
 // END !SECTION Filtering
