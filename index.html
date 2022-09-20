@@ -41,18 +41,18 @@
         1. Filter
         2. Sorting 
         3. Categories -->
-    <section class="filter displayNone">
+    <section class="filter">
 
         <!-- ANCHOR Select -->
         <select name="select-order" id="selectOrder" class="sort-selection">
             <optgroup label="Sort By Date">
-                <option value="date-created">Date Created</option>
-                <option value="date-update">Date Updated</option>
+                <option value="dateCreated">Date Created</option>
+                <option value="dateUpdated">Date Updated</option>
             </optgroup>
             <optgroup label="Sort By Other">
                 <option value="rating">Rating</option>
-                <option value="pages-size">Page Size</option>
-                <option value="pages-left">Progress</option>
+                <option value="totalPages">Book Size</option>
+                <option value="haveRead">Progress</option>
             </optgroup>
         </select>
 
@@ -64,11 +64,11 @@
 
         <!-- ANCHOR CheckBox -->
         <input type="checkbox" class="input input-radioStatus filterReading" id="readingLabel" name="filterBook-status"
-            data-detailed="Reading">
+            data-detailed="Reading" value="In-Progress">
         <input type="checkbox" class="input input-radioStatus filterCompleted" id="completedLabel"
-            name="filterBook-status" data-detailed="Completed">
+            name="filterBook-status" data-detailed="Completed" value="Completed">
         <input type="checkbox" class="input input-radioStatus filterNotStarted" name="filterBook-status"
-            id="startedLabel" data-detailed="Not Started">
+            id="startedLabel" data-detailed="Not Started" value="Not Started">
 
         <!-- ANCHOR Filter Labels -->
         <div class="filter-label">
@@ -354,6 +354,7 @@
     <!-- END !SECTION Footer -->
 
     <script src="./data.js"></script>
+    <script src="./searchsort.js"></script>
     <script src="./layout.js"></script>
 </body>
 

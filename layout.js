@@ -221,6 +221,10 @@ function changeTags(book) {
         label.className = `input input-checkBox label-${tag} ${tag}`
         label.id = `${tag}Label`
         label.setAttribute('data-detailed', `# ${tag}`)
+
+        // Event to Filter by Labels
+        label.addEventListener('change', filterBook)
+
         // label.checked = true;
         filterLabelWrapper.appendChild(label)
     }
@@ -386,7 +390,7 @@ function createBookOverview(bookName, bookValue) {
     bookOverview.addEventListener('click', (e) => {
         if (!e.target.closest('.input-bookEdit') &&
             !e.target.closest('.books-bookEdits')) {
-            debugger;
+            // debugger;
             e.currentTarget.lastElementChild.classList.toggle('displayNone')
             e.currentTarget.lastElementChild.previousElementSibling.checked = !e.currentTarget.lastElementChild.previousElementSibling.checked
 
@@ -1173,7 +1177,7 @@ function hiddenRowPreWork(defaultRow) {
                 "Reading Date": readDate,
                 "Log Type": logTypeText,
                 "In Page": readPage,
-                "In Progress": `${library[defaultRow.dataset.book].logs[defaultRow.id]['body-onProgress']()}%`,
+                "In Progress": `${library[defaultRow.dataset.book].logs[defaultRow.id]['body-onProgress']}%`,
                 "Log Description": entryLog
             }, logTypeImage
         );
