@@ -1,21 +1,3 @@
-// SECTION Search
-
-const searchCancel = document.querySelector('span.search-cancel')
-
-const searchInput = document.querySelector('input.search.search-bar')
-
-searchInput.addEventListener('input', e => {
-    if (e.target.value.length > 0) {
-        searchCancel.addEventListener('click', e => {
-            searchInput.value = ''
-        })
-
-    }
-})
-
-
-// END !SECTION Search
-
 // SECTION Filter
 
 const filterToggle = document.querySelector('input.input-checkBox.search-filter')
@@ -537,17 +519,24 @@ function setOnEdit(parentBook, bookId) {
 
         // console.log('called submit click', e.target)
 
+        let valueChanged = false
+
         // Check on Pic Input
         let picInputed = picInput.value.trim()
         if (picInputed != library[bookId].imageSrc && picShowOnEdit.getAttribute('src') == picInputed) {
             library[bookId].imageSrc = picInputed
+
+            valueChanged = true
         }
 
         // Check on Title
         let titleInputed = titleInput.value.trim()
         if (titleInputed != library[bookId].title) {
             library[bookId].title = titleInputed
-            parentBook.children[2].textContent = titleInputed
+            parentBook.children[2].children[0].textContent = titleInputed
+            parentBook.children[2].children[1].textContent = titleInputed
+
+            valueChanged = true
         }
 
         // Check on Author
@@ -555,6 +544,8 @@ function setOnEdit(parentBook, bookId) {
         if (authorInputed != library[bookId].author) {
             library[bookId].author = authorInputed
             parentBook.children[1].textContent = authorInputed
+
+            valueChanged = true
         }
 
         // Check on Rating
@@ -563,17 +554,20 @@ function setOnEdit(parentBook, bookId) {
             if (ratingDef.value != library[bookId].rating) {
                 library[bookId].rating = ratingDef.value
                 parentBook.children[3].firstElementChild.textContent = ratingDef.value
+
+                valueChanged = true
             }
         } else {
             library[bookId].rating = '0.0'
         }
-
 
         // Check on Page Read
         let pageReadInputed = pageRead.value
         let pageReadChange = pageReadInputed != library[bookId].haveRead
         if (pageReadChange) {
             library[bookId].haveRead = pageReadInputed
+
+            valueChanged = true
         }
 
         // Check on Page Total
@@ -581,14 +575,19 @@ function setOnEdit(parentBook, bookId) {
         let pageTotalChange = pageTotalInputed != library[bookId].totalPages
         if (pageTotalChange) {
             library[bookId].totalPages = pageTotalInputed
+
+            valueChanged = true
         }
 
         // Check on Book Status
         // debugger;
         const bookStatusDefValue = document.querySelector(`input.input.input-radioStatus[name="book-status"]:checked`).value;
+
         if (bookStatusDefValue != library[bookId].bookStatus || pageReadChange || pageTotalChange) {
             library[bookId].bookStatus = bookStatusDefValue;
             parentBook.replaceChild(changeProgress(library[bookId]), parentBook.children[4])
+
+            valueChanged = true
         }
 
         // Check on Labels
@@ -600,10 +599,17 @@ function setOnEdit(parentBook, bookId) {
             library[bookId].bookCategory = labelInputed;
             parentBook.replaceChild(changeTags(library[bookId]), parentBook.children[5]);
             clearOldLabels();
+
+            valueChanged = true
         }
 
         popupOverlay.classList.add('displayNone');
         clearAll();
+
+        if (valueChanged) {
+            // Update Last Date Updated
+            library[bookId].dateUpdated = new Date()
+        }
 
     }, { once: true })
     // END !SECTION Save Edits on Book
@@ -614,7 +620,6 @@ function setOnEdit(parentBook, bookId) {
             popupOverlay.classList.add('displayNone')
     })
 }
-
 
 // END !SECTION Book Edits
 
@@ -834,7 +839,7 @@ timeStampRead.addEventListener('click', e => {
 })
 
 // SECTION New Log HTML Creation
-function addNewDefaultRow(logTypeTextInput, logTypeImgInput, pageInput, timeStampReadInput, bookLogInput, logName, bookName) {
+function createNewDefaultRow(logTypeTextInput, logTypeImgInput, pageInput, timeStampReadInput, bookLogInput, logName, bookName) {
 
     const newRow = document.createElement('tr')
     newRow.classList.add('default')
@@ -929,11 +934,6 @@ function submitNewLog() {
 
     let bookLogInput = bookLog.value;
 
-    // if (bookLog.value == "") 
-    //     bookLogInput = ''
-    // else
-    //     bookLogInput = bookLog.value
-
     // Add to Data Object
     library[bookName].logs[logName] = {}
     library[bookName].logs[logName]['body-iconState'] = {}
@@ -947,7 +947,10 @@ function submitNewLog() {
     setTotalPage();
 
     //Create HTML LINK layout.js:15
-    addNewDefaultRow(logTypeTextInput, logTypeImgInput, pageInput, timeStampReadInput, bookLogInput, logName, bookName)
+    createNewDefaultRow(logTypeTextInput, logTypeImgInput, pageInput, timeStampReadInput, bookLogInput, logName, bookName)
+
+    // Update Last Date Updated
+    library[bookName].dateUpdated = new Date()
 
     // Reset All Log Inputs
     bookPageInput.value = ''
@@ -1049,6 +1052,9 @@ function editLogButtonEvent(editLogButton, defaultRow, dataObject, logTypeImageI
             defaultRow.nextElementSibling.remove()
             defaultRow.firstElementChild.setAttribute('rowspan', '1')
 
+            // Update Last Date Updated
+            library[defaultRow.dataset.book].dateUpdated = new Date()
+
             // Change from Update to Submit Button
             updateLogButton.className = 'button icon-Button log submitLog'
 
@@ -1072,6 +1078,9 @@ function removeLogButtonEvent(removeLogButton, defaultRow) {
         defaultRow.nextElementSibling.remove()
         delete library[defaultRow.dataset.book].logs[defaultRow.id]
         defaultRow.remove();
+
+        // Update Last Date Updated
+        library[defaultRow.dataset.book].dateUpdated = new Date()
     })
 }
 // END !SECTION Remove Log Button Event
@@ -1177,7 +1186,7 @@ function hiddenRowPreWork(defaultRow) {
                 "Reading Date": readDate,
                 "Log Type": logTypeText,
                 "In Page": readPage,
-                "In Progress": `${library[defaultRow.dataset.book].logs[defaultRow.id]['body-onProgress']}%`,
+                "In Progress": `${library[defaultRow.dataset.book].logs[defaultRow.id]['body-onProgress']()}%`,
                 "Log Description": entryLog
             }, logTypeImage
         );
