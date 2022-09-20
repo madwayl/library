@@ -354,29 +354,44 @@ function createBookOverview(bookName, bookValue) {
         e.currentTarget.nextElementSibling.classList.toggle('displayNone')
 
         const bookTarget = e.currentTarget
+        const bookId = e.currentTarget.parentElement.id
 
         document.body.addEventListener('click', (e) => {
             if (!e.target.closest('.books-bookEdits') &&
+                !e.target.closest(`#${bookId}`) &&
                 e.target != popupOverlay &&
-                e.target != bookTarget &&
-                e.target != bookOverview) {
+                e.target != bookTarget) {
 
-                document.querySelector('.books-bookEdits').classList.add('displayNone')
+                document.querySelector(`#${bookId}>.books-bookEdits`).classList.add('displayNone')
 
                 bookTarget.checked = false
             }
-        })
+        }, { once: true })
 
     })
 
     bookOverview.addEventListener('click', (e) => {
+        const bookOv = e.currentTarget
+        const bookId = e.currentTarget.id
         if (!e.target.closest('.input-bookEdit') &&
             !e.target.closest('.books-bookEdits')) {
-            // debugger;
-            e.currentTarget.lastElementChild.classList.toggle('displayNone')
-            e.currentTarget.lastElementChild.previousElementSibling.checked = !e.currentTarget.lastElementChild.previousElementSibling.checked
+            bookOv.lastElementChild.classList.toggle('displayNone')
+            bookOv.lastElementChild.previousElementSibling.checked = !e.currentTarget.lastElementChild.previousElementSibling.checked
 
+            function removeEditDisp(e) {
+                debugger;
+                if (!e.target.closest(`#${bookId}`) &&
+                    e.target != popupOverlay) {
+
+                    bookOv.lastElementChild.classList.add('displayNone')
+                    bookOv.lastElementChild.previousElementSibling.checked = false
+                    document.body.removeEventListener('click', removeEditDisp)
+                }
+            }
+
+            document.body.addEventListener('click', removeEditDisp)
         }
+
     })
 
     bodySec.appendChild(bookOverview)
