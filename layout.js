@@ -233,7 +233,6 @@ function changeTags(book) {
     // Append Style Element in Head
     document.querySelector('style').remove()
 
-
     let style = document.createElement('style')
     style.setAttribute('type', 'text/css');
     style.textContent = bookTagsCSS.join(' ');
@@ -244,10 +243,14 @@ function changeTags(book) {
     return bookLabel
 }
 
+//  Clear Non Used Labels
 function clearOldLabels() {
+    // Labels from Filter Section
     let filterLabels = document.querySelector('div.filter-labelWrapper').children
 
     let labels = ['']
+
+    // Labels from Book Labels
     const allBookLabels = document.querySelectorAll('.bookLabels')
 
     for (const bookLabel of allBookLabels) {
@@ -325,8 +328,10 @@ function addEditButtons(book) {
     buttonDel.appendChild(buttonDelSpan)
     buttonDel.appendChild(document.createTextNode('Delete'))
     buttonDel.addEventListener('click', e => {
-        delete library[e.currentTarget.parentElement.parentElement.id]
-        e.currentTarget.parentElement.parentElement.remove()
+        parentBookEl = e.currentTarget.parentElement.parentElement
+        parentBookEl.remove()
+        delete library[parentBookEl.id]
+        clearOldLabels()
 
         if (!document.querySelectorAll('.book-overview').length) {
             document.querySelector('section.body>main.nothing').classList.remove('displayNone')
@@ -613,10 +618,13 @@ function setOnEdit(parentBook, bookId) {
         // Check on Labels
         let labelInputed = labelInput.value.replace(' ', '').split(',');
 
+        // Clear Empty Array Elements
         labelInputed = labelInputed.filter(Boolean)
 
         if (labelInputed.toString() != library[bookId].bookCategory.toString()) {
             library[bookId].bookCategory = labelInputed;
+
+            // Replacing Old Labels with Newly Generated
             parentBook.replaceChild(changeTags(library[bookId]), parentBook.children[5]);
             clearOldLabels();
 
