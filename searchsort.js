@@ -1,22 +1,72 @@
-// ANCHOR Sort Book Overview
-const sortType = document.querySelector('.filter>select#selectOrder')
-const sort = document.querySelectorAll('.filter-sort>.input.input-radio')
+// SECTION Sort Book Overview
+const sortDropDown = document.querySelector('.filter>select#selectOrder')
+const sortRadio = document.querySelectorAll('.filter-sort>.input.input-radio')
 
 // console.log(filterSort)
 
 function sortBookOverview() {
 
-    const sortOrder = sortType.value
-    console.log(document.querySelector('.filter-sort>.input.input-radio:checked').value)
+    const allBookOv = Object.keys(library)
+
+    const sortType = sortDropDown.value
+    const sortOrder = document.querySelector('.filter-sort>.input.input-radio:checked').value
+
+    console.log('Before: ', allBookOv)
+
+    if (sortType == 'dateCreated' || sortType == 'dateUpdated') {
+        allBookOv.sort(function (first, next) {
+            return new Date(library[first][`${sortType}`]) - new Date(library[next][`${sortType}`])
+        })
+    } else if (sortType == 'progress') {
+        allBookOv.sort(function (first, next) {
+            console.log(library[first].progress(), library[next].progress())
+            return library[first].progress() - library[next].progress()
+        })
+    } else {
+        allBookOv.sort(function (first, next) {
+            return library[first][`${sortType}`] - library[next][`${sortType}`]
+        })
+    }
+
+    if (sortOrder == 'Desc') {
+        allBookOv.reverse()
+    }
+
+    console.log('After: ', allBookOv)
+
+    allBookOv.forEach(bookId => {
+        bodySec.appendChild(document.querySelector(`#${bookId}`))
+    })
+
 }
 
-sortType.addEventListener('change', sortBookOverview)
-sort.forEach(order => order.addEventListener('change', sortBookOverview))
+sortDropDown.addEventListener('change', sortBookOverview)
+sortRadio.forEach(order => order.addEventListener('change', sortBookOverview))
+
+// END !SECTION Sort Book Overview
+
 
 // SECTION Filtering
+
+//  ANCHOR Set Filter Book Status
+const bookStatus = Array.from(document.querySelectorAll('.filter>input.input-radioStatus'))
+
+bookStatus.forEach(status => status.addEventListener('change', filterBook))
+
+// ANCHOR Set Filter Search
+const searchCancel = document.querySelector('span.search-cancel')
+
+const searchInput = document.querySelector('input.search.search-bar')
+
+searchInput.addEventListener('input', filterBook)
+
 function filterBook() {
 
-    // ANCHOR Label Filter
+    const allBookOv = Object.keys(library)
+
+    let filteredBookIDs = []
+
+    // ANCHOR 1st: Filtered with Labels
     const checkedLabels = Array.from(document.querySelectorAll('.filter-labelWrapper>.input.input-checkBox:checked')).map(function (bookLabel) {
         // console.log(bookLabel.classList[3])
         return bookLabel.classList[3]
@@ -24,25 +74,6 @@ function filterBook() {
 
     // console.log(checkedLabels)
 
-    // ANCHOR Book Status Filter
-    const checkedStatus = Array.from(document.querySelectorAll('.filter>input.input-radioStatus:checked')).map(
-        function (checkState) {
-            return checkState.value
-        }
-    )
-
-    // console.log(checkedStatus)
-
-    // ANCHOR All Book Overview
-    const allBookOv = Array.from(document.querySelectorAll('main.book-overview'))
-        .map(
-            function (bookOV) {
-                return bookOV.id
-            })
-
-    let filteredBookIDs = []
-
-    // ANCHOR 1st: Filtered with Labels
     if (checkedLabels.length) {
         filteredBookIDs = allBookOv
             .filter(function (bookId) {
@@ -58,6 +89,15 @@ function filterBook() {
     // console.log('Label Filter', filteredBookIDs)
 
     // ANCHOR 2nd: Filtered with Book Status
+
+    const checkedStatus = Array.from(document.querySelectorAll('.filter>input.input-radioStatus:checked')).map(
+        function (checkState) {
+            return checkState.value
+        }
+    )
+
+    // console.log(checkedStatus)
+
     if (checkedStatus.length) {
         if (checkedLabels.length) {
             filteredBookIDs = filteredBookIDs
@@ -76,7 +116,45 @@ function filterBook() {
         }
     }
 
-    // console.log('Book Status Filter', filteredBookIDs)
+    // ANCHOR 3rd: Filtered with Search
+
+    const searchValue = searchInput.value.toLowerCase()
+
+    if (searchValue.length) {
+        if (checkedLabels.length || checkedStatus.length) {
+            filteredBookIDs = filteredBookIDs
+                .filter(function (bookId) {
+                    let state = false
+                    for (let value of
+                        [library[bookId].author.toLowerCase(),
+                        library[bookId].title.toLowerCase()]) {
+                        state = value.includes(searchValue)
+                        if (state) break
+                    }
+                    return state
+                })
+        } else {
+            filteredBookIDs = allBookOv
+                .filter(function (bookId) {
+                    let state = false
+                    for (let value of
+                        [library[bookId].author.toLowerCase(),
+                        library[bookId].title.toLowerCase()]) {
+                        state = value.includes(searchValue)
+                        if (state) break
+                    }
+                    return state
+                })
+        }
+
+        searchCancel.addEventListener('click', e => {
+            searchInput.value = ''
+            filterBook()
+        }, { once: true })
+
+    }
+
+    console.log('Book Status Filter', filteredBookIDs)
 
     // ANCHOR Show / Hide
     // Labels To Hide
@@ -87,7 +165,8 @@ function filterBook() {
 
     // Show All if None Selected
     if (!checkedLabels.length &&
-        !checkedStatus.length) {
+        !checkedStatus.length &&
+        !searchValue.length) {
 
         return allBookOv.forEach(bookID => {
             document.querySelector(`#${bookID}`).classList.remove('displayNone')
@@ -107,10 +186,3 @@ function filterBook() {
 }
 
 // END !SECTION Filtering
-
-
-
-//  ANCHOR Set Filter Book Status
-const bookStatus = Array.from(document.querySelectorAll('.filter>input.input-radioStatus'))
-
-bookStatus.forEach(status => status.addEventListener('change', filterBook))
