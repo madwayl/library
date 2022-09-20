@@ -7,6 +7,9 @@ function book(title, author, haveRead, pages, bookStatus, rating, bookCategory, 
     this.haveRead = haveRead
     this.totalPages = pages
     this.bookStatus = bookStatus
+    this.progress = function () {
+        return Math.floor((Number(this.haveRead) / Number(this.totalPages)) * 100)
+    }
 
     this.rating = rating
     this.bookCategory = [...bookCategory]
@@ -19,7 +22,9 @@ function book(title, author, haveRead, pages, bookStatus, rating, bookCategory, 
     this.setTotalPageOnLog = function (logs) {
         for (let log of Object.values(logs)) {
             log['body-totalPage'] = this.totalPages
-            log['body-onProgress'] = Math.floor((Number(this['body-onPage']) / Number(this['body-totalPage'])) * 100)
+            log['body-onProgress'] = function () {
+                return Math.floor((Number(this['body-onPage']) / Number(this['body-totalPage'])) * 100)
+            }
         }
     }
 
