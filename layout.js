@@ -370,11 +370,11 @@ function createBookOverview(bookName, bookValue) {
 
         document.body.addEventListener('click', (e) => {
             if (!e.target.closest('.books-bookEdits') &&
-                !e.target.closest(`#${bookId}`) &&
+                !e.target.closest(`[id='${bookId}']`) &&
                 e.target != popupOverlay &&
                 e.target != bookTarget) {
 
-                document.querySelector(`#${bookId}>.books-bookEdits`).classList.add('displayNone')
+                document.querySelector(`[id='${bookId}']>.books-bookEdits`).classList.add('displayNone')
 
                 bookTarget.checked = false
             }
@@ -392,7 +392,7 @@ function createBookOverview(bookName, bookValue) {
 
             function removeEditDisp(e) {
                 // debugger;
-                if (!e.target.closest(`#${bookId}`) &&
+                if (!e.target.closest(`[id='${bookId}']`) &&
                     e.target != popupOverlay) {
 
                     bookOv.lastElementChild.classList.add('displayNone')
@@ -419,6 +419,8 @@ for (let [bookName, bookValue] of Object.entries(library)) {
 // END !SECTION Create Book Overview
 
 // SECTION Book Edits
+
+let currentBookOnView = {};
 
 // All Inputs
 const inputAll = Array.from(document.querySelectorAll('.input-element:not(.radioCheck)'))
@@ -526,6 +528,9 @@ function saveOnEditBook() {
 
     // console.log('called submit click', e.target)
 
+    const bookId = currentBookOnView.bookId
+    const parentBook = currentBookOnView.parentBook
+
     let valueChanged = false
 
     // Check on Pic Input
@@ -623,8 +628,17 @@ function saveOnEditBook() {
 
 }
 
+function closePopUp(e) {
+    if (!e.target.closest('main.popup'))
+        popupOverlay.classList.add('displayNone')
+}
+
 // Event Handlers for Edit Button & Log Edit Button
 function setOnEdit(parentBook, bookId) {
+
+    // Close on Click Outside Menu
+    popupOverlay.addEventListener('click', closePopUp, { once: true })
+
     popupOverlay.classList.remove('displayNone')
 
     setBookOverview(bookId);
@@ -642,15 +656,13 @@ function setOnEdit(parentBook, bookId) {
     inputAll.forEach(input => input.querySelector('input').classList.add('valid'))
 
     // SECTION Save Edits on Book
+    currentBookOnView.bookId = bookId
+    currentBookOnView.parentBook = parentBook
 
-    document.querySelector('button.button.saveBook.edit').addEventListener('click', saveOnEditBook, { once: true })
+    document.querySelector('button.button.saveBook.edit').addEventListener('click',
+        saveOnEditBook, { once: true })
+
     // END !SECTION Save Edits on Book
-
-    // Close on Click Outside Menu
-    popupOverlay.addEventListener('click', (e) => {
-        if (!e.target.closest('main.popup'))
-            popupOverlay.classList.add('displayNone')
-    })
 }
 
 // END !SECTION Book Edits
@@ -948,7 +960,7 @@ function submitNewLog() {
     }
 
     // Adding Log Row to Object
-    let bookName = document.querySelector('tr.default').dataset.book;
+    let bookName = currentBookOnView.bookId;
 
     // Creating a Unique ID for LogRow
     let logName = `default-${new Date()}`;
@@ -1032,7 +1044,9 @@ function editLogButtonEvent(editLogButton, defaultRow, dataObject, logTypeImageI
 
 
         // 3.2.1 ANCHOR Trigger on Update Log Button
-        document.querySelector('.button.icon-Button.log.updateLog#logButton').addEventListener('click', () => {
+        const updateLogButton = document.querySelector('.button.icon-Button.log.updateLog#logButton')
+
+        updateLogButton.addEventListener('click', () => {
             if (bookLog.value == '') {
                 return false;
             }
@@ -1363,8 +1377,14 @@ function clearAll() {
 
     // Clear Event Listeners
     const saveButton = document.querySelector('button.button.saveBook')
+
     saveButton.removeEventListener('click', saveAddBook)
     saveButton.removeEventListener('click', saveOnEditBook)
+
+    delete currentBookOnView.parentBook
+    delete currentBookOnView.bookId
+
+    popupOverlay.addEventListener('click', closePopUp)
 }
 
 cancelBookPopup.addEventListener('click', e => {
