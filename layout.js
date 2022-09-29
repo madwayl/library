@@ -391,7 +391,7 @@ function createBookOverview(bookName, bookValue) {
             bookOv.lastElementChild.previousElementSibling.checked = !e.currentTarget.lastElementChild.previousElementSibling.checked
 
             function removeEditDisp(e) {
-                debugger;
+                // debugger;
                 if (!e.target.closest(`#${bookId}`) &&
                     e.target != popupOverlay) {
 
@@ -522,6 +522,107 @@ function setBookLogOverview(book) {
     }
 }
 
+function saveOnEditBook() {
+
+    // console.log('called submit click', e.target)
+
+    let valueChanged = false
+
+    // Check on Pic Input
+    let picInputed = picInput.value.trim()
+    if (picInputed != library[bookId].imageSrc && picShowOnEdit.getAttribute('src') == picInputed) {
+        library[bookId].imageSrc = picInputed
+
+        valueChanged = true
+    }
+
+    // Check on Title
+    let titleInputed = titleInput.value.trim()
+    if (titleInputed != library[bookId].title) {
+        library[bookId].title = titleInputed
+        parentBook.children[2].children[0].textContent = titleInputed
+        parentBook.children[2].children[1].textContent = titleInputed
+
+        valueChanged = true
+    }
+
+    // Check on Author
+    let authorInputed = authorInput.value.trim()
+    if (authorInputed != library[bookId].author) {
+        library[bookId].author = authorInputed
+        parentBook.children[1].textContent = authorInputed
+
+        valueChanged = true
+    }
+
+    // Check on Rating
+    const ratingDef = document.querySelector(`div.ratingControl>input[name="rating"]:checked`)
+    if (ratingDef != null) {
+        if (ratingDef.value != library[bookId].rating) {
+            library[bookId].rating = ratingDef.value
+            parentBook.children[3].firstElementChild.textContent = ratingDef.value
+
+            valueChanged = true
+        }
+    } else {
+        library[bookId].rating = '0.0'
+    }
+
+    // Check on Page Read
+    let pageReadInputed = pageRead.value
+    let pageReadChange = pageReadInputed != library[bookId].haveRead
+    if (pageReadChange) {
+        library[bookId].haveRead = pageReadInputed
+
+        valueChanged = true
+    }
+
+    // Check on Page Total
+    let pageTotalInputed = pageTotal.value
+    let pageTotalChange = pageTotalInputed != library[bookId].totalPages
+    if (pageTotalChange) {
+        library[bookId].totalPages = pageTotalInputed
+
+        valueChanged = true
+    }
+
+    // Check on Book Status
+    // debugger;
+    const bookStatusDefValue = document.querySelector(`input.input.input-radioStatus[name="book-status"]:checked`).value;
+
+    if (bookStatusDefValue != library[bookId].bookStatus || pageReadChange || pageTotalChange) {
+        library[bookId].bookStatus = bookStatusDefValue;
+        parentBook.replaceChild(changeProgress(library[bookId]), parentBook.children[4])
+
+        valueChanged = true
+    }
+
+    // Check on Labels
+    let labelInputed = labelInput.value.replace(' ', '').split(',');
+
+    // Clear Empty Array Elements
+    labelInputed = labelInputed.filter(Boolean)
+
+    if (labelInputed.toString() != library[bookId].bookCategory.toString()) {
+        library[bookId].bookCategory = labelInputed;
+
+        // Replacing Old Labels with Newly Generated
+        parentBook.replaceChild(changeTags(library[bookId]), parentBook.children[5]);
+        clearOldLabels();
+
+        valueChanged = true
+    }
+
+    popupOverlay.classList.add('displayNone');
+    clearAll();
+
+    if (valueChanged) {
+        // Update Last Date Updated
+        library[bookId].dateUpdated = new Date()
+    }
+
+}
+
 // Event Handlers for Edit Button & Log Edit Button
 function setOnEdit(parentBook, bookId) {
     popupOverlay.classList.remove('displayNone')
@@ -542,106 +643,7 @@ function setOnEdit(parentBook, bookId) {
 
     // SECTION Save Edits on Book
 
-    document.querySelector('button.button.saveBook.edit').addEventListener('click', e => {
-
-        // console.log('called submit click', e.target)
-
-        let valueChanged = false
-
-        // Check on Pic Input
-        let picInputed = picInput.value.trim()
-        if (picInputed != library[bookId].imageSrc && picShowOnEdit.getAttribute('src') == picInputed) {
-            library[bookId].imageSrc = picInputed
-
-            valueChanged = true
-        }
-
-        // Check on Title
-        let titleInputed = titleInput.value.trim()
-        if (titleInputed != library[bookId].title) {
-            library[bookId].title = titleInputed
-            parentBook.children[2].children[0].textContent = titleInputed
-            parentBook.children[2].children[1].textContent = titleInputed
-
-            valueChanged = true
-        }
-
-        // Check on Author
-        let authorInputed = authorInput.value.trim()
-        if (authorInputed != library[bookId].author) {
-            library[bookId].author = authorInputed
-            parentBook.children[1].textContent = authorInputed
-
-            valueChanged = true
-        }
-
-        // Check on Rating
-        const ratingDef = document.querySelector(`div.ratingControl>input[name="rating"]:checked`)
-        if (ratingDef != null) {
-            if (ratingDef.value != library[bookId].rating) {
-                library[bookId].rating = ratingDef.value
-                parentBook.children[3].firstElementChild.textContent = ratingDef.value
-
-                valueChanged = true
-            }
-        } else {
-            library[bookId].rating = '0.0'
-        }
-
-        // Check on Page Read
-        let pageReadInputed = pageRead.value
-        let pageReadChange = pageReadInputed != library[bookId].haveRead
-        if (pageReadChange) {
-            library[bookId].haveRead = pageReadInputed
-
-            valueChanged = true
-        }
-
-        // Check on Page Total
-        let pageTotalInputed = pageTotal.value
-        let pageTotalChange = pageTotalInputed != library[bookId].totalPages
-        if (pageTotalChange) {
-            library[bookId].totalPages = pageTotalInputed
-
-            valueChanged = true
-        }
-
-        // Check on Book Status
-        // debugger;
-        const bookStatusDefValue = document.querySelector(`input.input.input-radioStatus[name="book-status"]:checked`).value;
-
-        if (bookStatusDefValue != library[bookId].bookStatus || pageReadChange || pageTotalChange) {
-            library[bookId].bookStatus = bookStatusDefValue;
-            parentBook.replaceChild(changeProgress(library[bookId]), parentBook.children[4])
-
-            valueChanged = true
-        }
-
-        // Check on Labels
-        let labelInputed = labelInput.value.replace(' ', '').split(',');
-
-        // Clear Empty Array Elements
-        labelInputed = labelInputed.filter(Boolean)
-
-        if (labelInputed.toString() != library[bookId].bookCategory.toString()) {
-            library[bookId].bookCategory = labelInputed;
-
-            // Replacing Old Labels with Newly Generated
-            parentBook.replaceChild(changeTags(library[bookId]), parentBook.children[5]);
-            clearOldLabels();
-
-            valueChanged = true
-        }
-
-        popupOverlay.classList.add('displayNone');
-        clearAll();
-
-        if (valueChanged) {
-            // Update Last Date Updated
-            library[bookId].dateUpdated = new Date()
-        }
-
-    }, { once: true })
+    document.querySelector('button.button.saveBook.edit').addEventListener('click', saveOnEditBook, { once: true })
     // END !SECTION Save Edits on Book
 
     // Close on Click Outside Menu
@@ -1358,6 +1360,11 @@ function clearAll() {
     })
 
     logTableBody.textContent = ''
+
+    // Clear Event Listeners
+    const saveButton = document.querySelector('button.button.saveBook')
+    saveButton.removeEventListener('click', saveAddBook)
+    saveButton.removeEventListener('click', saveOnEditBook)
 }
 
 cancelBookPopup.addEventListener('click', e => {
@@ -1370,6 +1377,34 @@ cancelBookPopup.addEventListener('click', e => {
 // ANCHOR Add / Edit Book
 const addBookPopup = document.querySelector('button.button-fixed.bookAdd')
 
+function saveAddBook() {
+    const newBookId = `book-${new Date().toISOString()}`
+
+    const bookRate = document.querySelector(`div.ratingControl>input[name="rating"]:checked`)
+    const newBookRating = bookRate ? bookRate.value : '0.0'
+
+    // Add Object Entry
+    library[newBookId] = new book(
+        titleInput.value.trim(),
+        authorInput.value.trim(),
+        pageRead.value.trim(),
+        pageTotal.value.trim(),
+        document.querySelector(`input.input.input-radioStatus[name="book-status"]:checked`).value,
+        newBookRating,
+        labelInput.value.replace(' ', '').split(',').filter(Boolean),
+        picInput.value.trim()
+    )
+
+    createBookOverview(newBookId, library[newBookId])
+
+    popupOverlay.classList.add('displayNone');
+    clearAll();
+
+    if (document.querySelectorAll('.book-overview')) {
+        document.querySelector('section.body>main.nothing').classList.add('displayNone')
+    }
+
+}
 
 addBookPopup.addEventListener('click', e => {
     popupOverlay.classList.remove('displayNone')
@@ -1385,34 +1420,7 @@ addBookPopup.addEventListener('click', e => {
     bookSection2.scrollTop = 0
 
     // SECTION Save Add Book
-    document.querySelector('button.button.saveBook.add').addEventListener('click', e => {
-        const newBookId = `book-${new Date().toISOString()}`
-
-        const bookRate = document.querySelector(`div.ratingControl>input[name="rating"]:checked`)
-        const newBookRating = bookRate ? bookRate.value : '0.0'
-
-        // Add Object Entry
-        library[newBookId] = new book(
-            titleInput.value.trim(),
-            authorInput.value.trim(),
-            pageRead.value.trim(),
-            pageTotal.value.trim(),
-            document.querySelector(`input.input.input-radioStatus[name="book-status"]:checked`).value,
-            newBookRating,
-            labelInput.value.replace(' ', '').split(',').filter(Boolean),
-            picInput.value.trim()
-        )
-
-        createBookOverview(newBookId, library[newBookId])
-
-        popupOverlay.classList.add('displayNone');
-        clearAll();
-
-        if (document.querySelectorAll('.book-overview')) {
-            document.querySelector('section.body>main.nothing').classList.add('displayNone')
-        }
-
-    }, { once: true })
+    document.querySelector('button.button.saveBook.add').addEventListener('click', saveAddBook, { once: true })
 
     // Close on Click Outside Menu
     popupOverlay.addEventListener('click', (e) => {
