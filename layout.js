@@ -972,6 +972,9 @@ function submitNewLog() {
     if (pageInput == "")
         pageInput = library[bookName].haveRead;
 
+    if (pageInput > library[bookName].totalPages)
+        pageInput = library[bookName].totalPages
+
     let timeStampReadInput = timeStampRead.value.replace('T', ' ');
     if (timeStampReadInput == "")
         timeStampReadInput = getDate();
@@ -1085,8 +1088,15 @@ function editLogButtonEvent(editLogButton, defaultRow, dataObject, logTypeImageI
             logValue['body-iconState']['src'] = selectImg
             logValue['body-iconState']['alt'] = selectAlt
 
-            readPage.textContent = inputedPage
-            logValue['body-onPage'] = inputedPage
+            const bookTotalPage = library[currentBookOnView.bookId].totalPages;
+            if (inputedPage > bookTotalPage) {
+                readPage.textContent = bookTotalPage
+                logValue['body-onPage'] = bookTotalPage
+            }
+            else {
+                readPage.textContent = inputedPage
+                logValue['body-onPage'] = inputedPage
+            }
 
             readDate.textContent = inputDate
             logValue['body-timeStamp'] = inputDate
