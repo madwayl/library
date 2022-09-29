@@ -108,6 +108,9 @@
 
 - [x] All **DOM Element can be same if having similar properties**, eventhough they are different elements in a DOM Tree.
 
+- [x] DOM doesn't recognize the `id` with `.querySelector()` if containing symbols and numbers and has `#` as selector
+    - Using attribute selector instead `[id='']`
+
 - [x] Scroll into View with `.scrollIntoView()`
 
 ##### DOM Elements

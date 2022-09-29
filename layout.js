@@ -180,6 +180,8 @@ function changeTags(book) {
                     // console.log('done', bookTags[1])
                     // console.log(typeof colors, colors)
 
+                    if (!colors) continue
+
                     let total = colors.reduce((first, next) => first + next)
 
                     if (total - r + g + b < 100) break

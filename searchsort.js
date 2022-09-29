@@ -154,7 +154,7 @@ function filterBook() {
 
     }
 
-    console.log('Book Status Filter', filteredBookIDs)
+    // console.log('Book Status Filter', filteredBookIDs)
 
     // ANCHOR Show / Hide
 
@@ -166,10 +166,11 @@ function filterBook() {
 
     // To Show Filtered
     filteredBookIDs.forEach(bookID => {
-        document.querySelector(`#${bookID}`).classList.remove('displayNone')
+        document.querySelector(`[id='${bookID}']`).classList.remove('displayNone')
     })
 
     // debugger
+    // To Show Nothing Div if none exists
     if (!filteredBookIDs.length) {
         document.querySelector('section.body>main.nothing').classList.remove('displayNone')
     } else {
@@ -178,7 +179,7 @@ function filterBook() {
 
     // To Hide Rest
     restBookIDs.forEach(bookID => {
-        document.querySelector(`#${bookID}`).classList.add('displayNone')
+        document.querySelector(`[id='${bookID}']`).classList.add('displayNone')
     })
 
     // Show All if None Selected
@@ -189,7 +190,7 @@ function filterBook() {
         document.querySelector('section.body>main.nothing').classList.add('displayNone')
 
         return allBookOv.forEach(bookID => {
-            document.querySelector(`#${bookID}`).classList.remove('displayNone')
+            document.querySelector(`[id='${bookID}']`).classList.remove('displayNone')
         })
     }
 }
