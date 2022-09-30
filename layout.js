@@ -535,9 +535,15 @@ function saveOnEditBook() {
 
     // Check on Pic Input
     let picInputed = picInput.value.trim()
-    if (picInputed != library[bookId].imageSrc && picShowOnEdit.getAttribute('src') == picInputed) {
-        library[bookId].imageSrc = picInputed
-
+    if (picInputed != library[bookId].imageSrc) {
+        if (!picInputed) {
+            delete library[bookId].imageSrc
+            parentBook.children[0].src = './assets/web/svg-images/book/book3.svg'
+        }
+        else {
+            library[bookId].imageSrc = picInputed
+            parentBook.children[0].src = picInputed
+        }
         valueChanged = true
     }
 
@@ -653,7 +659,11 @@ function setOnEdit(parentBook, bookId) {
 
     bookSection2.scrollTop = 0
 
-    inputAll.forEach(input => input.querySelector('input').classList.add('valid'))
+    inputAll.forEach((input, index) => {
+        input.querySelector('input').classList.add('valid')
+        if (index == 0 && !library[bookId].hasOwnProperty('imageSrc'))
+            input.querySelector('input').classList.remove('valid')
+    })
 
     // SECTION Save Edits on Book
     currentBookOnView.bookId = bookId
@@ -699,7 +709,8 @@ picInput.addEventListener('focusout', e => {
             picShowOnEdit.setAttribute('src', picInput.value)
         } else {
             picShowOnEdit.setAttribute('src', './assets/web/svg-images/book/book3.svg')
-            picInput.textContent = ''
+            picInput.value = ''
+            picInput.classList.remove('valid')
         }
     })
 })
@@ -1355,6 +1366,7 @@ divSelect.addEventListener('click', () => {
 
 // Empty the Inputs
 function clearAll() {
+    document.querySelector('.input-checkBox.editImage').checked = false
     picShowOnEdit.setAttribute('src', './assets/web/svg-images/book/book3.svg')
     picInput.value = ''
     titleInput.value = ''
