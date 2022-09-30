@@ -1366,7 +1366,10 @@ divSelect.addEventListener('click', () => {
 
 // Empty the Inputs
 function clearAll() {
+    // Edit Image Button Unchecked
     document.querySelector('.input-checkBox.editImage').checked = false
+
+    // Setting Default Value
     picShowOnEdit.setAttribute('src', './assets/web/svg-images/book/book3.svg')
     picInput.value = ''
     titleInput.value = ''
