@@ -26,9 +26,9 @@ const saveBookPopup = document.querySelector('button.button.saveBook')
 
 const cancelBookPopup = document.querySelector('button.button-fixed.bookCancel')
 
-// SECTION Book Overview
+// SECTION Book View
 
-// SECTION Create Book Overview
+// SECTION Create Book View
 
 // ANCHOR Change Image
 function changeBookImage(book) {
@@ -339,6 +339,8 @@ function addEditButtons(book) {
             document.querySelector('section.body>main.nothing').classList.remove('displayNone')
         }
 
+        saveToLocal(library)
+
     })
 
     bookEditDisp.appendChild(buttonDel)
@@ -416,7 +418,7 @@ for (let [bookName, bookValue] of Object.entries(library)) {
     createBookOverview(bookName, bookValue);
 }
 
-// END !SECTION Create Book Overview
+// END !SECTION Create Book View
 
 // SECTION Book Edits
 
@@ -443,9 +445,14 @@ const labelInput = document.querySelector('.input-element.label>input.input-type
 // For Book Edits
 function setBookOverview(book) {
 
-    if (library[book].imageSrc != '') {
-        picShowOnEdit.setAttribute('src', library[book].imageSrc)
-        picInput.value = library[book].imageSrc
+    let setImage = library[book].imageSrc
+
+    if (setImage != '') {
+
+        picShowOnEdit.setAttribute('src', setImage)
+
+        if (setImage != './assets/web/svg-images/book/book3.svg')
+            picInput.value = setImage
     }
 
     titleInput.value = library[book].title
@@ -528,6 +535,12 @@ function saveOnEditBook() {
 
     // console.log('called submit click', e.target)
 
+    for (const input of inputAll) {
+        if (!input.querySelector('input').validity.valid)
+            return document.querySelector('button.button.saveBook.edit').addEventListener('click',
+                saveOnEditBook, { once: true })
+    }
+
     const bookId = currentBookOnView.bookId
     const parentBook = currentBookOnView.parentBook
 
@@ -537,7 +550,7 @@ function saveOnEditBook() {
     let picInputed = picInput.value.trim()
     if (picInputed != library[bookId].imageSrc) {
         if (!picInputed) {
-            delete library[bookId].imageSrc
+            library[bookId].imageSrc = './assets/web/svg-images/book/book3.svg'
             parentBook.children[0].src = './assets/web/svg-images/book/book3.svg'
         }
         else {
@@ -632,6 +645,8 @@ function saveOnEditBook() {
         library[bookId].dateUpdated = new Date()
     }
 
+    saveToLocal(library)
+
 }
 
 function closePopUp(e) {
@@ -661,7 +676,7 @@ function setOnEdit(parentBook, bookId) {
 
     inputAll.forEach((input, index) => {
         input.querySelector('input').classList.add('valid')
-        if (index == 0 && !library[bookId].hasOwnProperty('imageSrc'))
+        if (index == 0 && library[bookId].imageSrc == './assets/web/svg-images/book/book3.svg')
             input.querySelector('input').classList.remove('valid')
     })
 
@@ -673,6 +688,8 @@ function setOnEdit(parentBook, bookId) {
         saveOnEditBook, { once: true })
 
     // END !SECTION Save Edits on Book
+
+    saveToLocal(library)
 }
 
 // END !SECTION Book Edits
@@ -1002,7 +1019,7 @@ function submitNewLog() {
     library[bookName].logs[logName]['body-onPage'] = pageInput
     library[bookName].logs[logName]['body-entryLog'] = bookLogInput
 
-    setTotalPage();
+    library[bookName].setTotalPageOnLog(library[bookName].logs);
 
     //Create HTML LINK layout.js:15
     createNewDefaultRow(logTypeTextInput, logTypeImgInput, pageInput, timeStampReadInput, bookLogInput, logName, bookName)
@@ -1410,6 +1427,7 @@ function clearAll() {
     delete currentBookOnView.bookId
 
     popupOverlay.addEventListener('click', closePopUp)
+
 }
 
 cancelBookPopup.addEventListener('click', e => {
@@ -1427,6 +1445,12 @@ function saveAddBook() {
 
     const bookRate = document.querySelector(`div.ratingControl>input[name="rating"]:checked`)
     const newBookRating = bookRate ? bookRate.value : '0.0'
+
+    for (const input of inputAll) {
+        if (!input.querySelector('input').validity.valid)
+            return document.querySelector('button.button.saveBook.add').addEventListener('click', saveAddBook, { once: true })
+
+    }
 
     // Add Object Entry
     library[newBookId] = new Book(
@@ -1448,6 +1472,8 @@ function saveAddBook() {
     if (document.querySelectorAll('.book-overview')) {
         document.querySelector('section.body>main.nothing').classList.add('displayNone')
     }
+
+    saveToLocal(library)
 
 }
 
@@ -1475,4 +1501,5 @@ addBookPopup.addEventListener('click', e => {
     })
 
     // END !SECTION Save Add Book
+
 })
