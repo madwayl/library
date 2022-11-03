@@ -443,7 +443,7 @@ const labelInput = document.querySelector('.input-element.label>input.input-type
 // For Book Edits
 function setBookOverview(book) {
 
-    if (library[book].hasOwnProperty('imageSrc')) {
+    if (library[book].imageSrc != '') {
         picShowOnEdit.setAttribute('src', library[book].imageSrc)
         picInput.value = library[book].imageSrc
     }
@@ -1429,7 +1429,7 @@ function saveAddBook() {
     const newBookRating = bookRate ? bookRate.value : '0.0'
 
     // Add Object Entry
-    library[newBookId] = new book(
+    library[newBookId] = new Book(
         titleInput.value.trim(),
         authorInput.value.trim(),
         pageRead.value.trim(),

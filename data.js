@@ -1,25 +1,38 @@
 // Constructor
 
-function book(title, author, haveRead, pages, bookStatus, rating, bookCategory, imageSrc) {
-    this.title = title
-    this.author = author
+class Book {
+    constructor(title, author, haveRead, pages, bookStatus, rating, bookCategory, imageSrc = '') {
+        this.title = title
+        this.author = author
 
-    this.haveRead = haveRead
-    this.totalPages = pages
-    this.bookStatus = bookStatus
-    this.progress = function () {
-        return Math.floor((Number(this.haveRead) / Number(this.totalPages)) * 100)
-    }
+        this.haveRead = haveRead
+        this.totalPages = pages
+        this.bookStatus = bookStatus
 
-    this.rating = rating
-    this.bookCategory = [...bookCategory]
-
-    this.logs = {}
-
-    if (imageSrc)
         this.imageSrc = imageSrc
 
-    this.setTotalPageOnLog = function (logs) {
+        this.dateCreated = new Date()
+        this.dateUpdated = new Date()
+
+        this.rating = rating
+        this.bookCategory = [...bookCategory]
+
+        this.logs = {}
+
+    }
+
+    get imageSrc() {
+        return this._imageSrc
+    }
+
+    set imageSrc(imageSrc) {
+        if (imageSrc != '')
+            this._imageSrc = imageSrc
+        else
+            this._imageSrc = './assets/web/svg-images/book/book3.svg'
+    }
+
+    setTotalPageOnLog(logs) {
         for (let log of Object.values(logs)) {
             log['body-totalPage'] = this.totalPages
             log['body-onProgress'] = function () {
@@ -28,14 +41,14 @@ function book(title, author, haveRead, pages, bookStatus, rating, bookCategory, 
         }
     }
 
-    this.dateCreated = new Date()
-    this.dateUpdated = new Date()
+    progress() {
+        return Math.floor((Number(this.haveRead) / Number(this.totalPages)) * 100)
+    }
+
 }
 
-book.prototype.imageSrc = './assets/web/svg-images/book/book3.svg'
-
 let library = {
-    'book-14190': new book(
+    'book-14190': new Book(
         'The Hobbit',
         'J.R.R. Tolkein',
         '295',
@@ -44,7 +57,7 @@ let library = {
         '3.0',
         ['thriller', 'horror', 'fantasy', 'unknown'],
         'https://i0.wp.com/stonesoup.com/wp-content/uploads/2018/05/2018-6-The-Hobbit.jpg?fit=306%2C500&ssl=1'),
-    'book-15690': new book(
+    'book-15690': new Book(
         'Wrong Place Wrong Time',
         'Gillian McAllister',
         '1244',
@@ -53,7 +66,7 @@ let library = {
         '3.0',
         ['horror', 'self-help'],
         'https://i.guim.co.uk/img/media/a39b7a5a36961a7f4ba5ec245c4a20c43f087c84/0_0_226_346/master/226.jpg?width=300&quality=45&auto=format&fit=max&dpr=2&s=87a8f9e92fb6146f7e32a0ebd9f386da'),
-    'book-16690': new book(
+    'book-16690': new Book(
         'Lorem Ipsum So Some',
         'You MyAl',
         '0',
@@ -61,7 +74,7 @@ let library = {
         'Not Started',
         '0.0',
         ['thriller', 'unknown']),
-    'book-17290': new book(
+    'book-17290': new Book(
         'Lorem Ipsum So Some None Some So You',
         'You MyAl',
         '123',
