@@ -1,6 +1,16 @@
 # Library
 
-A Digital Library Markup
+A Digital Library Markup - Library Markup Made with HTML, CSS, JS
+
+## Screenshots
+
+![Alt text](assets/readme/Screenshot_20221103_164959.png)
+
+![Alt text](assets/readme/Screenshot_20221103_165025.png)
+
+![Alt text](assets/readme/Screenshot_20221103_165042.png)
+
+![Alt text](assets/readme/Screenshot_20221103_165057.png)
 
 ## Features
 
@@ -10,18 +20,17 @@ A Digital Library Markup
     - [x] Create Book Logs
 - [x] Filter & Sorting
     - Filter by:
-        - Search
-        - Tags
+        - [x] Search
+        - [x] Tags
     - Sort by Types in DropDown
-- [] Local Storage 
-- [] Login with Firebase
-
+- [x] Local Storage 
+- [ ] Login with Firebase
 
 ## Learn
 
 [Learnt over the process](./miss'n'take.md)
 
-# Attribution
+## Attribution
 
 - Icons from:
     - Octicons
